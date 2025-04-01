@@ -6,7 +6,7 @@ import {
   ArrowRight, 
   Shield, 
   Eye, 
-  Lock, 
+  ShieldCheck, 
   BarChart4, 
   CheckCircle 
 } from 'lucide-react';
@@ -86,15 +86,15 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Servicio 3 */}
+            {/* Servicio 3 actualizado */}
             <div className="gard-card p-8">
-              <Lock className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-heading-4 mb-3">Protección de Datos</h3>
+              <ShieldCheck className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-heading-4 mb-3">Guardias de Seguridad</h3>
               <p className="text-body-base text-muted-foreground mb-6">
-                Cifrado, respaldo y protección avanzada para su información crítica.
+                Personal altamente capacitado para la protección física de instalaciones, personas y activos.
               </p>
               <Link 
-                href="/servicios/proteccion-datos" 
+                href="/servicios/guardias-de-seguridad" 
                 className="gard-btn gard-btn-link inline-flex items-center"
               >
                 Saber más <ArrowRight className="ml-2 h-4 w-4" />

@@ -23,7 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const servicePages = [
     '/servicios/seguridad-perimetral',
     '/servicios/monitoreo',
-    '/servicios/proteccion-datos',
     '/servicios/prevencion-intrusiones',
     '/servicios/auditoria-seguridad',
     '/servicios/consultoria',

@@ -33,7 +33,6 @@ npm run start
 ```
 gard-security/
 ├── app/                   # Aplicación Next.js
-│   ├── [slug]/            # Páginas dinámicas
 │   ├── servicios/         # Sección de servicios
 │   ├── fonts.ts           # Configuración de fuentes
 │   ├── globals.css        # Estilos globales

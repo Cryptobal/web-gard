@@ -10,12 +10,8 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-    // Para desarrollo, no es necesario desactivar la optimización de imágenes
-    // unoptimized: true,
   },
-  // Para desarrollo, usamos el modo servidor
-  // output: 'export',
-  // trailingSlash: true,
+  trailingSlash: true,
 };
 
 module.exports = nextConfig; 
