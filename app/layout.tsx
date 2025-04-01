@@ -6,6 +6,7 @@ import { Providers } from './providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gard.cl'),
@@ -74,6 +75,7 @@ export default function RootLayout({
           <Footer />
         </Providers>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
