@@ -25,6 +25,8 @@ import {
 // import FaqSection from '@/components/FaqSection/FaqSection';
 // Restore component import
 import FaqSection from '@/components/FaqSection/FaqSection';
+import TrustedClients from '@/app/components/TrustedClients';
+import OurServices from '@/app/components/OurServices';
 
 // Definir las industrias con sus iconos correspondientes
 const industrias = [
@@ -78,73 +80,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Clientes que confían en nosotros */}
+      <TrustedClients />
+
       {/* Servicios destacados */}
-      <section className="gard-section">
-        <div className="gard-container">
-          <div className="text-center mb-16">
-            <h2 className="text-heading-2 mb-4">Nuestros Servicios</h2>
-            <p className="text-body-lg text-muted-foreground max-w-3xl mx-auto">
-              Ofrecemos soluciones personalizadas para cubrir todas sus necesidades de seguridad.
-            </p>
-          </div>
-
-          <div className="gard-grid gap-8">
-            {/* Servicio 1 */}
-            <div className="gard-card p-8">
-              <Shield className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-heading-4 mb-3">Seguridad Perimetral</h3>
-              <p className="text-body-base text-muted-foreground mb-6">
-                Protección avanzada para el perímetro físico y digital de su empresa.
-              </p>
-              <Link 
-                href="/servicios/seguridad-perimetral" 
-                className="gard-btn gard-btn-link inline-flex items-center"
-              >
-                Saber más <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-
-            {/* Servicio 2 */}
-            <div className="gard-card p-8">
-              <Eye className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-heading-4 mb-3">Monitoreo 24/7</h3>
-              <p className="text-body-base text-muted-foreground mb-6">
-                Vigilancia constante de sus sistemas y activos con respuesta inmediata.
-              </p>
-              <Link 
-                href="/servicios/monitoreo" 
-                className="gard-btn gard-btn-link inline-flex items-center"
-              >
-                Saber más <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-
-            {/* Servicio 3 actualizado */}
-            <div className="gard-card p-8">
-              <ShieldCheck className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-heading-4 mb-3">Guardias de Seguridad</h3>
-              <p className="text-body-base text-muted-foreground mb-6">
-                Personal altamente capacitado para la protección física de instalaciones, personas y activos.
-              </p>
-              <Link 
-                href="/servicios/guardias-de-seguridad" 
-                className="gard-btn gard-btn-link inline-flex items-center"
-              >
-                Saber más <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link 
-              href="/servicios" 
-              className="gard-btn gard-btn-secondary gard-btn-lg"
-            >
-              Ver todos los servicios
-            </Link>
-          </div>
-        </div>
-      </section>
+      <OurServices />
 
       {/* Información corporativa */}
       <section className="gard-section gard-section-alt">
@@ -238,34 +178,6 @@ export default function Home() {
               <BarChart4 className="h-12 w-12 mx-auto mb-4" />
               <div className="text-4xl font-bold mb-2">24/7</div>
               <p className="text-body-base">Soporte técnico</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Clientes que confían en nosotros */}
-      <section className="gard-section gard-section-alt">
-        <div className="gard-container text-center">
-          <h2 className="text-heading-2 mb-8">Clientes que confían en nosotros</h2>
-          <p className="text-body-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
-            Empresas líderes en sus industrias han confiado en Gard Security para proteger lo que más importa.
-          </p>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center justify-center opacity-80">
-            <div className="border border-gray-300 dark:border-gray-700 rounded-md p-4 flex items-center justify-center h-16">
-              <span className="text-muted-foreground font-medium">Cliente 1</span>
-            </div>
-            <div className="border border-gray-300 dark:border-gray-700 rounded-md p-4 flex items-center justify-center h-16">
-              <span className="text-muted-foreground font-medium">Cliente 2</span>
-            </div>
-            <div className="border border-gray-300 dark:border-gray-700 rounded-md p-4 flex items-center justify-center h-16">
-              <span className="text-muted-foreground font-medium">Cliente 3</span>
-            </div>
-            <div className="border border-gray-300 dark:border-gray-700 rounded-md p-4 flex items-center justify-center h-16">
-              <span className="text-muted-foreground font-medium">Cliente 4</span>
-            </div>
-            <div className="border border-gray-300 dark:border-gray-700 rounded-md p-4 flex items-center justify-center h-16">
-              <span className="text-muted-foreground font-medium">Cliente 5</span>
             </div>
           </div>
         </div>

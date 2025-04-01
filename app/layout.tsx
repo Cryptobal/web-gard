@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     url: 'https://gard.cl',
     title: 'Gard Security | Seguridad Empresarial de Clase Mundial',
     description:
-      'Soluciones de seguridad integral para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
+      'Soluciones de seguridad privada para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
     siteName: 'Gard Security',
   },
   twitter: {
