@@ -40,7 +40,7 @@ const formSchema = z.object({
   comuna: z.string().optional(),
   ciudad: z.string().optional(),
   tipoIndustria: z.string().min(1, { message: 'Selecciona un tipo de industria' }),
-  cotizacion: z.string().min(10, { message: 'Proporciona los detalles de tu solicitud' }),
+  cotizacion: z.string().min(3, { message: 'Proporciona los detalles de tu solicitud' }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
