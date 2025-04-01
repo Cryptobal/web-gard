@@ -17,7 +17,7 @@ import {
 import FaqSection from '@/components/FaqSection/FaqSection';
 import TrustedClients from '@/app/components/TrustedClients';
 import OurServices from '@/app/components/OurServices';
-import IndustriasGrid from './components/IndustriasGrid';
+import IndustriasGridPage from './components/IndustriasGridPage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
 
 export default function Home() {
@@ -165,7 +165,16 @@ export default function Home() {
       </section>
 
       {/* Industrias que protegemos */}
-      <IndustriasGrid />
+      <section className="gard-section">
+        <div className="gard-container text-center">
+          <h2 className="text-heading-2 mb-8">Industrias que protegemos</h2>
+          <p className="text-body-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
+            Ofrecemos soluciones de seguridad personalizadas para diversos sectores económicos.
+          </p>
+          
+          <IndustriasGridPage />
+        </div>
+      </section>
 
       {/* Preguntas Frecuentes - Comentado temporalmente */}
       {/* <FaqSection /> */}

@@ -7,6 +7,7 @@ import { servicios, type Servicio } from '@/app/data/servicios';
 import { industries } from '@/app/data/industries';
 import CloudflareImage from '@/components/CloudflareImage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
+import IndustriasGridPage from '@/app/components/IndustriasGridPage';
 import { 
   Mountain, 
   ShoppingCart, 
@@ -112,73 +113,6 @@ const getIndustrySlug = (name: string) => {
     .replace(/[^\w\s]/g, '')
     .replace(/\s+/g, '-');
 };
-
-// Componente de industrias relacionadas con un servicio
-function RelacionIndustriaPorServicio({ servicioSlug }: { servicioSlug: string }) {
-  // Renderiza el ícono correcto según el nombre
-  const renderIcon = (iconName: string) => {
-    const icons = {
-      Mountain: <Mountain className="w-6 h-6 mb-2 text-white" />,
-      ShoppingCart: <ShoppingCart className="w-6 h-6 mb-2 text-white" />,
-      Mic: <Mic className="w-6 h-6 mb-2 text-white" />,
-      Boxes: <Boxes className="w-6 h-6 mb-2 text-white" />,
-      Stethoscope: <Stethoscope className="w-6 h-6 mb-2 text-white" />,
-      GraduationCap: <GraduationCap className="w-6 h-6 mb-2 text-white" />,
-      Building2: <Building2 className="w-6 h-6 mb-2 text-white" />,
-      Hammer: <Hammer className="w-6 h-6 mb-2 text-white" />,
-      Truck: <Truck className="w-6 h-6 mb-2 text-white" />,
-      Factory: <Factory className="w-6 h-6 mb-2 text-white" />,
-      Landmark: <Landmark className="w-6 h-6 mb-2 text-white" />,
-      Hotel: <Hotel className="w-6 h-6 mb-2 text-white" />
-    } as Record<string, JSX.Element>;
-    
-    return icons[iconName] || null;
-  };
-
-  return (
-    <section className="gard-section py-16 md:py-24 bg-gray-50 dark:bg-gray-800">
-      <div className="gard-container max-w-7xl mx-auto px-4">
-        <h2 className="text-heading-2 mb-6 text-center">Industrias que protegemos con este servicio</h2>
-        <p className="text-body-lg text-muted-foreground mb-12 max-w-3xl mx-auto text-center">
-          Adaptamos nuestras soluciones de seguridad a los desafíos específicos de cada sector
-        </p>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {industries.map((industria) => {
-            const industriaSlug = getIndustrySlug(industria.name);
-            
-            return (
-              <Link 
-                key={industria.name} 
-                href={`/servicios/${servicioSlug}/${industriaSlug}`}
-                className="relative group overflow-hidden rounded-xl shadow-md aspect-[4/3] block hover:scale-[1.02] transition-transform duration-300"
-                prefetch={true}
-              >
-                <CloudflareImage
-                  imageId={industria.imageId}
-                  alt={`${industria.name} - Gard Security`}
-                  fill
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                />
-                
-                {/* Overlay oscuro */}
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition z-10"></div>
-                
-                {/* Texto superpuesto */}
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-4">
-                  {renderIcon(industria.icon)}
-                  <h3 className="text-white text-lg font-semibold drop-shadow-md">
-                    {industria.name}
-                  </h3>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // Componente principal de la página de servicio
 export default function ServicioPage({ params }: { params: { slug: string } }) {
@@ -297,8 +231,17 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {/* Industrias compatibles */}
-      <RelacionIndustriaPorServicio servicioSlug={params.slug} />
+      {/* Industrias compatibles - Usamos el componente reutilizable */}
+      <section className="gard-section py-16 md:py-24 bg-gray-50 dark:bg-gray-800">
+        <div className="gard-container max-w-7xl mx-auto px-4">
+          <h2 className="text-heading-2 mb-6 text-center">Industrias que protegemos con este servicio</h2>
+          <p className="text-body-lg text-muted-foreground mb-12 max-w-3xl mx-auto text-center">
+            Adaptamos nuestras soluciones de seguridad a los desafíos específicos de cada sector
+          </p>
+          
+          <IndustriasGridPage servicioSlug={params.slug} />
+        </div>
+      </section>
 
       {/* CTA Final */}
       <CtaFinal 

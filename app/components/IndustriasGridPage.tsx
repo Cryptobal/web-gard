@@ -35,7 +35,12 @@ const iconComponents: Record<string, React.ComponentType<any>> = {
   Hotel
 };
 
-export default function IndustriasGridPage() {
+// Interface para las props del componente
+interface IndustriasGridPageProps {
+  servicioSlug?: string; // Slug del servicio (opcional)
+}
+
+export default function IndustriasGridPage({ servicioSlug }: IndustriasGridPageProps) {
   // Función para renderizar el ícono correcto según el nombre
   const renderIcon = (iconName: string) => {
     const IconComponent = iconComponents[iconName];
@@ -56,10 +61,15 @@ export default function IndustriasGridPage() {
       {industries.map((industria) => {
         const slug = generateIndustrySlug(industria.name);
         
+        // Determinar el enlace según el contexto
+        const href = servicioSlug 
+          ? `/servicios/${servicioSlug}/${slug}` // Para página de servicios
+          : `/industrias/${slug}`; // Para página de industrias normal
+        
         return (
           <Link 
             key={industria.name} 
-            href={`/industrias/${slug}`}
+            href={href}
             className="relative group overflow-hidden rounded-xl shadow-md aspect-[4/3] block hover:scale-[1.02] transition-transform duration-300"
           >
             <CloudflareImage
