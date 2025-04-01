@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import CloudflareImage from './CloudflareImage';
 import { cloudflareImages } from '@/lib/images';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, Linkedin, Twitter, Instagram, Facebook } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -23,6 +23,58 @@ export default function Footer() {
             <p className="text-body-base text-gray-300 mt-4 max-w-xs">
               Soluciones de seguridad de clase mundial para empresas exigentes. Protegemos lo que más importa.
             </p>
+            
+            {/* Redes Sociales */}
+            <div className="flex space-x-4 mt-4">
+              <a 
+                href="https://www.linkedin.com/company/gard-security" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-gray-300 hover:text-primary transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://twitter.com/gard_cl" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="text-gray-300 hover:text-primary transition-colors"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://www.instagram.com/gardsecuritycl" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-gray-300 hover:text-primary transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://www.facebook.com/profile.php?id=61556809303758" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="text-gray-300 hover:text-primary transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://mastodon.social/@gard_security" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Mastodon"
+                className="text-gray-300 hover:text-primary transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                  <path d="M21.5 8.5c0-1.7-.7-3.3-1.8-4.5-1.2-1.3-2.7-2-4.5-2H8.8c-1.7 0-3.3.7-4.5 2-1.1 1.2-1.8 2.8-1.8 4.5 0 1.8 0 3.7.2 5.6.1 2 .6 4 1.4 5.8 1.3 2.9 3.2 3.7 5.5 3.9 1.1.1 2.2.1 3.3 0 2.9-.3 4.5-1.8 4.5-1.8l-1-1.7s-1.4 1-3.9 1.1h-.8c-2.8 0-3.5-1.4-3.8-2-.2-.3-.3-.7-.3-1.2 0 0 2.4.5 5.3.7 1.6.1 3.1-.1 4.6-.5 2.9-.8 3.7-3.3 3.8-5.3 0-.8.2-4.2.2-5.6z"/>
+                  <path d="M7.8 11.5v-1c0-1.9 1.2-2.7 2.5-2.7s2.5.8 2.5 2.7v4.9c0 1.9 1.2 2.7 2.5 2.7 1.2 0 2.5-.8 2.5-2.7v-1"/>
+                </svg>
+              </a>
+            </div>
           </div>
 
           {/* Enlaces rápidos */}
