@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Gard Security' }],
   creator: 'Gard Security',
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
     type: 'website',
     locale: 'es_ES',
@@ -55,7 +58,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${poppins.variable}`}>
         <Providers>
           <Header />
-          <main className="min-h-screen pt-16">
+          <main className="min-h-screen">
             {children}
           </main>
           <Footer />

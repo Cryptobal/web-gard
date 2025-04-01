@@ -26,6 +26,13 @@ const config: Config = {
         border: 'hsl(var(--gard-border))',
         input: 'hsl(var(--gard-input))',
         ring: 'hsl(var(--gard-ring))',
+        brand: {
+          primary: '#1A2A90',
+          dark: '#0F172A',
+          light: '#E8ECF8',
+          cta: '#1A2A90',
+          accent: '#3B82F6',
+        },
       },
       fontFamily: {
         title: ['var(--font-poppins)'],
@@ -65,4 +72,4 @@ const config: Config = {
   plugins: [require('tailwindcss-animate')],
 };
 
-export default config; 
+export default config;

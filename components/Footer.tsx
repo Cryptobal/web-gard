@@ -162,14 +162,17 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-primary mr-3 mt-1" />
                 <span className="text-gray-300">
-                  Av. Principal 123, Torre Empresarial, Piso 5
+                  Camino los Trapenses 2140, Lo Barnechea, Santiago
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 text-primary mr-3" />
-                <span className="text-gray-300">
-                  +123 456 7890
-                </span>
+                <a 
+                  href="tel:+56941137976" 
+                  className="text-gray-300 hover:text-primary transition-colors"
+                >
+                  +56 9 4113 7976
+                </a>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-primary mr-3" />
