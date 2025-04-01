@@ -11,7 +11,7 @@ export const services = [
     description: "Rondas aéreas automatizadas y vigilancia de perímetros complejos en tiempo real.",
     imageId: "b79c0d5f-1d4b-4591-2ccf-694f9afcdc00",
     icon: "Drone",
-    href: "/servicios/seguridad-con-drones",
+    href: "/servicios/drones-seguridad",
   },
   {
     name: "Seguridad Electrónica",
@@ -25,7 +25,7 @@ export const services = [
     description: "Supervisión centralizada de eventos con operadores expertos y protocolos personalizados.",
     imageId: "4a167a19-1ef9-430d-ec5e-ffbbc3c35300",
     icon: "MonitorSmartphone",
-    href: "/servicios/sala-de-monitoreo",
+    href: "/servicios/central-monitoreo",
   },
   {
     name: "Seguridad Perimetral",
