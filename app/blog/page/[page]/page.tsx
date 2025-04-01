@@ -4,6 +4,7 @@ import { getPaginatedPosts, getAllPosts, POSTS_PER_PAGE } from '@/lib/blog';
 import PostCard from '@/app/components/blog/PostCard';
 import BlogLayout from '@/app/components/blog/BlogLayout';
 import Pagination from '@/app/components/blog/Pagination';
+import Link from 'next/link';
 
 // Generar rutas estáticas para todas las páginas
 export async function generateStaticParams() {
@@ -103,6 +104,26 @@ export default async function BlogPaginatedPage({
   return (
     <BlogLayout showSidebar={true}>
       <>
+        {/* Breadcrumb */}
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-6 px-4 md:px-0 text-sm text-muted-foreground overflow-x-auto"
+        >
+          <ol className="list-none p-0 inline-flex space-x-2">
+            <li>
+              <Link href="/" className="hover:underline text-primary dark:text-accent font-medium">Inicio</Link>
+            </li>
+            <li>/</li>
+            <li>
+              <Link href="/blog" className="hover:underline text-primary dark:text-accent font-medium">Blog</Link>
+            </li>
+            <li>/</li>
+            <li className="text-gray-700 dark:text-gray-300">
+              Página {pageNumber}
+            </li>
+          </ol>
+        </nav>
+        
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Blog de Seguridad

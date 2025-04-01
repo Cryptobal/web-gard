@@ -186,38 +186,38 @@ export default function BlogPost({ slug }: { slug: string }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       
+      {/* Breadcrumbs - inmediatamente después del header */}
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-6 px-4 md:px-0 text-sm text-muted-foreground overflow-x-auto"
+      >
+        <ol className="list-none p-0 inline-flex space-x-2">
+          <li>
+            <Link href="/" className="hover:underline text-primary dark:text-accent font-medium">Inicio</Link>
+          </li>
+          <li>/</li>
+          <li>
+            <Link href="/blog" className="hover:underline text-primary dark:text-accent font-medium">Blog</Link>
+          </li>
+          {post.tags?.[0] && (
+            <>
+              <li>/</li>
+              <li>
+                <Link href={`/blog/tag/${encodeURIComponent(post.tags[0])}`} className="hover:underline text-primary dark:text-accent font-medium">
+                  {post.tags[0]}
+                </Link>
+              </li>
+            </>
+          )}
+          <li>/</li>
+          <li className="text-gray-700 dark:text-gray-300 truncate max-w-xs">
+            {post.title}
+          </li>
+        </ol>
+      </nav>
+      
       {/* Hero del artículo */}
       <div className="mb-8">
-        {/* Breadcrumbs */}
-        <nav
-          aria-label="Breadcrumb"
-          className="mb-6 text-sm text-gray-500 dark:text-gray-400"
-        >
-          <ol className="list-none p-0 inline-flex space-x-2">
-            <li>
-              <Link href="/" className="hover:underline text-primary dark:text-accent font-medium">Inicio</Link>
-            </li>
-            <li>/</li>
-            <li>
-              <Link href="/blog" className="hover:underline text-primary dark:text-accent font-medium">Blog</Link>
-            </li>
-            {post.tags?.[0] && (
-              <>
-                <li>/</li>
-                <li>
-                  <Link href={`/blog/tag/${encodeURIComponent(post.tags[0])}`} className="hover:underline text-primary dark:text-accent font-medium">
-                    {post.tags[0]}
-                  </Link>
-                </li>
-              </>
-            )}
-            <li>/</li>
-            <li className="text-gray-700 dark:text-gray-300 truncate max-w-xs">
-              {post.title}
-            </li>
-          </ol>
-        </nav>
-
         {post.imageId && (
           <div className="aspect-video md:aspect-[21/9] relative rounded-2xl overflow-hidden mb-8">
             <CloudflareImage

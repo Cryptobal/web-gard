@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
 import { industries } from './data/industries';
+import { getAllPosts, POSTS_PER_PAGE, getAllTags, getPostsByTag } from '@/lib/blog';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://gard.cl';
   
   // Páginas estáticas
@@ -14,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contacto',
     '/privacidad',
     '/terminos',
+    '/blog', // Añadir página de blog principal
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -50,6 +52,58 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     };
   });
+  
+  // Páginas de blog dinámicas (posts individuales)
+  const blogPosts = await getAllPosts();
+  const blogPostPages = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }));
+  
+  // Páginas de paginación del blog
+  const totalPages = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
+  const blogPaginationPages = Array.from({ length: totalPages - 1 }, (_, i) => ({
+    url: `${baseUrl}/blog/page/${i + 2}`, // Páginas 2 en adelante
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.5,
+  }));
+  
+  // Páginas de etiquetas del blog
+  const allTags = await getAllTags();
+  const blogTagPages = allTags.map((tag) => ({
+    url: `${baseUrl}/blog/tag/${encodeURIComponent(tag)}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
 
-  return [...staticPages, ...servicePages, ...industryPages];
+  // Páginas de paginación por etiqueta
+  const blogTagPaginationPages = [];
+  for (const tag of allTags) {
+    const { totalPages } = await getPostsByTag(tag);
+    
+    if (totalPages > 1) {
+      const pages = Array.from({ length: totalPages - 1 }, (_, i) => ({
+        url: `${baseUrl}/blog/tag/${encodeURIComponent(tag)}/page/${i + 2}`, // Páginas 2 en adelante
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.5,
+      }));
+      
+      blogTagPaginationPages.push(...pages);
+    }
+  }
+
+  return [
+    ...staticPages, 
+    ...servicePages, 
+    ...industryPages, 
+    ...blogPostPages, 
+    ...blogPaginationPages,
+    ...blogTagPages,
+    ...blogTagPaginationPages
+  ];
 } 

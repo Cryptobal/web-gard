@@ -98,4 +98,45 @@ export async function getPaginatedPosts(page: number = 1): Promise<{
     posts,
     totalPages,
   };
+}
+
+// Obtener todas las etiquetas únicas
+export async function getAllTags(): Promise<string[]> {
+  const posts = await getAllPosts();
+  const allTags = posts.flatMap(post => post.tags || []);
+  const uniqueTags = Array.from(new Set(allTags));
+  return uniqueTags;
+}
+
+// Obtener posts paginados por etiqueta
+export async function getPostsByTag(tag: string, page: number = 1): Promise<{
+  posts: BlogPost[];
+  totalPages: number;
+  totalPosts: number;
+}> {
+  const allPosts = await getAllPosts();
+  
+  // Filtrar posts por etiqueta
+  const filteredPosts = allPosts.filter(post => 
+    post.tags?.includes(tag)
+  );
+  
+  const totalPosts = filteredPosts.length;
+  const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+  
+  // Asegurar que la página está dentro de los límites válidos
+  const validPage = Math.max(1, Math.min(page, totalPages || 1));
+  
+  // Calcular el índice de inicio y fin para la paginación
+  const startIndex = (validPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  
+  // Obtener los posts para la página actual
+  const posts = filteredPosts.slice(startIndex, endIndex);
+  
+  return {
+    posts,
+    totalPages,
+    totalPosts
+  };
 } 

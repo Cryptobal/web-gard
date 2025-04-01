@@ -1,6 +1,7 @@
-import { getAllPosts } from '@/lib/blog';
+import { getAllPosts, getAllTags, getPostsByTag } from '@/lib/blog';
 import BlogLayout from '@/app/components/blog/BlogLayout';
 import PostCard from '@/app/components/blog/PostCard';
+import Pagination from '@/app/components/blog/Pagination';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -19,8 +20,7 @@ function capitalize(str: string): string {
  * Genera rutas estáticas para todas las páginas de etiquetas
  */
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
-  const uniqueTags = Array.from(new Set(posts.flatMap((post) => post.tags || [])));
+  const uniqueTags = await getAllTags();
   return uniqueTags.map((tag) => ({ tag }));
 }
 
@@ -31,6 +31,19 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   const tagName = decodeURIComponent(params.tag);
   const capitalizedTag = capitalize(tagName);
   const canonicalPath = `/blog/tag/${encodeURIComponent(tagName)}`;
+  
+  const { totalPages } = await getPostsByTag(tagName, 1);
+  
+  // Preparar enlaces para SEO
+  const links: { [key: string]: string }[] = [];
+  
+  // Agregar enlace a la página siguiente si hay más de una página
+  if (totalPages > 1) {
+    links.push({
+      rel: 'next',
+      href: `/blog/tag/${encodeURIComponent(tagName)}/page/2`,
+    });
+  }
   
   return {
     title: `Artículos sobre ${capitalizedTag} | Blog de Seguridad Gard`,
@@ -51,38 +64,64 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
     alternates: {
       canonical: canonicalPath,
     },
+    // Incluir el enlace next para SEO si hay más de una página
+    ...(links.length > 0 ? { links } : {}),
   };
 }
 
 /**
- * Página de etiquetas del blog que muestra todos los artículos con una etiqueta específica
+ * Página de etiquetas del blog que muestra los artículos con una etiqueta específica (primera página)
  */
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const tag = decodeURIComponent(params.tag);
   const capitalizedTag = capitalize(tag);
-  const allPosts = await getAllPosts();
-  const filtered = allPosts.filter((post) =>
-    post.tags?.includes(tag)
-  );
+  
+  // Obtener posts paginados para la primera página
+  const { posts, totalPages, totalPosts } = await getPostsByTag(tag, 1);
 
-  if (filtered.length === 0) {
+  if (totalPosts === 0) {
     notFound();
   }
 
   return (
     <BlogLayout showSidebar={true}>
+      {/* Breadcrumb */}
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-6 px-4 md:px-0 text-sm text-muted-foreground overflow-x-auto"
+      >
+        <ol className="list-none p-0 inline-flex space-x-2">
+          <li>
+            <Link href="/" className="hover:underline text-primary dark:text-accent font-medium">Inicio</Link>
+          </li>
+          <li>/</li>
+          <li>
+            <Link href="/blog" className="hover:underline text-primary dark:text-accent font-medium">Blog</Link>
+          </li>
+          <li>/</li>
+          <li className="text-gray-700 dark:text-gray-300">
+            {capitalizedTag}
+          </li>
+        </ol>
+      </nav>
+      
       <div className="text-center mb-12">
-        <h1 className="text-heading-1 font-title font-bold text-gray-900 dark:text-white mb-4">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
           Artículos sobre "{capitalizedTag}"
         </h1>
-        <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Conoce todas nuestras publicaciones que analizan el tema de "{capitalizedTag}" en profundidad. 
           Información especializada para profesionales del sector seguridad.
         </p>
+        {totalPosts > 0 && (
+          <div className="mt-4 text-sm text-gray-500">
+            {totalPosts} {totalPosts === 1 ? 'artículo encontrado' : 'artículos encontrados'}
+          </div>
+        )}
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        {filtered.map((post) => (
+      <div className="grid gap-6 md:grid-cols-2">
+        {posts.map((post) => (
           <PostCard
             key={post.slug}
             slug={post.slug}
@@ -94,6 +133,15 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
           />
         ))}
       </div>
+      
+      {/* Paginación */}
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={1}
+          totalPages={totalPages}
+          basePath={`/blog/tag/${encodeURIComponent(tag)}`}
+        />
+      )}
       
       {/* Botón para volver al blog */}
       <div className="mt-12 text-center">
@@ -118,12 +166,6 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
           Volver al Blog
         </Link>
       </div>
-      
-      {/* 
-        Bonus SEO: Si hay muchos artículos por tag, permite paginación opcional
-        Esto puede implementarse más adelante siguiendo un patrón similar al de
-        /blog/page/[page]/page.tsx, donde se usan POSTS_PER_PAGE y se pagina el contenido.
-      */}
     </BlogLayout>
   );
 } 
