@@ -26,7 +26,16 @@ export const metadata: Metadata = {
   authors: [{ name: 'Gard Security' }],
   creator: 'Gard Security',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/icons/icon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icons/icon-72x72.png', sizes: '72x72', type: 'image/png' },
+      { url: '/icons/icon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icons/icon-128x128.png', sizes: '128x128', type: 'image/png' },
+    ],
+    apple: { url: '/icons/icon-192x192.png', sizes: '192x192' },
+    other: [
+      { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
   },
   openGraph: {
     type: 'website',
