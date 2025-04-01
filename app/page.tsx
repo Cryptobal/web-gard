@@ -116,13 +116,15 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative h-[500px] rounded-2xl overflow-hidden">
               <CloudflareImage
                 imageId="09f20a0c-b345-4db8-ff81-14aad098db00"
                 alt="El equipo de Gard Security"
                 fill
                 objectFit="cover"
+                className="shadow-[inset_0_0_60px_rgba(0,0,0,0.3)]"
               />
+              <div className="absolute inset-0 bg-black/15 z-10"></div>
             </div>
           </div>
         </div>
