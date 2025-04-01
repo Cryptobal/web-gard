@@ -15,7 +15,7 @@ const navLinks = [
   { href: '/servicios', label: 'Servicios' },
   { href: '/industrias', label: 'Industrias' },
   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
-  { href: '/tecnologias', label: 'Tecnologías' },
+  { href: '/tecnologia-seguridad', label: 'Tecnologías' },
   { href: '/cotizar', label: 'Cotizar', isCTA: true },
 ];
 

@@ -177,6 +177,7 @@ export default function Home() {
         description="Contáctenos hoy para una evaluación gratuita de sus necesidades de seguridad y descubre por qué las empresas líderes confían en Gard Security."
         ctaLabel="Solicitar cotización"
         ctaHref="/cotizar"
+        variant="soft"
       />
     </>
   );

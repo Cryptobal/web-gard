@@ -91,6 +91,7 @@ export default function Servicios() {
         description="Cada empresa tiene desafíos únicos. Contacta con nuestro equipo para una solución adaptada a tus necesidades específicas."
         ctaLabel="Solicita tu cotización"
         ctaHref="/cotizar"
+        variant="soft"
       />
     </>
   );

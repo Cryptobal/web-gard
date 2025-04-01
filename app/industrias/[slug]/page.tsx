@@ -279,6 +279,7 @@ export default function IndustriaPage({ params }: { params: { slug: string } }) 
         description={`Cotiza servicios de seguridad personalizados para el sector ${industry.name}.`}
         ctaLabel="Cotiza según tu industria"
         ctaHref="/cotizar"
+        variant="soft"
       />
     </>
   );

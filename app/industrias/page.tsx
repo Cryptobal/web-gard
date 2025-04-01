@@ -100,6 +100,7 @@ export default function IndustriasPage() {
         description="Descubre cómo nuestras soluciones de seguridad se adaptan perfectamente a las necesidades específicas de tu industria."
         ctaLabel="Cotiza según tu industria"
         ctaHref="/cotizar"
+        variant="soft"
       />
     </>
   );

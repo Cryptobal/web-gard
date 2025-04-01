@@ -306,6 +306,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
         description="Cada empresa tiene desafíos únicos. Contacta con nuestro equipo para una solución adaptada a tus necesidades específicas."
         ctaLabel="Solicita tu cotización"
         ctaHref="/cotizar"
+        variant="soft"
       />
     </>
   );

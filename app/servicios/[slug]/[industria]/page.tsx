@@ -179,11 +179,12 @@ export default function ServicioIndustriaPage({
       </section>
       
       {/* CTA Final */}
-      <CtaFinal
-        title={`¿Necesita soluciones de ${servicio.name} para su empresa de ${industria.name}?`}
-        description={`Contáctenos hoy para una consulta personalizada y descubra cómo podemos ayudarle a proteger su negocio en el sector ${industria.name.toLowerCase()}.`}
-        ctaLabel="Solicitar cotización"
+      <CtaFinal 
+        title={`¿Necesitas servicios de ${servicio.name} para el sector ${industria.name}?`}
+        description="Contáctanos para obtener una solución de seguridad personalizada que cumpla con las necesidades específicas de tu empresa."
+        ctaLabel="Solicita tu cotización"
         ctaHref="/cotizar"
+        variant="soft"
       />
     </main>
   );
