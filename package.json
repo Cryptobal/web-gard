@@ -26,6 +26,7 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^10.18.0",
     "gray-matter": "^4.0.3",
+    "keen-slider": "^6.8.6",
     "lucide-react": "^0.309.0",
     "markdown-to-jsx": "^7.7.4",
     "next": "14.0.4",

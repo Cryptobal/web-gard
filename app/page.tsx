@@ -15,7 +15,8 @@ import {
 // import FaqSection from '@/components/FaqSection/FaqSection';
 // Restore component import
 import FaqSection from '@/components/FaqSection/FaqSection';
-import TrustedClients from '@/app/components/TrustedClients';
+// import TrustedClients from '@/app/components/TrustedClients';
+import ClientesCarrusel from '@/components/ClientesCarrusel';
 import OurServices from '@/app/components/OurServices';
 import IndustriasGridPage from './components/IndustriasGridPage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
@@ -60,7 +61,7 @@ export default function Home() {
       </section>
 
       {/* Clientes que confían en nosotros */}
-      <TrustedClients />
+      <ClientesCarrusel />
 
       {/* Servicios destacados */}
       <OurServices />
