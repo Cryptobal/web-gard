@@ -1,0 +1,91 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 🧑‍🎨 Regla Global de Diseño UI/UX – Gard Security
+
+## 🎯 Objetivo
+Todo el diseño del sitio web Gard Security debe ser **de clase mundial**, proyectando profesionalismo, confianza, innovación y claridad. El sitio está orientado a empresas (B2B), por lo tanto debe reflejar **solidez, estructura visual limpia y experiencia de usuario sin fricción.**
+
+---
+
+## 🧱 Estructura Visual General
+
+- El layout usa clases personalizadas como `gard-section`, `gard-container`, `gard-btn`, `gard-card`, `gard-grid`, etc.
+- Cada sección debe tener `max-w-7xl mx-auto px-4` para mantener un contenedor centralizado y amplio.
+- El espaciado vertical base es `py-16 md:py-24`.
+- Alternancia visual clara entre secciones: usar `bg-white` y `bg-gray-50` (o `dark:bg-gray-900` / `dark:bg-gray-800`) para separar bloques.
+- **Nunca se deben usar bordes blancos visibles alrededor de las secciones**. El diseño debe sentirse fluido y de borde a borde.
+- El `Hero` principal debe ser **full-width, sin padding lateral ni máximo ancho** (ocupar `w-full` de extremo a extremo).
+- No usar sombras innecesarias en bloques o tarjetas a menos que aporten jerarquía visual (usar `shadow-sm`, `hover:shadow-md`).
+
+---
+
+## 🌗 Modo Claro / Oscuro
+
+- Tailwind debe estar configurado con `darkMode: 'class'`.
+- Todos los componentes deben respetar colores adaptables mediante CSS variables (`hsl(var(--...))`) definidos en `theme.ts`.
+
+---
+
+## 🖼️ Imágenes
+
+- Todas las imágenes son servidas por **Cloudflare Images** mediante IDs definidos en `images.ts`.
+- Usar un componente `<CloudflareImage />` que maneje lazy loading, `alt`, y ajuste de tamaños (`fill`, `object-cover`, `priority`, etc.).
+- No usar `<img>` nativo directo ni rutas externas sin pasar por `Cloudflare`.
+
+---
+
+## 🔤 Tipografía
+
+- Usar fuentes desde `next/font`:
+  - `Poppins` para títulos (`font-title`)
+  - `Inter` para textos (`font-body`)
+- Las clases deben ser homogéneas y claras:
+  - Títulos: `text-heading-1`, `text-heading-2`, `text-heading-4`, etc.
+  - Texto normal: `text-body-lg`, `text-body-base`
+  - Textos secundarios: `text-text-secondary`
+
+---
+
+## 🧠 Componentes Visuales
+
+### ✅ Iconografía
+- **Está prohibido el uso de emojis en producción.**
+- Usar solo íconos de `lucide-react`.
+- Los íconos deben tener clase `text-primary dark:text-accent` y un tamaño base `text-3xl` o ajustado al diseño.
+
+### ✅ CTA
+- Todos los botones deben usar el sistema de variantes de `shadcn/ui` (`variant="primary"`, `secondary`, `ghost`, etc.).
+- Los botones deben tener esquinas `rounded-2xl`, padding amplio y tipografía clara.
+- Los CTA deben tener jerarquía visual clara: título, descripción, y acción.
+
+---
+
+## 💡 Accesibilidad y UX
+
+- Todos los `alt` de imágenes deben ser significativos.
+- El contraste entre fondo y texto debe cumplir con WCAG AA mínimo.
+- El diseño debe ser **completamente responsivo** y no debe romperse en móviles.
+- Las secciones no deben estar sobrecargadas de texto. Usar bloques, columnas, listas o íconos para facilitar el escaneo.
+
+---
+
+## ✨ Detalles Extra
+
+- Animaciones suaves con `Framer Motion` solo donde agreguen valor (por ejemplo, fade-in en secciones).
+- No usar `visibility: hidden` para ocultar secciones. Preferir `mounted` para evitar flashes.
+- Cada componente debe tener su propio archivo, ser reutilizable y estar documentado si aplica.
+- Todos los ítems que sean clicables deben tener `hover:scale`, `hover:text-primary`, o algún feedback visual claro.
+
+---
+
+## 🚫 Prohibido
+
+- Emojis en íconos.
+- Textos largos sin jerarquía visual.
+- Imágenes fuera del sistema de Cloudflare.
+- Repetir bloques de diseño sin consistencia visual.
+- Padding inconsistente entre secciones.
+- Hero con bordes o limitado a contenedor.

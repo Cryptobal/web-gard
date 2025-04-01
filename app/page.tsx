@@ -1,0 +1,238 @@
+import React from 'react';
+import Link from 'next/link';
+import CloudflareImage from '@/components/CloudflareImage';
+import { cloudflareImages } from '@/lib/images';
+import { 
+  ArrowRight, 
+  Shield, 
+  Eye, 
+  Lock, 
+  BarChart4, 
+  CheckCircle 
+} from 'lucide-react';
+
+export default function Home() {
+  return (
+    <>
+      {/* Hero principal */}
+      <section className="gard-hero">
+        <div className="gard-hero-overlay"></div>
+        <div className="gard-hero-content text-center">
+          <h1 className="text-heading-1 text-white mb-6 max-w-4xl mx-auto">
+            Seguridad de Clase Mundial para Empresas Exigentes
+          </h1>
+          <p className="text-body-lg text-gray-200 mb-8 max-w-2xl mx-auto">
+            Protegemos lo que más importa con soluciones integrales diseñadas para los desafíos de seguridad más complejos.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/servicios" className="gard-btn gard-btn-primary gard-btn-lg">
+              Explorar Servicios
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+            <Link href="/contacto" className="gard-btn gard-btn-outline gard-btn-lg text-white border-white hover:bg-white/10 hover:text-white">
+              Contactar
+            </Link>
+          </div>
+        </div>
+        <div className="absolute inset-0 -z-10">
+          <CloudflareImage
+            imageId={cloudflareImages.hero.home}
+            alt="Gard Security - Seguridad Empresarial"
+            fill
+            priority
+            objectFit="cover"
+          />
+        </div>
+      </section>
+
+      {/* Servicios destacados */}
+      <section className="gard-section">
+        <div className="gard-container">
+          <div className="text-center mb-16">
+            <h2 className="text-heading-2 mb-4">Nuestros Servicios</h2>
+            <p className="text-body-lg text-muted max-w-3xl mx-auto">
+              Ofrecemos soluciones personalizadas para cubrir todas sus necesidades de seguridad.
+            </p>
+          </div>
+
+          <div className="gard-grid gap-8">
+            {/* Servicio 1 */}
+            <div className="gard-card p-8">
+              <Shield className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-heading-4 mb-3">Seguridad Perimetral</h3>
+              <p className="text-body-base text-muted-foreground mb-6">
+                Protección avanzada para el perímetro físico y digital de su empresa.
+              </p>
+              <Link 
+                href="/servicios/seguridad-perimetral" 
+                className="gard-btn gard-btn-link inline-flex items-center"
+              >
+                Saber más <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Servicio 2 */}
+            <div className="gard-card p-8">
+              <Eye className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-heading-4 mb-3">Monitoreo 24/7</h3>
+              <p className="text-body-base text-muted-foreground mb-6">
+                Vigilancia constante de sus sistemas y activos con respuesta inmediata.
+              </p>
+              <Link 
+                href="/servicios/monitoreo" 
+                className="gard-btn gard-btn-link inline-flex items-center"
+              >
+                Saber más <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Servicio 3 */}
+            <div className="gard-card p-8">
+              <Lock className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-heading-4 mb-3">Protección de Datos</h3>
+              <p className="text-body-base text-muted-foreground mb-6">
+                Cifrado, respaldo y protección avanzada para su información crítica.
+              </p>
+              <Link 
+                href="/servicios/proteccion-datos" 
+                className="gard-btn gard-btn-link inline-flex items-center"
+              >
+                Saber más <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link 
+              href="/servicios" 
+              className="gard-btn gard-btn-secondary gard-btn-lg"
+            >
+              Ver todos los servicios
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Información corporativa */}
+      <section className="gard-section gard-section-alt">
+        <div className="gard-container">
+          <div className="gard-grid-2 items-center gap-12">
+            <div>
+              <h2 className="text-heading-2 mb-6">Por qué elegir Gard Security</h2>
+              <p className="text-body-lg mb-8">
+                Con más de 15 años de experiencia protegiendo empresas líderes, ofrecemos soluciones de seguridad probadas y personalizadas según sus necesidades específicas.
+              </p>
+              
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="text-heading-5 mb-1">Equipo de expertos</h3>
+                    <p className="text-body-base text-muted-foreground">
+                      Profesionales certificados con amplia experiencia en seguridad empresarial.
+                    </p>
+                  </div>
+                </li>
+                
+                <li className="flex items-start">
+                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="text-heading-5 mb-1">Tecnología avanzada</h3>
+                    <p className="text-body-base text-muted-foreground">
+                      Utilizamos las últimas innovaciones en seguridad física y digital.
+                    </p>
+                  </div>
+                </li>
+                
+                <li className="flex items-start">
+                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="text-heading-5 mb-1">Soporte 24/7</h3>
+                    <p className="text-body-base text-muted-foreground">
+                      Asistencia continua y tiempo de respuesta garantizado ante incidentes.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+              
+              <div className="mt-8">
+                <Link 
+                  href="/sobre-nosotros" 
+                  className="gard-btn gard-btn-primary gard-btn-lg"
+                >
+                  Conocer más sobre nosotros
+                </Link>
+              </div>
+            </div>
+            
+            <div className="relative h-[500px] rounded-2xl overflow-hidden">
+              <CloudflareImage
+                imageId={cloudflareImages.sections.about}
+                alt="El equipo de Gard Security"
+                fill
+                objectFit="cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Estadísticas */}
+      <section className="gard-section bg-primary text-primary-foreground">
+        <div className="gard-container text-center">
+          <h2 className="text-heading-2 mb-12">Nuestro impacto en números</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-6">
+              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
+              <div className="text-4xl font-bold mb-2">500+</div>
+              <p className="text-body-base">Clientes satisfechos</p>
+            </div>
+            
+            <div className="p-6">
+              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
+              <div className="text-4xl font-bold mb-2">15+</div>
+              <p className="text-body-base">Años de experiencia</p>
+            </div>
+            
+            <div className="p-6">
+              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
+              <div className="text-4xl font-bold mb-2">99.9%</div>
+              <p className="text-body-base">Tiempo de actividad</p>
+            </div>
+            
+            <div className="p-6">
+              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
+              <div className="text-4xl font-bold mb-2">24/7</div>
+              <p className="text-body-base">Soporte técnico</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="gard-section">
+        <div className="gard-container text-center">
+          <h2 className="text-heading-2 mb-4">¿Listo para proteger su empresa?</h2>
+          <p className="text-body-lg mb-8 max-w-3xl mx-auto">
+            Contáctenos hoy para una evaluación gratuita de sus necesidades de seguridad.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/contacto" 
+              className="gard-btn gard-btn-primary gard-btn-lg"
+            >
+              Solicitar evaluación gratuita
+            </Link>
+            <Link 
+              href="/servicios" 
+              className="gard-btn gard-btn-outline gard-btn-lg"
+            >
+              Explorar servicios
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+} 
