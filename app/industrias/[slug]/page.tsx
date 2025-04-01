@@ -14,6 +14,7 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { industries } from '@/app/data/industries';
+import { servicios } from '@/app/data/servicios';
 
 // Función para generar rutas estáticas
 export async function generateStaticParams() {
@@ -64,6 +65,68 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       `vigilancia en ${industry.name}`
     ]
   };
+}
+
+// Componente para mostrar servicios relacionados con una industria
+function RelacionServiciosPorIndustria({ industriaSlug }: { industriaSlug: string }) {
+  // Renderiza el ícono correcto según el nombre
+  const renderIcon = (iconName: string) => {
+    const icons: Record<string, React.ReactNode> = {
+      ShieldCheck: <ShieldCheck className="h-6 w-6 text-primary" />,
+      Shield: <Shield className="h-6 w-6 text-primary" />,
+      Eye: <Eye className="h-6 w-6 text-primary" />,
+      Plane: <ArrowRight className="h-6 w-6 text-primary" />,
+      ShieldAlert: <Shield className="h-6 w-6 text-primary" />
+    };
+    
+    return icons[iconName] || <Shield className="h-6 w-6 text-primary" />;
+  };
+
+  return (
+    <section className="gard-section py-16 md:py-24 bg-white dark:bg-gray-900">
+      <div className="gard-container max-w-7xl mx-auto px-4">
+        <h2 className="text-heading-2 mb-6 text-center">Servicios de seguridad para esta industria</h2>
+        <p className="text-body-lg text-muted-foreground mb-12 max-w-3xl mx-auto text-center">
+          Conoce nuestras soluciones especializadas para tu sector
+        </p>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {servicios.map((servicio) => (
+            <Link 
+              key={servicio.slug} 
+              href={`/servicios/${servicio.slug}/${industriaSlug}`}
+              className="bg-card hover:bg-card/80 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col h-full group"
+              prefetch={true}
+            >
+              <div className="relative aspect-video w-full mb-4 overflow-hidden rounded-xl">
+                <CloudflareImage
+                  imageId={servicio.heroImageId}
+                  alt={servicio.name}
+                  fill
+                  className="object-cover w-full group-hover:scale-105 transition duration-300 ease-in-out"
+                />
+              </div>
+              
+              <div className="flex items-center gap-2 mb-2">
+                {renderIcon(servicio.icon)}
+                <h3 className="text-heading-4">{servicio.name}</h3>
+              </div>
+              
+              <p className="text-body-base text-muted-foreground mb-4 flex-grow">
+                {servicio.description}
+              </p>
+              
+              <div className="mt-auto">
+                <span className="inline-flex items-center text-primary font-medium group-hover:underline">
+                  Ver detalle <ArrowRight className="ml-1 h-4 w-4" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function IndustriaPage({ params }: { params: { slug: string } }) {
@@ -206,6 +269,9 @@ export default function IndustriaPage({ params }: { params: { slug: string } }) 
         />
         <div className="absolute inset-0 bg-black/30 z-10"></div>
       </section>
+
+      {/* Servicios relacionados con esta industria */}
+      <RelacionServiciosPorIndustria industriaSlug={params.slug} />
 
       {/* CTA Final */}
       <CtaFinal 
