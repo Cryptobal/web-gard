@@ -9,17 +9,7 @@ import {
   ShieldCheck, 
   BarChart4, 
   CheckCircle,
-  HelpCircle,
-  Hammer,
-  ShoppingBag,
-  Building2,
-  LandPlot,
-  Landmark,
-  Stethoscope,
-  GraduationCap,
-  Truck,
-  Building,
-  HardHat
+  HelpCircle
 } from 'lucide-react';
 // Comentado temporalmente mientras solucionamos el error
 // import FaqSection from '@/components/FaqSection/FaqSection';
@@ -27,19 +17,7 @@ import {
 import FaqSection from '@/components/FaqSection/FaqSection';
 import TrustedClients from '@/app/components/TrustedClients';
 import OurServices from '@/app/components/OurServices';
-
-// Definir las industrias con sus iconos correspondientes
-const industrias = [
-  { nombre: 'Minería', icono: <Hammer className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Retail', icono: <ShoppingBag className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Infraestructura crítica', icono: <LandPlot className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Banca y finanzas', icono: <Landmark className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Salud', icono: <Stethoscope className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Educación', icono: <GraduationCap className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Industria logística', icono: <Truck className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Edificios corporativos', icono: <Building className="h-12 w-12 text-primary mb-4 mx-auto" /> },
-  { nombre: 'Construcción', icono: <HardHat className="h-12 w-12 text-primary mb-4 mx-auto" /> }
-];
+import IndustriasGrid from './components/IndustriasGrid';
 
 export default function Home() {
   return (
@@ -140,7 +118,7 @@ export default function Home() {
             
             <div className="relative h-[500px] rounded-2xl overflow-hidden">
               <CloudflareImage
-                imageId={cloudflareImages.sections.about}
+                imageId="87adca87-a24e-4265-912b-23905ce14200"
                 alt="El equipo de Gard Security"
                 fill
                 objectFit="cover"
@@ -184,26 +162,7 @@ export default function Home() {
       </section>
 
       {/* Industrias que protegemos */}
-      <section className="gard-section">
-        <div className="gard-container text-center">
-          <h2 className="text-heading-2 mb-8">Industrias que protegemos</h2>
-          <p className="text-body-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
-            Ofrecemos soluciones de seguridad personalizadas para diversos sectores económicos.
-          </p>
-
-          <div className="gard-grid gap-8">
-            {industrias.map((industria) => (
-              <div key={industria.nombre} className="gard-card p-6 text-center hover:shadow-md transition-shadow duration-300">
-                {industria.icono}
-                <h3 className="text-heading-5 mb-2">{industria.nombre}</h3>
-                <p className="text-body-sm text-muted-foreground">
-                  Soluciones adaptadas a los desafíos específicos del sector.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <IndustriasGrid />
 
       {/* Preguntas Frecuentes - Comentado temporalmente */}
       {/* <FaqSection /> */}

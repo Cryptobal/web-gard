@@ -13,6 +13,7 @@ import { useTheme } from 'next-themes';
 const navLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/servicios', label: 'Servicios' },
+  { href: '/industrias', label: 'Industrias' },
   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
   { href: '/tecnologias', label: 'Tecnologías' },
   { href: '/cotizar', label: 'Cotizar', isCTA: true },
