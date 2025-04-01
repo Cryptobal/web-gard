@@ -7,7 +7,7 @@ import "keen-slider/keen-slider.min.css";
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CloudflareImage from '@/components/CloudflareImage';
-import { clientes } from '@/app/data/clientes';
+import { CLIENTES } from '@/app/data/clientes';
 import { cn } from '@/lib/utils';
 
 export default function ClientesCarrusel() {
@@ -177,7 +177,7 @@ export default function ClientesCarrusel() {
               ref={sliderRef} 
               className="keen-slider"
             >
-              {clientes.map((cliente, index) => (
+              {CLIENTES.map((cliente, index) => (
                 <motion.div
                   key={cliente.imageId}
                   initial="hidden"
