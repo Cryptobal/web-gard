@@ -87,45 +87,44 @@ export default function ClientCarousel() {
               {CLIENTES.map((cliente) => (
                 <Link
                   key={cliente.imageId}
-                  href={cliente.url || "#"}
-                  target={cliente.url ? "_blank" : undefined}
-                  rel={cliente.url ? "noopener noreferrer" : undefined}
+                  href={cliente.link || "#"}
+                  target={cliente.link ? "_blank" : undefined}
+                  rel={cliente.link ? "noopener noreferrer" : undefined}
                   role="link"
-                  aria-label={`Cliente ${cliente.name} - ${cliente.industry}`}
+                  aria-label={`Cliente ${cliente.nombre} - ${cliente.industria}`}
                   className={cn(
                     "keen-slider__slide h-full",
-                    cliente.url ? "cursor-pointer" : "cursor-default"
+                    cliente.link ? "cursor-pointer" : "cursor-default"
                   )}
                 >
-                  <div className="h-full bg-white dark:bg-zinc-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-zinc-700 hover:scale-105 duration-300">
+                  <div className="h-full bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-700">
                     <div className="flex flex-col h-full">
                       {/* Logo del cliente */}
-                      <div className="flex items-center justify-center h-20 mb-4">
+                      <div className="relative h-16 mb-4 flex items-center justify-center">
                         <CloudflareImage 
                           imageId={cliente.imageId}
-                          alt={`Logo de ${cliente.name}`}
+                          alt={`Logo de ${cliente.nombre}`}
                           width={180}
                           height={64}
-                          className="object-contain max-h-20 filter dark:invert"
+                          className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                         />
                       </div>
                       
-                      {/* Información del cliente */}
                       <h3 className="text-heading-4 text-gray-900 dark:text-white font-title mb-2">
-                        {cliente.name}
+                        {cliente.nombre}
                       </h3>
                       
-                      <p className="text-body-base text-gray-600 dark:text-gray-300 mb-3">
-                        {cliente.industry}
+                      <p className="text-body-base text-gray-600 dark:text-gray-300 mb-4">
+                        {cliente.industria}
                       </p>
                       
                       <p className="text-sm italic text-gray-500 dark:text-gray-400 mb-4 flex-grow">
-                        "{cliente.quote}"
+                        "{cliente.frase}"
                       </p>
                       
                       {/* Link */}
                       <div className="mt-auto">
-                        {cliente.url ? (
+                        {cliente.link ? (
                           <div className="inline-flex items-center text-primary dark:text-accent gap-1 group">
                             <span>Visitar sitio</span>
                             <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
