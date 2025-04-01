@@ -54,13 +54,13 @@ export default function Home() {
             Protegemos lo que más importa con soluciones integrales diseñadas para los desafíos de seguridad más complejos.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md mx-auto">
-            <Link href="/servicios" className="w-full sm:w-auto gard-btn gard-btn-primary gard-btn-lg">
+            <Link href="/servicios" className="w-full sm:flex-1 gard-btn gard-btn-outline gard-btn-lg bg-transparent border-white text-white hover:bg-white/20">
               Explorar Servicios
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
-            <Link href="/contacto" className="w-full sm:w-auto gard-btn gard-btn-outline gard-btn-lg">
-              Contactar
-              <HelpCircle className="ml-2 h-5 w-5" />
+            <Link href="/cotizar" className="w-full sm:flex-1 gard-btn gard-btn-primary gard-btn-lg">
+              Cotizar Ahora
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </div>
@@ -303,10 +303,10 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/contacto" 
+              href="/cotizar" 
               className="gard-btn gard-btn-primary gard-btn-lg"
             >
-              Solicitar evaluación gratuita
+              Solicitar cotización
             </Link>
             <Link 
               href="/servicios" 

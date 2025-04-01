@@ -15,7 +15,7 @@ const navLinks = [
   { href: '/servicios', label: 'Servicios' },
   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
   { href: '/tecnologias', label: 'Tecnologías' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '/cotizar', label: 'Cotizar', isCTA: true },
 ];
 
 export default function Header() {
@@ -61,20 +61,29 @@ export default function Header() {
   `;
 
   // Clases para elementos de navegación
-  const getNavLinkClasses = (isActive: boolean) => `
-    transition-all duration-300 ease-in-out font-semibold
-    ${scrolled ? 'text-sm' : 'text-base'}
-    ${isActive 
-      ? 'text-primary font-bold' 
-      : scrolled
-        ? isDarkMode 
-          ? 'text-white hover:text-primary' 
-          : 'text-primary hover:text-primary/80'
-        : isDarkMode
-          ? 'text-white hover:text-primary/90' 
-          : 'text-black hover:text-primary/90'
+  const getNavLinkClasses = (isActive: boolean, isCTA?: boolean) => {
+    if (isCTA) {
+      return `
+        bg-primary text-white px-4 py-2 rounded-xl hover:bg-primary/90 transition
+        font-semibold ${scrolled ? 'text-sm' : 'text-base'}
+      `;
     }
-  `;
+    
+    return `
+      transition-all duration-300 ease-in-out font-semibold
+      ${scrolled ? 'text-sm' : 'text-base'}
+      ${isActive 
+        ? 'text-primary font-bold' 
+        : scrolled
+          ? isDarkMode 
+            ? 'text-white hover:text-primary' 
+            : 'text-primary hover:text-primary/80'
+          : isDarkMode
+            ? 'text-white hover:text-primary/90' 
+            : 'text-black hover:text-primary/90'
+      }
+    `;
+  };
 
   return (
     <header className={headerClasses}>
@@ -92,11 +101,11 @@ export default function Header() {
 
         {/* Navegación de escritorio */}
         <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
-          {navLinks.map(({ href, label }) => (
+          {navLinks.map(({ href, label, isCTA }) => (
             <Link
               key={href}
               href={href}
-              className={getNavLinkClasses(pathname === href)}
+              className={getNavLinkClasses(pathname === href, isCTA)}
             >
               {label}
             </Link>
@@ -146,19 +155,22 @@ export default function Header() {
             }}
           >
             <nav className="flex flex-col items-center space-y-8 p-8 mt-4">
-              {navLinks.map(({ href, label }) => (
+              {navLinks.map(({ href, label, isCTA }) => (
                 <Link
                   key={href}
                   href={href}
-                  className={`
-                    text-lg font-semibold transition-colors
-                    ${pathname === href 
-                      ? 'text-primary font-bold' 
-                      : isDarkMode 
-                        ? 'text-white hover:text-primary' 
-                        : 'text-black hover:text-primary/80'
-                    }
-                  `}
+                  className={isCTA 
+                    ? "bg-primary text-white px-6 py-2 rounded-xl hover:bg-primary/90 transition text-lg font-semibold"
+                    : `
+                      text-lg font-semibold transition-colors
+                      ${pathname === href 
+                        ? 'text-primary font-bold' 
+                        : isDarkMode 
+                          ? 'text-white hover:text-primary' 
+                          : 'text-black hover:text-primary/80'
+                      }
+                    `
+                  }
                 >
                   {label}
                 </Link>

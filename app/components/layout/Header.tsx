@@ -14,7 +14,7 @@ const navLinks = [
   { href: '/servicios', label: 'Servicios' },
   { href: '/industrias', label: 'Industrias' },
   { href: '/nosotros', label: 'Nosotros' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '/cotizar', label: 'Cotizar' },
 ];
 
 export default function Header() {
@@ -69,7 +69,7 @@ export default function Header() {
         {/* Acciones (zona derecha) */}
         <div className="flex items-center space-x-4">
           <Link 
-            href="/contacto"
+            href="/cotizar"
             className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition inline-block"
           >
             <span className="hidden sm:inline">Cotiza Ahora</span>

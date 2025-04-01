@@ -28,7 +28,8 @@ export function Providers({ children }: ThemeProviderProps) {
     <NextThemesProvider
       attribute="class"
       defaultTheme="dark"
-      enableSystem
+      enableSystem={false}
+      forcedTheme="dark"
       disableTransitionOnChange
     >
       <AnimatePresence mode="wait" initial={false}>
