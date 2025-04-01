@@ -173,17 +173,15 @@
 
   /* Botones y CTA */
   .gard-btn {
-    @apply inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg transition-all duration-200;
+    @apply inline-flex items-center justify-center rounded-xl text-sm font-semibold transition-all duration-300;
   }
 
   .gard-btn-primary {
-    @apply bg-primary hover:bg-primary/90;
-    color: hsl(var(--gard-primary-foreground));
+    @apply bg-primary text-white shadow-sm hover:bg-primary/90;
   }
 
   .gard-btn-secondary {
-    @apply bg-secondary hover:bg-secondary/90;
-    color: hsl(var(--gard-secondary-foreground));
+    @apply bg-secondary text-white shadow-sm hover:bg-secondary/90;
   }
 
   .gard-btn-accent {
@@ -192,11 +190,11 @@
   }
 
   .gard-btn-outline {
-    @apply border border-input bg-background hover:bg-muted hover:text-accent;
+    @apply border-2 border-primary text-primary hover:bg-primary/10 hover:text-primary;
   }
 
   .gard-btn-ghost {
-    @apply hover:bg-muted hover:text-accent;
+    @apply text-primary hover:bg-primary/10 hover:text-primary;
   }
 
   .gard-btn-link {
@@ -204,7 +202,7 @@
   }
 
   .gard-btn-lg {
-    @apply h-12 px-8 py-3 text-base;
+    @apply px-8 py-3 text-base;
   }
 
   .gard-btn-md {
@@ -213,6 +211,11 @@
 
   .gard-btn-sm {
     @apply h-8 px-4 py-1 text-xs;
+  }
+
+  /* Dark mode */
+  .dark .gard-btn-outline {
+    @apply border-white text-white hover:bg-white/10;
   }
 
   /* Tarjetas y Contenedores */
@@ -248,14 +251,14 @@
 
   /* Hero Completo */
   .gard-hero {
-    @apply relative h-[650px] flex items-center justify-center;
+    @apply relative overflow-hidden;
   }
 
   .gard-hero-content {
-    @apply relative z-10 text-white px-4;
+    @apply relative z-20 text-white px-4 w-full max-w-7xl mx-auto;
   }
 
   .gard-hero-overlay {
-    @apply absolute inset-0 bg-black/60 z-0;
+    @apply absolute inset-0 bg-black/40 z-0;
   }
 } 
