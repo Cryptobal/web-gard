@@ -13,8 +13,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/sobre-nosotros',
     '/tecnologias',
     '/contacto',
-    '/privacidad',
-    '/terminos',
+    '/politica-de-privacidad',
+    '/terminos-de-servicio',
     '/blog', // Añadir página de blog principal
   ].map((route) => ({
     url: `${baseUrl}${route}`,
