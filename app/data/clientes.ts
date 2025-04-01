@@ -1,4 +1,4 @@
-export const clientes = [
+export const CLIENTES = [
   {
     nombre: "Polpaico",
     industria: "Industria",
