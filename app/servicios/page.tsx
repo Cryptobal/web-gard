@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 import CloudflareImage from '@/components/CloudflareImage';
 import OurServices from '@/app/components/OurServices';
+import CtaFinal from '@/components/ui/shared/CtaFinal';
 
 export const metadata: Metadata = {
   title: "Servicios de Seguridad Privada | Gard Security",
@@ -84,18 +85,13 @@ export default function Servicios() {
         </div>
       </section>
 
-      {/* CTA Final - Mejorado */}
-      <section className="gard-section py-16 bg-primary/10 dark:bg-primary/20 mx-4 md:mx-8 my-8 rounded-2xl">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-heading-2 mb-6">¿Necesitas un servicio de seguridad personalizado?</h2>
-          <p className="text-body-lg mb-10 max-w-3xl mx-auto">
-            Cada negocio tiene necesidades únicas. Contacta con nuestro equipo para un análisis personalizado.
-          </p>
-          <Link href="/cotizar" className="gard-btn gard-btn-primary gard-btn-lg inline-flex items-center">
-            Solicita tu cotización <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-        </div>
-      </section>
+      {/* CTA Final */}
+      <CtaFinal 
+        title="¿Necesitas un servicio de seguridad personalizado?"
+        description="Cada empresa tiene desafíos únicos. Contacta con nuestro equipo para una solución adaptada a tus necesidades específicas."
+        ctaLabel="Solicita tu cotización"
+        ctaHref="/cotizar"
+      />
     </>
   );
 } 

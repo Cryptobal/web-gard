@@ -3,6 +3,7 @@ import Link from 'next/link';
 import CloudflareImage from '@/components/CloudflareImage';
 import IndustriasGridPage from '@/app/components/IndustriasGridPage';
 import HeroIndustria from '@/app/components/HeroIndustria';
+import CtaFinal from '@/components/ui/shared/CtaFinal';
 import { 
   ArrowRight, 
   CheckCircle, 
@@ -94,34 +95,12 @@ export default function IndustriasPage() {
       </section>
 
       {/* CTA Final */}
-      <section className="gard-section bg-card">
-        <div className="gard-container">
-          <div className="gard-grid-2 items-center gap-12">
-            <div>
-              <h2 className="text-heading-2 mb-6">Cotiza según tu industria</h2>
-              <p className="text-body-lg mb-8">
-                ¿Necesitas protección para tu empresa? Estamos listos para ayudarte con una solución adaptada a tu sector.
-              </p>
-              <Link 
-                href="/cotizar" 
-                className="gard-btn gard-btn-primary gard-btn-lg"
-              >
-                Solicitar cotización
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </div>
-            
-            <div className="relative h-[400px] rounded-2xl overflow-hidden">
-              <CloudflareImage
-                imageId="8bc35c05-93da-4a2a-f46e-a926bd422d00"
-                alt="Seguridad profesional para tu industria"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <CtaFinal 
+        title="Seguridad adaptada a tu sector industrial"
+        description="Descubre cómo nuestras soluciones de seguridad se adaptan perfectamente a las necesidades específicas de tu industria."
+        ctaLabel="Cotiza según tu industria"
+        ctaHref="/cotizar"
+      />
     </>
   );
 } 

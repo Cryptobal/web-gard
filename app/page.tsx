@@ -18,6 +18,7 @@ import FaqSection from '@/components/FaqSection/FaqSection';
 import TrustedClients from '@/app/components/TrustedClients';
 import OurServices from '@/app/components/OurServices';
 import IndustriasGrid from './components/IndustriasGrid';
+import CtaFinal from '@/components/ui/shared/CtaFinal';
 
 export default function Home() {
   return (
@@ -171,28 +172,12 @@ export default function Home() {
       <FaqSection />
 
       {/* CTA final */}
-      <section className="gard-section">
-        <div className="gard-container text-center">
-          <h2 className="text-heading-2 mb-4">¿Listo para proteger su empresa?</h2>
-          <p className="text-body-lg mb-8 max-w-3xl mx-auto">
-            Contáctenos hoy para una evaluación gratuita de sus necesidades de seguridad.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/cotizar" 
-              className="gard-btn gard-btn-primary gard-btn-lg"
-            >
-              Solicitar cotización
-            </Link>
-            <Link 
-              href="/servicios" 
-              className="gard-btn gard-btn-outline gard-btn-lg"
-            >
-              Explorar servicios
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CtaFinal 
+        title="¿Listo para proteger tu empresa?"
+        description="Contáctenos hoy para una evaluación gratuita de sus necesidades de seguridad y descubre por qué las empresas líderes confían en Gard Security."
+        ctaLabel="Solicitar cotización"
+        ctaHref="/cotizar"
+      />
     </>
   );
 } 

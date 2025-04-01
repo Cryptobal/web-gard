@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CloudflareImage from '@/components/CloudflareImage';
+import CtaFinal from '@/components/ui/shared/CtaFinal';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -207,22 +208,12 @@ export default function IndustriaPage({ params }: { params: { slug: string } }) 
       </section>
 
       {/* CTA Final */}
-      <section className="gard-section bg-card">
-        <div className="gard-container text-center">
-          <h2 className="text-heading-2 mb-6">¿Necesitas protección en {industry.name}?</h2>
-          <p className="text-body-lg max-w-2xl mx-auto mb-8">
-            Estamos listos para ofrecerte la mejor solución adaptada al sector {industry.name}. 
-            Cotiza ahora y descubre cómo podemos proteger tu operación.
-          </p>
-          <Link 
-            href="/cotizar" 
-            className="gard-btn gard-btn-primary gard-btn-lg"
-          >
-            Solicita tu cotización
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-        </div>
-      </section>
+      <CtaFinal 
+        title={`Protege tu operación en el rubro ${industry.name}`}
+        description={`Cotiza servicios de seguridad personalizados para el sector ${industry.name}.`}
+        ctaLabel="Cotiza según tu industria"
+        ctaHref="/cotizar"
+      />
     </>
   );
 } 
