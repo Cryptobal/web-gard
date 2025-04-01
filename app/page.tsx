@@ -23,6 +23,8 @@ import {
 } from 'lucide-react';
 // Comentado temporalmente mientras solucionamos el error
 // import FaqSection from '@/components/FaqSection/FaqSection';
+// Restore component import
+import FaqSection from '@/components/FaqSection/FaqSection';
 
 // Definir las industrias con sus iconos correspondientes
 const industrias = [
@@ -293,6 +295,7 @@ export default function Home() {
 
       {/* Preguntas Frecuentes - Comentado temporalmente */}
       {/* <FaqSection /> */}
+      <FaqSection />
 
       {/* CTA final */}
       <section className="gard-section">

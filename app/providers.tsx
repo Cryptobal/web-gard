@@ -29,7 +29,6 @@ export function Providers({ children }: ThemeProviderProps) {
       attribute="class"
       defaultTheme="dark"
       enableSystem={false}
-      forcedTheme="dark"
       disableTransitionOnChange
     >
       <AnimatePresence mode="wait" initial={false}>

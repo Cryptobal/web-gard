@@ -37,8 +37,8 @@ const formSchema = z.object({
     .regex(/^(https?:\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}/, 
       { message: 'Ingresa una URL válida (ej: gard.cl, www.gard.cl o https://gard.cl)' }),
   direccion: z.string().min(5, { message: 'La dirección es obligatoria' }),
-  comuna: z.string().min(2, { message: 'La comuna es obligatoria' }),
-  ciudad: z.string().min(2, { message: 'La ciudad es obligatoria' }),
+  comuna: z.string().optional(),
+  ciudad: z.string().optional(),
   tipoIndustria: z.string().min(1, { message: 'Selecciona un tipo de industria' }),
   cotizacion: z.string().min(10, { message: 'Proporciona los detalles de tu solicitud' }),
 });
