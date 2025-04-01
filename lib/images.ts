@@ -13,6 +13,7 @@ export const cloudflareImages = {
     about: '7d33f2ab-1ad7-4f8d-11c3-e82a0b54db00',
     services: '5eea1064-8a2d-4e8b-5606-d28775467a00',
     contact: '428c1028-8f6b-455a-e110-38421eeb5700',
+    reclutamiento: '4a46b63d-0e1b-4640-b95c-7f040a288c00',
   },
   
   // Imágenes para secciones
