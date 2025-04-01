@@ -16,7 +16,7 @@
     --gard-background: 0 0% 100%;
     --gard-foreground: 215 25% 27%;
     --gard-muted: 220 14% 96%;
-    --gard-muted-foreground: 215 25% 40%;
+    --gard-muted-foreground: 215 25% 30%;
     --gard-card: 0 0% 100%;
     --gard-card-foreground: 215 25% 27%;
     --gard-popover: 0 0% 100%;
@@ -37,7 +37,7 @@
     --gard-background: 222 47% 11%;
     --gard-foreground: 210 40% 98%;
     --gard-muted: 217 33% 17%;
-    --gard-muted-foreground: 215 20% 65%;
+    --gard-muted-foreground: 215 20% 75%;
     --gard-card: 222 47% 14%;
     --gard-card-foreground: 210 40% 98%;
     --gard-popover: 222 47% 14%;
@@ -219,6 +219,10 @@
   .gard-card {
     @apply bg-card shadow-lg rounded-xl;
     color: hsl(var(--gard-card-foreground));
+  }
+
+  .gard-card p {
+    @apply text-foreground/90;
   }
 
   .gard-card-header {
