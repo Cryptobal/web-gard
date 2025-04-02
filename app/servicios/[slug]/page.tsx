@@ -44,6 +44,71 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
   }
   
+  // Metadatos específicos para guardias de seguridad
+  if (servicio.slug === 'guardias-de-seguridad') {
+    return {
+      title: `Servicio de Guardias de Seguridad Profesionales | Gard Security`,
+      description: `Guardias de seguridad certificados para empresas, control de acceso, disuasión y prevención. Personal altamente capacitado en protocolos preventivos y vigilancia empresarial.`,
+      keywords: [
+        ...servicio.keywords,
+        'disuasión de riesgos',
+        'control preventivo',
+        'guardias para control de acceso',
+        'supervisión de seguridad',
+        'guardias certificados'
+      ],
+    };
+  }
+  
+  // Metadatos específicos para auditoría de seguridad
+  if (params.slug === 'auditoria-seguridad') {
+    return {
+      title: `Auditoría de Seguridad Profesional | Evaluación y Diagnóstico | Gard Security`,
+      description: `Servicio de auditoría completa de sistemas de seguridad física y electrónica. Identificamos vulnerabilidades y proponemos soluciones para fortalecer la protección de su empresa.`,
+      keywords: [
+        'auditoría de seguridad',
+        'evaluación de vulnerabilidades',
+        'diagnóstico de seguridad',
+        'análisis de riesgos',
+        'consultoría especializada',
+        'cumplimiento normativo'
+      ],
+    };
+  }
+  
+  // Metadatos específicos para consultoría
+  if (params.slug === 'consultoria') {
+    return {
+      title: `Consultoría en Seguridad Privada y Corporativa | Gard Security`,
+      description: `Asesoramiento especializado en seguridad para empresas e instituciones. Desarrollamos estrategias personalizadas para optimizar la protección de sus activos y personal.`,
+      keywords: [
+        'consultoría de seguridad',
+        'asesoramiento especializado',
+        'estrategias de protección',
+        'optimización de seguridad',
+        'gestión de riesgos',
+        'seguridad corporativa'
+      ],
+    };
+  }
+  
+  // Metadatos específicos para prevención de intrusiones
+  if (params.slug === 'prevencion-intrusiones') {
+    return {
+      title: `Sistemas de Prevención de Intrusiones | Detección Temprana | Gard Security`,
+      description: `Soluciones avanzadas para prevenir accesos no autorizados a sus instalaciones. Combinamos tecnología, barreras físicas y protocolos específicos para anticiparnos a posibles amenazas.`,
+      keywords: [
+        'prevención de intrusiones',
+        'detección temprana',
+        'control de accesos',
+        'protección perimetral',
+        'sistemas anti-intrusión',
+        'seguridad proactiva'
+      ],
+    };
+  }
+  
+  // Metadatos por defecto para los demás servicios
   return {
     title: `${servicio.name} | Gard Security`,
     description: servicio.description,
@@ -51,15 +116,36 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
+// Descripciones largas para cada servicio
+const descripcionesLargas: Record<string, string> = {
+  'guardias-de-seguridad': 'Nuestro servicio de guardias de seguridad proporciona una presencia disuasoria profesional y visible para empresas, instituciones y comunidades. Cada guardia está minuciosamente seleccionado, capacitado y certificado para garantizar el más alto nivel de vigilancia preventiva. Ofrecemos guardias para control de acceso, rondas perimetrales, supervisión de áreas críticas y eventos corporativos. Todo nuestro personal cuenta con capacitación en detección de comportamientos sospechosos, prevención de riesgos, primeros auxilios y protocolos de evacuación, proporcionando no solo seguridad, sino también tranquilidad a nuestros clientes.',
+  
+  'seguridad-electronica': 'La seguridad electrónica de Gard Security combina tecnología de punta con experiencia operativa para crear capas de protección digital en su organización. Diseñamos, instalamos y mantenemos sistemas completos que incluyen videovigilancia CCTV, control de acceso biométrico, detección perimetral y sistemas de alarma avanzados. Nuestros ingenieros certificados evalúan sus instalaciones para desarrollar soluciones personalizadas que se integran perfectamente con su infraestructura existente.',
+  
+  'central-monitoreo': 'Nuestra central de monitoreo opera 24/7 para proporcionar vigilancia constante a sus instalaciones. Con operadores altamente capacitados y sistemas redundantes, garantizamos que cualquier incidente sea detectado y atendido inmediatamente. La central recibe señales de alarmas, videocámaras y sensores, evaluando cada alerta según protocolos específicos para su organización. Esto permite una respuesta rápida y adecuada a cada situación, minimizando riesgos y daños potenciales.',
+  
+  'drones-seguridad': 'La seguridad con drones representa nuestra solución más avanzada para vigilancia de grandes áreas y terrenos complejos. Utilizamos aeronaves no tripuladas equipadas con cámaras de alta definición, sensores térmicos y capacidades de vuelo autónomo para monitorear extensas propiedades, eventos masivos o zonas de difícil acceso. Nuestros pilotos están certificados por la DGAC y cumplen con todas las normativas vigentes para operaciones aéreas comerciales.',
+  
+  'seguridad-perimetral': 'La protección perimetral es la primera línea de defensa de cualquier instalación. Nuestro servicio combina barreras físicas, tecnología de detección y vigilancia humana para crear un escudo integral alrededor de su propiedad. Comenzamos con una evaluación completa para identificar vulnerabilidades y diseñar un sistema personalizado que puede incluir cercos electrificados, sensores de movimiento, cámaras térmicas, iluminación de seguridad y guardias estratégicamente ubicados.',
+
+  'auditoria-seguridad': 'Nuestro servicio de auditoría de seguridad proporciona una evaluación exhaustiva y profesional de la infraestructura de seguridad existente en su organización. Nuestros especialistas certificados analizan protocolos, sistemas, personal y vulnerabilidades físicas y digitales para identificar puntos débiles y oportunidades de mejora. El proceso incluye evaluación de riesgos, pruebas de penetración, revisión de procedimientos y análisis de cumplimiento normativo. Tras la evaluación, entregamos un informe detallado con hallazgos y recomendaciones específicas para fortalecer su postura de seguridad global.',
+  
+  'consultoria': 'El servicio de consultoría de seguridad de Gard Security ofrece asesoramiento especializado a medida para empresas e instituciones que buscan desarrollar o mejorar sus estrategias de protección. Nuestros consultores expertos trabajan estrechamente con su equipo para entender sus necesidades específicas, evaluar riesgos potenciales y diseñar soluciones personalizadas que optimicen recursos y garanticen la seguridad de sus activos. Abordamos desde la planificación estratégica hasta la implementación técnica, incluyendo capacitación de personal, gestión de crisis y continuidad de negocio.',
+  
+  'prevencion-intrusiones': 'Nuestro servicio de prevención de intrusiones ofrece una estrategia proactiva para detectar y neutralizar amenazas antes de que se materialicen. Combinamos tecnología avanzada, inteligencia de seguridad y protocolos específicos para crear múltiples capas de protección que dificulten el acceso no autorizado a sus instalaciones. El servicio incluye sistemas de detección temprana, barreras físicas y electrónicas, protocolos de respuesta inmediata y capacitación del personal. Todo ello integrado en una solución completa que se anticipa a posibles intrusiones y minimiza riesgos potenciales.'
+};
+
 // Lista de beneficios para cada tipo de servicio
 const beneficiosPorServicio: Record<string, string[]> = {
   'guardias-de-seguridad': [
-    'Personal altamente capacitado y certificado',
-    'Supervisión constante y coordinación centralizada',
-    'Uniformes profesionales y equipamiento completo',
-    'Distribución estratégica según evaluación de riesgo',
-    'Procedimientos personalizados según necesidad',
-    'Reportes detallados de actividades e incidentes'
+    'Personal capacitado en prevención y disuasión',
+    'Supervisión constante por coordinadores de zona',
+    'Uniformes profesionales y equipamiento visible',
+    'Presencia disuasoria diseñada según evaluación de riesgo',
+    'Protocolos de acción preventiva personalizados',
+    'Reportes detallados de actividades e incidencias',
+    'Rotación planificada para mantener vigilancia óptima',
+    'Comunicación coordinada con autoridades'
   ],
   'seguridad-electronica': [
     'Diseño e instalación profesional de sistemas CCTV',
@@ -92,20 +178,31 @@ const beneficiosPorServicio: Record<string, string[]> = {
     'Detección temprana de intrusiones',
     'Alertas inmediatas ante violación del perímetro',
     'Mantenimiento preventivo de infraestructura'
+  ],
+  'auditoria-seguridad': [
+    'Análisis exhaustivo de vulnerabilidades físicas y digitales',
+    'Evaluación de cumplimiento normativo y legal',
+    'Revisión de protocolos y procedimientos de seguridad',
+    'Pruebas prácticas de efectividad de sistemas',
+    'Informe detallado con hallazgos y recomendaciones',
+    'Plan de acción priorizado para implementación'
+  ],
+  'consultoria': [
+    'Asesoramiento personalizado según industria y necesidades',
+    'Diseño de estrategias de seguridad a medida',
+    'Optimización de recursos existentes',
+    'Planificación de contingencias y gestión de crisis',
+    'Capacitación especializada para personal interno',
+    'Seguimiento y mejora continua de estrategias'
+  ],
+  'prevencion-intrusiones': [
+    'Sistemas de detección temprana de última generación',
+    'Múltiples capas de protección física y electrónica',
+    'Protocolos de respuesta inmediata ante alertas',
+    'Disuasión activa mediante elementos visibles',
+    'Análisis predictivo de patrones de intrusión',
+    'Actualización constante frente a nuevas amenazas'
   ]
-};
-
-// Descripciones largas para cada servicio
-const descripcionesLargas: Record<string, string> = {
-  'guardias-de-seguridad': 'Nuestro servicio de guardias de seguridad proporciona protección profesional para empresas, instituciones y comunidades. Cada guardia está minuciosamente seleccionado, capacitado y certificado para garantizar el más alto nivel de servicio. Adaptamos nuestras soluciones a las necesidades específicas de cada cliente, desde vigilancia básica hasta protección especializada. Todos nuestros guardias cuentan con los permisos legales requeridos y pasan por verificaciones exhaustivas de antecedentes.',
-  
-  'seguridad-electronica': 'La seguridad electrónica de Gard Security combina tecnología de punta con experiencia operativa para crear capas de protección digital en su organización. Diseñamos, instalamos y mantenemos sistemas completos que incluyen videovigilancia CCTV, control de acceso biométrico, detección perimetral y sistemas de alarma avanzados. Nuestros ingenieros certificados evalúan sus instalaciones para desarrollar soluciones personalizadas que se integran perfectamente con su infraestructura existente.',
-  
-  'central-monitoreo': 'Nuestra central de monitoreo opera 24/7 para proporcionar vigilancia constante a sus instalaciones. Con operadores altamente capacitados y sistemas redundantes, garantizamos que cualquier incidente sea detectado y atendido inmediatamente. La central recibe señales de alarmas, videocámaras y sensores, evaluando cada alerta según protocolos específicos para su organización. Esto permite una respuesta rápida y adecuada a cada situación, minimizando riesgos y daños potenciales.',
-  
-  'drones-seguridad': 'La seguridad con drones representa nuestra solución más avanzada para vigilancia de grandes áreas y terrenos complejos. Utilizamos aeronaves no tripuladas equipadas con cámaras de alta definición, sensores térmicos y capacidades de vuelo autónomo para monitorear extensas propiedades, eventos masivos o zonas de difícil acceso. Nuestros pilotos están certificados por la DGAC y cumplen con todas las normativas vigentes para operaciones aéreas comerciales.',
-  
-  'seguridad-perimetral': 'La protección perimetral es la primera línea de defensa de cualquier instalación. Nuestro servicio combina barreras físicas, tecnología de detección y vigilancia humana para crear un escudo integral alrededor de su propiedad. Comenzamos con una evaluación completa para identificar vulnerabilidades y diseñar un sistema personalizado que puede incluir cercos electrificados, sensores de movimiento, cámaras térmicas, iluminación de seguridad y guardias estratégicamente ubicados.'
 };
 
 // Función helper para normalizar y obtener el slug de la industria

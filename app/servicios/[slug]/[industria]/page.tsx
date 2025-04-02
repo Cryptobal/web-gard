@@ -62,10 +62,40 @@ export async function generateMetadata({
     };
   }
   
+  const canonicalUrl = `https://www.gard.cl/servicios/${servicio.slug}`;
+  
+  // Lista de combinaciones prioritarias que SÍ queremos indexar
+  const combinacionesPrioritarias = [
+    {servicio: 'guardias-de-seguridad', industria: 'retail'},
+    {servicio: 'guardias-de-seguridad', industria: 'mineria'},
+    {servicio: 'drones-seguridad', industria: 'mineria'},
+    {servicio: 'seguridad-electronica', industria: 'retail'},
+    {servicio: 'central-monitoreo', industria: 'edificios-corporativos'},
+    {servicio: 'auditoria-seguridad', industria: 'instituciones-publicas'},
+    {servicio: 'consultoria', industria: 'edificios-corporativos'},
+    {servicio: 'prevencion-intrusiones', industria: 'parques-industriales'}
+  ];
+  
+  // Comprobar si la combinación actual es prioritaria
+  const esPrioritaria = combinacionesPrioritarias.some(
+    combo => combo.servicio === servicio.slug && 
+             combo.industria === params.industria
+  );
+  
+  // Si no es prioritaria, indicamos que no se indexe
+  const robots = esPrioritaria ? undefined : {
+    index: false,
+    follow: true
+  };
+  
   return {
     title: `${servicio.name} para ${industria.name} | Gard Security`,
     description: `Soluciones de ${servicio.name.toLowerCase()} aplicadas al sector ${industria.name.toLowerCase()}.`,
-    keywords: [...servicio.keywords, industria.name.toLowerCase()]
+    keywords: [...servicio.keywords, industria.name.toLowerCase()],
+    alternates: {
+      canonical: canonicalUrl
+    },
+    robots
   };
 }
 
@@ -143,37 +173,123 @@ export default function ServicioIndustriaPage({
           </h2>
           
           <div className="prose prose-lg dark:prose-invert max-w-4xl mx-auto">
-            <p>
-              El sector {industria.name.toLowerCase()} enfrenta desafíos únicos de seguridad
-              que requieren soluciones especializadas. Nuestro servicio de {servicio.name.toLowerCase()}
-              está diseñado específicamente para abordar estos retos.
-            </p>
+            {servicio.slug === 'guardias-de-seguridad' && (
+              <>
+                <p>
+                  El sector {industria.name.toLowerCase()} presenta desafíos únicos en materia de seguridad que requieren 
+                  un enfoque especializado. Nuestros guardias de seguridad están capacitados específicamente para 
+                  atender las necesidades particulares de este sector.
+                </p>
+                
+                <h3>Soluciones específicas para {industria.name}</h3>
+                
+                {industria.name === 'Retail' && (
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Control de acceso y prevención de pérdidas en tiendas</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Detección de comportamientos sospechosos en áreas comerciales</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Protocolos específicos para hurtos y situaciones de emergencia</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Coordinación con sistemas electrónicos antihurto</span>
+                    </li>
+                  </ul>
+                )}
+                
+                {industria.name === 'Minería' && (
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Control de acceso a áreas restringidas y perímetros extensos</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Guardias capacitados en protocolos de seguridad minera</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Verificación de credenciales y autorizaciones especiales</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Protección de activos críticos y materiales valiosos</span>
+                    </li>
+                  </ul>
+                )}
+                
+                {(industria.name !== 'Retail' && industria.name !== 'Minería') && (
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Protección adaptada a las particularidades del sector {industria.name.toLowerCase()}</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Cumplimiento de normativas específicas de seguridad para {industria.name.toLowerCase()}</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Guardias con formación especializada para entornos de {industria.name.toLowerCase()}</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                      <span>Integración con los protocolos existentes en su organización</span>
+                    </li>
+                  </ul>
+                )}
+                
+                <p className="mt-6">
+                  Nuestros guardias no solo proporcionan una presencia disuasoria visible, sino que están 
+                  entrenados para identificar y prevenir situaciones de riesgo específicas del sector 
+                  {industria.name.toLowerCase()}, ofreciendo así un servicio que va más allá de la 
+                  vigilancia tradicional.
+                </p>
+              </>
+            )}
             
-            <p>
-              Combinando nuestra experiencia en {servicio.name.toLowerCase()} con un profundo
-              conocimiento del sector {industria.name.toLowerCase()}, ofrecemos soluciones
-              que no solo protegen sus activos, sino que también optimizan sus operaciones
-              y cumplen con las regulaciones específicas de su industria.
-            </p>
-            
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                <span>Protección contra amenazas específicas del sector {industria.name.toLowerCase()}</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                <span>Cumplimiento de regulaciones propias de la industria {industria.name.toLowerCase()}</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                <span>Optimización de costos sin comprometer la seguridad en entornos de {industria.name.toLowerCase()}</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                <span>Integración con sistemas existentes en instalaciones de {industria.name.toLowerCase()}</span>
-              </li>
-            </ul>
+            {servicio.slug !== 'guardias-de-seguridad' && (
+              <>
+                <p>
+                  El sector {industria.name.toLowerCase()} enfrenta desafíos únicos de seguridad
+                  que requieren soluciones especializadas. Nuestro servicio de {servicio.name.toLowerCase()}
+                  está diseñado específicamente para abordar estos retos.
+                </p>
+                
+                <p>
+                  Combinando nuestra experiencia en {servicio.name.toLowerCase()} con un profundo
+                  conocimiento del sector {industria.name.toLowerCase()}, ofrecemos soluciones
+                  que no solo protegen sus activos, sino que también optimizan sus operaciones
+                  y cumplen con las regulaciones específicas de su industria.
+                </p>
+                
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Protección contra amenazas específicas del sector {industria.name.toLowerCase()}</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Cumplimiento de regulaciones propias de la industria {industria.name.toLowerCase()}</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Optimización de costos sin comprometer la seguridad en entornos de {industria.name.toLowerCase()}</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-6 w-6 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                    <span>Integración con sistemas existentes en instalaciones de {industria.name.toLowerCase()}</span>
+                  </li>
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </section>

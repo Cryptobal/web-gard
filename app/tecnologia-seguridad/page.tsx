@@ -24,15 +24,20 @@ import {
 import CtaFinal from '@/components/ui/shared/CtaFinal';
 
 export const metadata: Metadata = {
-  title: "Tecnología y Supervisión Inteligente - Gard Security",
-  description: "Inteligencia artificial, reportería automática y control en tiempo real para transformar la seguridad privada en Chile.",
+  title: "Plataforma Tecnológica de Seguridad | Supervisión Inteligente | Gard Security",
+  description: "Sistema digital integral con inteligencia artificial para supervisión de seguridad en tiempo real. App, panel de control, reportes automáticos y análisis predictivo.",
   keywords: [
-    "tecnología en seguridad privada",
-    "inteligencia artificial en vigilancia",
+    "plataforma tecnológica de seguridad",
+    "supervisión inteligente de guardias",
+    "app de control de seguridad",
+    "reportes automáticos con IA",
     "monitoreo en tiempo real",
-    "supervisión de guardias",
-    "plataforma digital de seguridad"
-  ]
+    "trazabilidad de servicios de seguridad",
+    "inteligencia artificial en vigilancia"
+  ],
+  alternates: {
+    canonical: "https://www.gard.cl/tecnologia-seguridad"
+  }
 };
 
 export default function Page() {

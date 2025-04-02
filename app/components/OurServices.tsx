@@ -10,7 +10,10 @@ import {
   Scan, 
   ArrowRight,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ClipboardCheck,
+  FileText,
+  ShieldAlert
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import CloudflareImage from '@/components/CloudflareImage';
@@ -23,7 +26,10 @@ const iconComponents: Record<string, React.FC<{ className?: string }>> = {
   Drone: Plane, // Usamos Plane como alternativa a Drone
   Cpu,
   MonitorSmartphone,
-  Scan
+  Scan,
+  ClipboardCheck,
+  FileText,
+  ShieldAlert
 };
 
 interface OurServicesProps {
@@ -113,7 +119,7 @@ export default function OurServices({
         </div>
 
         {/* Vista de escritorio (sin cambios) */}
-        <div className={`md:flex justify-center gap-4 overflow-x-auto ${isMobile ? 'hidden' : 'flex'}`}>
+        <div className={`md:flex justify-center gap-4 overflow-x-auto flex-wrap ${isMobile ? 'hidden' : 'flex'}`}>
           {serviciosFiltrados.map((service, index) => {
             // Determinar la ruta del enlace según si hay una industria especificada
             const href = industria 
@@ -124,7 +130,7 @@ export default function OurServices({
               <Link 
                 key={index} 
                 href={href}
-                className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col w-1/5 min-w-[200px]"
+                className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col w-1/5 min-w-[200px] max-w-[23%] mb-6"
               >
                 <div className="relative aspect-[3/2] w-full mb-4">
                   <CloudflareImage

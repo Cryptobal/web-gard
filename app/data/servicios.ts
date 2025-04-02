@@ -124,5 +124,65 @@ export const servicios: Servicio[] = [
       "alambrado de seguridad",
       "control de acceso perimetral"
     ]
+  },
+  
+  // Servicio de Auditoría de Seguridad
+  {
+    name: "Auditoría de Seguridad",
+    slug: "auditoria-seguridad",
+    icon: "ClipboardCheck",
+    description: "Evaluación integral de vulnerabilidades y análisis de cumplimiento para fortalecer su seguridad.",
+    heroImageId: "68979433-718f-45eb-0c3b-2eee856ff700",
+    gallery: [
+      "68979433-718f-45eb-0c3b-2eee856ff700"
+    ],
+    keywords: [
+      "auditoría de seguridad",
+      "evaluación de vulnerabilidades",
+      "diagnóstico de seguridad",
+      "análisis de riesgos",
+      "consultoría especializada",
+      "cumplimiento normativo"
+    ]
+  },
+  
+  // Servicio de Consultoría
+  {
+    name: "Consultoría de Seguridad",
+    slug: "consultoria",
+    icon: "FileText",
+    description: "Asesoramiento especializado para diseñar y optimizar sus estrategias de protección empresarial.",
+    heroImageId: "71c2c2dd-87c0-4b3a-4f25-aa58f51fa300",
+    gallery: [
+      "71c2c2dd-87c0-4b3a-4f25-aa58f51fa300"
+    ],
+    keywords: [
+      "consultoría de seguridad",
+      "asesoramiento especializado",
+      "estrategias de protección",
+      "optimización de seguridad",
+      "gestión de riesgos",
+      "seguridad corporativa"
+    ]
+  },
+  
+  // Servicio de Prevención de Intrusiones
+  {
+    name: "Prevención de Intrusiones",
+    slug: "prevencion-intrusiones",
+    icon: "ShieldAlert",
+    description: "Sistemas avanzados para detectar y neutralizar amenazas antes de que se materialicen.",
+    heroImageId: "5d100f19-4396-4bc4-7df6-3c8b18cbf800",
+    gallery: [
+      "5d100f19-4396-4bc4-7df6-3c8b18cbf800"
+    ],
+    keywords: [
+      "prevención de intrusiones",
+      "detección temprana",
+      "control de accesos",
+      "protección perimetral",
+      "sistemas anti-intrusión",
+      "seguridad proactiva"
+    ]
   }
 ]; 

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import ServicioPage from '../[slug]/page';
 
 export const metadata: Metadata = {
   title: 'Seguridad Perimetral | Gard Security',
@@ -7,10 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function SeguridadPerimetral() {
-  return (
-    <div className="gard-container py-20">
-      <h1 className="text-heading-2 mb-6">Seguridad Perimetral</h1>
-      <p className="text-body-lg">Aquí irá el detalle del servicio de seguridad perimetral.</p>
-    </div>
-  );
+  // Utiliza el componente dinámico con el slug correspondiente
+  return <ServicioPage params={{ slug: 'seguridad-perimetral' }} />;
 } 

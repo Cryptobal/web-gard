@@ -25,7 +25,7 @@ export const services = [
     description: "Supervisión centralizada de eventos con operadores expertos y protocolos personalizados.",
     imageId: "4a167a19-1ef9-430d-ec5e-ffbbc3c35300",
     icon: "MonitorSmartphone",
-    href: "/servicios/central-monitoreo",
+    href: "/servicios/monitoreo",
   },
   {
     name: "Seguridad Perimetral",
@@ -33,5 +33,26 @@ export const services = [
     imageId: "8534db25-0748-4339-68d9-9cc19023ec00",
     icon: "Scan",
     href: "/servicios/seguridad-perimetral",
+  },
+  {
+    name: "Auditoría de Seguridad",
+    description: "Evaluación integral de vulnerabilidades y análisis de cumplimiento para fortalecer su seguridad.",
+    imageId: "68979433-718f-45eb-0c3b-2eee856ff700",
+    icon: "ClipboardCheck",
+    href: "/servicios/auditoria-seguridad",
+  },
+  {
+    name: "Consultoría de Seguridad",
+    description: "Asesoramiento especializado para diseñar y optimizar sus estrategias de protección empresarial.",
+    imageId: "71c2c2dd-87c0-4b3a-4f25-aa58f51fa300",
+    icon: "FileText",
+    href: "/servicios/consultoria",
+  },
+  {
+    name: "Prevención de Intrusiones",
+    description: "Sistemas avanzados para detectar y neutralizar intrusiones antes de que se materialicen.",
+    imageId: "5d100f19-4396-4bc4-7df6-3c8b18cbf800",
+    icon: "ShieldAlert",
+    href: "/servicios/prevencion-intrusiones",
   },
 ]; 
