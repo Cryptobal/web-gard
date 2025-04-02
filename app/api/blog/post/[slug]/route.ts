@@ -19,7 +19,13 @@ export async function GET(
       console.error('Slug not provided in API request');
       return NextResponse.json(
         { error: 'Slug no proporcionado' },
-        { status: 400 }
+        { 
+          status: 400,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'no-store, max-age=0',
+          }
+        }
       );
     }
     
@@ -30,18 +36,38 @@ export async function GET(
       console.error(`Post not found for slug: ${slug}`);
       return NextResponse.json(
         { error: 'Post no encontrado' },
-        { status: 404 }
+        { 
+          status: 404,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'no-store, max-age=0',
+          }
+        }
       );
     }
     
     // Devolver el post como respuesta JSON
     console.log(`Successfully retrieved post for slug: ${slug}`);
-    return NextResponse.json({ post });
+    return NextResponse.json(
+      { post },
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'no-store, max-age=0',
+        }
+      }
+    );
   } catch (error) {
     console.error('Error en la API de post individual:', error);
     return NextResponse.json(
       { error: 'Error al obtener el post' },
-      { status: 500 }
+      { 
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'no-store, max-age=0',
+        }
+      }
     );
   }
 } 

@@ -7,6 +7,7 @@ import CloudflareImage from '@/components/CloudflareImage';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import BlogLayout from '@/app/components/blog/BlogLayout';
+import * as Sentry from "@sentry/nextjs";
 
 // Definición de la interfaz BlogPost sin importarla del servidor
 interface BlogPost {
@@ -46,6 +47,8 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache'
           },
+          // Asegurar que no se use caché para evitar problemas
+          cache: 'no-store',
         });
         
         console.log('Response status:', response.status);
@@ -53,7 +56,8 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
         if (!response.ok) {
           if (response.status === 404) {
             console.error('Post not found, redirecting to not-found page');
-            router.push('/blog/not-found/');
+            // Utilizamos shallow:false para forzar una navegación completa
+            router.push('/blog/not-found/', { scroll: true });
             return;
           }
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -69,8 +73,19 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
         }
         
         setPost(data.post);
+        
+        // Registrar en Sentry que el post se cargó correctamente
+        Sentry.addBreadcrumb({
+          category: 'blog',
+          message: `Post cargado: ${cleanSlug}`,
+          level: 'info'
+        });
       } catch (error) {
         console.error('Error fetching post:', error);
+        
+        // Capturar el error en Sentry
+        Sentry.captureException(error);
+        
         setError('No se pudo cargar el artículo. Por favor, inténtalo de nuevo más tarde.');
       } finally {
         setLoading(false);
@@ -80,10 +95,15 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
     if (mounted) {
       fetchPost();
     }
+    
+    // Limpiar al desmontar
+    return () => {
+      // Cancelar cualquier solicitud pendiente si es necesario
+    };
   }, [slug, router, mounted]);
 
   const handleBackToBlog = () => {
-    router.push('/blog/');
+    router.push('/blog/', { scroll: true });
   };
 
   // No renderizar nada hasta que el componente esté montado
