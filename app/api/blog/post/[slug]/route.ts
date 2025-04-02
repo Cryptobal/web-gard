@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getPostBySlug } from '@/lib/blog';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: { slug: string } }
 ) {
   try {

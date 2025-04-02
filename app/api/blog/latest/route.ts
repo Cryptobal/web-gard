@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getAllPosts } from '@/lib/blog';
 
-export async function GET(request: Request) {
+// Función para obtener los posts más recientes
+// Modificada para trabajar con generación estática
+export async function GET() {
   try {
-    // Obtener la URL y extraer el parámetro limit
-    const url = new URL(request.url);
-    const limit = parseInt(url.searchParams.get('limit') || '3', 10);
+    // Establecer un límite fijo para evitar usar URL params dinámicos
+    // que provocan problemas con la generación estática
+    const limit = 3;
     
     // Obtener los posts y limitar el resultado
     const allPosts = await getAllPosts();
