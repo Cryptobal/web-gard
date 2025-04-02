@@ -33,18 +33,37 @@ export default function BlogPost({ slug }: { slug: string }) {
     async function fetchPost() {
       try {
         // Usar fetch para obtener el post desde la API
-        const response = await fetch(`/api/blog/post/${slug}`);
+        const apiUrl = `/api/blog/post/${slug}`;
+        console.log('Fetching post from:', apiUrl);
         
-        if (response.status === 404) {
-          router.push('/blog/not-found');
-          return;
-        }
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache'
+          },
+        });
+        
+        console.log('Response status:', response.status);
         
         if (!response.ok) {
+          if (response.status === 404) {
+            console.error('Post not found, redirecting to not-found page');
+            router.push('/blog/not-found');
+            return;
+          }
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
         
         const data = await response.json();
+        console.log('Post data received:', data);
+        
+        if (!data.post) {
+          console.error('No post data in response');
+          setError('Datos del post no disponibles');
+          return;
+        }
+        
         setPost(data.post);
       } catch (error) {
         console.error('Error fetching post:', error);
@@ -54,7 +73,9 @@ export default function BlogPost({ slug }: { slug: string }) {
       }
     }
 
-    fetchPost();
+    if (slug) {
+      fetchPost();
+    }
   }, [slug, router]);
 
   const handleBackToBlog = () => {

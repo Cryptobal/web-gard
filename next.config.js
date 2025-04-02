@@ -11,7 +11,7 @@ const nextConfig = {
       },
     ],
   },
-  trailingSlash: true,
+  trailingSlash: false,
   
   // Redirecciones para evitar errores 404 y contenido duplicado
   async redirects() {

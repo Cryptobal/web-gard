@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/blog';
 import BlogPost from '@/app/components/blog/BlogPost';
 import { CLOUDFLARE_ACCOUNT_HASH } from '@/lib/images';
+import { notFound } from 'next/navigation';
 
 // Generar rutas estáticas para todos los posts
 export async function generateStaticParams() {
@@ -55,5 +56,12 @@ export default function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
+  // Verificar que tengamos un slug válido
+  if (!params.slug) {
+    return notFound();
+  }
+  
+  console.log('Rendering BlogPostPage with slug:', params.slug);
+  
   return <BlogPost slug={params.slug} />;
 } 
