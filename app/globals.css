@@ -251,7 +251,7 @@
 
   /* Hero Completo */
   .gard-hero {
-    @apply relative overflow-hidden;
+    @apply relative overflow-hidden pt-16 md:pt-20;
   }
 
   .gard-hero-content {
@@ -260,6 +260,18 @@
 
   .gard-hero-overlay {
     @apply absolute inset-0 bg-black/40 z-0;
+  }
+}
+
+/* Ajustes para secciones hero y primera sección de cada página */
+/* Esta regla evita que las secciones hero se superpongan con el header fijo en dispositivos móviles */
+main > section:first-child:not(.gard-hero) {
+  padding-top: 4rem; /* 64px, espacio para el header en móviles */
+}
+
+@media (min-width: 768px) {
+  main > section:first-child:not(.gard-hero) {
+    padding-top: 5rem; /* 80px, espacio para el header en desktop */
   }
 }
 
