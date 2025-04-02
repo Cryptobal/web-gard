@@ -11,11 +11,8 @@ import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 
 const navLinks = [
-  { href: '/', label: 'Inicio' },
   { href: '/servicios', label: 'Servicios' },
   { href: '/industrias', label: 'Industrias' },
-  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
-  { href: '/blog', label: 'Blog' },
   { href: '/tecnologia-seguridad', label: 'Tecnologías' },
   { href: '/reclutamiento', label: 'Trabaja con Nosotros' },
   { href: '/cotizar', label: 'Cotizar', isCTA: true },
