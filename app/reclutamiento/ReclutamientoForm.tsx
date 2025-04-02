@@ -21,7 +21,11 @@ import {
   Phone,
   Car,
   AlertCircle,
-  Loader2
+  Loader2,
+  DollarSign,
+  Award,
+  Smile,
+  Shield
 } from 'lucide-react';
 
 import CloudflareImage from '@/components/CloudflareImage';
@@ -391,32 +395,114 @@ export default function ReclutamientoForm() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {[
-              { icon: <Briefcase />, title: "Contrato formal y estabilidad laboral", description: "Condiciones laborales claras y seguras desde el primer día" },
-              { icon: <Calendar />, title: "Pagos puntuales y correctos", description: "Cumplimos rigurosamente con nuestras obligaciones salariales" },
-              { icon: <GraduationCap />, title: "Capacitación constante", description: "Formación presencial y online para tu desarrollo profesional" },
-              { icon: <ArrowRight />, title: "Posibilidades de crecimiento", description: "Oportunidades reales de avanzar dentro de la empresa" },
-              { icon: <Users />, title: "Excelente clima laboral", description: "Ambiente de trabajo respetuoso y profesional" },
-              { icon: <BadgeCheck />, title: "Implementos de calidad", description: "Equipamiento completo para realizar tu trabajo con seguridad" }
-            ].map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-start p-6 bg-gray-50 dark:bg-gray-800 rounded-xl"
-              >
-                <div className="mr-4 mt-1 text-primary dark:text-primary">
-                  {benefit.icon}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Briefcase className="h-8 w-8 text-[#F97316]" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
-                  <p className="text-muted-foreground">{benefit.description}</p>
+                <h3 className="text-white text-xl font-semibold mb-4">Contrato formal</h3>
+                <p className="text-muted-foreground">
+                  Condiciones laborales claras y seguras desde el primer día.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <DollarSign className="h-8 w-8 text-[#F97316]" />
                 </div>
-              </motion.div>
-            ))}
+                <h3 className="text-white text-xl font-semibold mb-4">Pagos puntuales</h3>
+                <p className="text-muted-foreground">
+                  Cumplimos rigurosamente con nuestras obligaciones salariales.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <GraduationCap className="h-8 w-8 text-[#F97316]" />
+                </div>
+                <h3 className="text-white text-xl font-semibold mb-4">Capacitación constante</h3>
+                <p className="text-muted-foreground">
+                  Formación presencial y online para tu desarrollo profesional.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Award className="h-8 w-8 text-[#F97316]" />
+                </div>
+                <h3 className="text-white text-xl font-semibold mb-4">Crecimiento profesional</h3>
+                <p className="text-muted-foreground">
+                  Oportunidades reales de avanzar dentro de la empresa.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Smile className="h-8 w-8 text-[#F97316]" />
+                </div>
+                <h3 className="text-white text-xl font-semibold mb-4">Excelente clima laboral</h3>
+                <p className="text-muted-foreground">
+                  Ambiente de trabajo respetuoso y profesional.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Shield className="h-8 w-8 text-[#F97316]" />
+                </div>
+                <h3 className="text-white text-xl font-semibold mb-4">Implementos de calidad</h3>
+                <p className="text-muted-foreground">
+                  Equipamiento completo para realizar tu trabajo con seguridad.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
