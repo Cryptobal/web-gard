@@ -63,6 +63,25 @@ async function generateSitemap() {
       priority: 0.7,
     };
   });
+
+  // Combinaciones prioritarias de servicio-industria
+  const servicioIndustriaPrioritarias = [
+    {servicio: 'guardias-de-seguridad', industria: 'retail'},
+    {servicio: 'guardias-de-seguridad', industria: 'mineria'},
+    {servicio: 'drones-seguridad', industria: 'mineria'},
+    {servicio: 'seguridad-electronica', industria: 'retail'},
+    {servicio: 'central-monitoreo', industria: 'edificios-corporativos'},
+    {servicio: 'auditoria-seguridad', industria: 'instituciones-publicas'},
+    {servicio: 'consultoria', industria: 'edificios-corporativos'},
+    {servicio: 'prevencion-intrusiones', industria: 'parques-industriales'}
+  ];
+
+  const combinacionesPages = servicioIndustriaPrioritarias.map(({ servicio, industria }) => ({
+    url: `${baseUrl}/servicios/${servicio}/${industria}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }));
   
   // Páginas de blog dinámicas (posts individuales)
   const blogPosts = await getAllPosts();
@@ -111,7 +130,8 @@ async function generateSitemap() {
   return [
     ...staticPages, 
     ...servicePages, 
-    ...industryPages, 
+    ...industryPages,
+    ...combinacionesPages, 
     ...blogPostPages, 
     ...blogPaginationPages,
     ...blogTagPages,

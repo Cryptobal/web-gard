@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, CheckCircle, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, CheckCircle, ArrowUpRight, ShieldCheck, Shield, Eye, Plane, ClipboardCheck, FileText } from 'lucide-react';
 import { useEffect } from 'react';
 
 import { servicios, type Servicio } from '@/app/data/servicios';
@@ -227,9 +227,39 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
   // Obtener beneficios y descripción larga para este servicio
   const beneficios = beneficiosPorServicio[servicio.slug] || [];
   const descripcionLarga = descripcionesLargas[servicio.slug] || servicio.description;
+
+  // Crear el JSON-LD para Schema.org
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    'name': servicio.name,
+    'description': descripcionLarga,
+    'provider': {
+      '@type': 'Organization',
+      'name': 'Gard Security',
+      'url': 'https://www.gard.cl',
+      'logo': 'https://www.gard.cl/images/logo.png'
+    },
+    'serviceType': servicio.name,
+    'offers': {
+      '@type': 'Offer',
+      'availability': 'https://schema.org/InStock',
+      'url': `https://www.gard.cl/servicios/${servicio.slug}`,
+      'areaServed': {
+        '@type': 'Country',
+        'name': 'Chile'
+      }
+    }
+  };
   
   return (
     <>
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Hero Section */}
       <section className="relative w-full h-[45vh] md:h-[60vh]">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
@@ -350,6 +380,48 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           </p>
           
           <IndustriasGridPage servicioSlug={params.slug} />
+        </div>
+      </section>
+
+      {/* Servicios relacionados */}
+      <section className="gard-section py-16 md:py-24 bg-white dark:bg-gray-900">
+        <div className="gard-container max-w-7xl mx-auto px-4">
+          <h2 className="text-heading-2 mb-6 text-center">Servicios relacionados</h2>
+          <p className="text-body-lg text-muted-foreground mb-12 max-w-3xl mx-auto text-center">
+            Descubre otros servicios complementarios para una solución de seguridad integral
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {servicios
+              .filter(s => s.slug !== servicio.slug)
+              .slice(0, 3)
+              .map((servicioRelacionado, index) => (
+                <Link 
+                  key={index}
+                  href={`/servicios/${servicioRelacionado.slug}`}
+                  className="bg-card dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full"
+                >
+                  <div className="flex items-center mb-4">
+                    {servicioRelacionado.icon === "ShieldCheck" && <ShieldCheck className="h-8 w-8 text-primary dark:text-accent mr-3" />}
+                    {servicioRelacionado.icon === "Shield" && <ShieldCheck className="h-8 w-8 text-primary dark:text-accent mr-3" />}
+                    {servicioRelacionado.icon === "Eye" && <Stethoscope className="h-8 w-8 text-primary dark:text-accent mr-3" />}
+                    {servicioRelacionado.icon === "Plane" && <Plane className="h-8 w-8 text-primary dark:text-accent mr-3" />}
+                    {servicioRelacionado.icon === "ShieldAlert" && <ShieldCheck className="h-8 w-8 text-primary dark:text-accent mr-3" />}
+                    {servicioRelacionado.icon === "ClipboardCheck" && <ClipboardCheck className="h-8 w-8 text-primary dark:text-accent mr-3" />}
+                    {servicioRelacionado.icon === "FileText" && <FileText className="h-8 w-8 text-primary dark:text-accent mr-3" />}
+                    <h3 className="text-xl font-semibold">{servicioRelacionado.name}</h3>
+                  </div>
+                  <p className="text-body-base text-muted-foreground mb-4 flex-grow">
+                    {servicioRelacionado.description}
+                  </p>
+                  <div className="flex justify-end mt-auto">
+                    <span className="inline-flex items-center text-primary dark:text-accent font-medium">
+                      Ver servicio <ArrowRight className="ml-1 h-4 w-4" />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+          </div>
         </div>
       </section>
 
