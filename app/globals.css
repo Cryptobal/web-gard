@@ -261,4 +261,108 @@
   .gard-hero-overlay {
     @apply absolute inset-0 bg-black/40 z-0;
   }
+}
+
+/* Estilos para el contenido de blog con Elementor */
+.blog-content {
+  width: 100%;
+}
+
+.blog-content .elementor {
+  margin: 0 auto;
+}
+
+.blog-content .elementor-section,
+.blog-content .e-con {
+  margin-bottom: 1.5rem;
+}
+
+.blog-content .elementor-widget-container {
+  width: 100%;
+}
+
+.blog-content h1, 
+.blog-content h2, 
+.blog-content h3, 
+.blog-content h4, 
+.blog-content h5, 
+.blog-content h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--tw-prose-headings);
+}
+
+.blog-content h1 {
+  font-size: 2.5rem;
+}
+
+.blog-content h2 {
+  font-size: 2rem;
+}
+
+.blog-content h3 {
+  font-size: 1.75rem;
+}
+
+.blog-content p {
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+}
+
+.blog-content a {
+  color: var(--tw-prose-links);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.blog-content ul, 
+.blog-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content img {
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  max-width: 100%;
+  height: auto;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid var(--tw-prose-quote-borders);
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.dark .blog-content {
+  color: var(--tw-prose-invert-body);
+}
+
+.dark .blog-content h1,
+.dark .blog-content h2,
+.dark .blog-content h3,
+.dark .blog-content h4,
+.dark .blog-content h5,
+.dark .blog-content h6 {
+  color: var(--tw-prose-invert-headings);
+}
+
+.dark .blog-content a {
+  color: var(--tw-prose-invert-links);
+}
+
+.dark .blog-content blockquote {
+  border-color: var(--tw-prose-invert-quote-borders);
+}
+
+/* Clases específicas de Elementor */
+.blog-content .e-con-inner {
+  width: 100%;
 } 

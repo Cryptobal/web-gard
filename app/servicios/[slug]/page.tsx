@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle } from 'lucide-react';
+import { useEffect } from 'react';
 
 import { servicios, type Servicio } from '@/app/data/servicios';
 import { industries } from '@/app/data/industries';
@@ -140,9 +141,14 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           <p className="text-white text-lg md:text-xl opacity-90 max-w-3xl mb-8">
             {servicio.description}
           </p>
-          <Link href="/cotizar" className="gard-btn gard-btn-primary gard-btn-lg inline-flex items-center">
+          <LinkParamsAware 
+            href="/cotizar" 
+            className="gard-btn gard-btn-primary gard-btn-lg inline-flex items-center"
+            serviceName={servicio.name}
+            serviceSlug={servicio.slug}
+          >
             Cotizar este servicio <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
+          </LinkParamsAware>
         </div>
         <CloudflareImage
           imageId={servicio.heroImageId}
@@ -200,9 +206,14 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
               </ul>
               
               <div className="mt-6">
-                <Link href="/cotizar" className="gard-btn gard-btn-primary w-full justify-center">
+                <LinkParamsAware 
+                  href="/cotizar" 
+                  className="gard-btn gard-btn-primary w-full justify-center"
+                  serviceName={servicio.name}
+                  serviceSlug={servicio.slug}
+                >
                   Solicitar cotización
-                </Link>
+                </LinkParamsAware>
               </div>
             </div>
           </div>
@@ -252,5 +263,49 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
         variant="soft"
       />
     </>
+  );
+}
+
+// Componente Link que almacena parámetros en sessionStorage
+'use client';
+
+interface LinkParamsAwareProps {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  serviceName: string;
+  serviceSlug: string;
+}
+
+function LinkParamsAware({ href, children, className, serviceName, serviceSlug }: LinkParamsAwareProps) {
+  const handleClick = () => {
+    if (typeof window !== 'undefined') {
+      // Guardar en sessionStorage los parámetros del servicio
+      sessionStorage.setItem('user_service', serviceName);
+      sessionStorage.setItem('user_service_slug', serviceSlug);
+      
+      // Obtener parámetros de la URL (por si venía con parámetros industry, etc.)
+      const searchParams = new URLSearchParams(window.location.search);
+      const industry = searchParams.get('industry');
+      
+      if (industry) {
+        sessionStorage.setItem('user_industry', industry);
+      }
+      
+      // Registro en dataLayer
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'click_cta_primary',
+        cta_text: 'Cotizar servicio',
+        service_selected: serviceName,
+        industry_context: industry || 'no_specified'
+      });
+    }
+  };
+
+  return (
+    <Link href={href} className={className} onClick={handleClick}>
+      {children}
+    </Link>
   );
 } 

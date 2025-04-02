@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import CloudflareImage from '@/components/CloudflareImage';
-import { ArrowRight, CheckCircle, Clock, Zap, Shield, Users } from 'lucide-react';
+import { ArrowRight, CheckCircle, Clock, Zap, Shield, Users, Cpu, MonitorSmartphone, HeartHandshake, BookOpen, Bell, Clock4 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
@@ -213,76 +213,78 @@ export default function Page() {
         <div className="max-w-content-xl">
           <h2 className="text-heading-2 mb-10">Lo que nos diferencia</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-card dark:bg-gray-800 border-none shadow-sm hover:shadow transition-all duration-300">
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-heading-4 mb-4">Conocemos el terreno</h3>
-                  <p className="text-body-base text-muted-foreground">
-                    Fuimos operadores antes que empresarios, entendemos los desafíos reales de la seguridad.
-                  </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <BookOpen className="h-8 w-8 text-[#F97316]" />
                 </div>
-              </CardContent>
-            </Card>
+                <h3 className="text-white text-xl font-semibold mb-4">Conocemos el terreno</h3>
+                <p className="text-muted-foreground">
+                  Fuimos operadores antes que empresarios, entendemos los desafíos reales de la seguridad.
+                </p>
+              </div>
+            </div>
             
-            <Card className="bg-card dark:bg-gray-800 border-none shadow-sm hover:shadow transition-all duration-300">
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-heading-4 mb-4">Entendemos urgencias</h3>
-                  <p className="text-body-base text-muted-foreground">
-                    Entendemos las urgencias del cliente, porque las vivimos en primera persona.
-                  </p>
+            <div className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Bell className="h-8 w-8 text-[#F97316]" />
                 </div>
-              </CardContent>
-            </Card>
+                <h3 className="text-white text-xl font-semibold mb-4">Entendemos urgencias</h3>
+                <p className="text-muted-foreground">
+                  Entendemos las urgencias del cliente, porque las vivimos en primera persona.
+                </p>
+              </div>
+            </div>
             
-            <Card className="bg-card dark:bg-gray-800 border-none shadow-sm hover:shadow transition-all duration-300">
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-heading-4 mb-4">Integramos tecnología</h3>
-                  <p className="text-body-base text-muted-foreground">
-                    Integramos tecnología en cada proceso operativo y administrativo para mayor eficiencia.
-                  </p>
+            <div className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Cpu className="h-8 w-8 text-[#F97316]" />
                 </div>
-              </CardContent>
-            </Card>
+                <h3 className="text-white text-xl font-semibold mb-4">Integramos tecnología</h3>
+                <p className="text-muted-foreground">
+                  Integramos tecnología en cada proceso operativo y administrativo para mayor eficiencia.
+                </p>
+              </div>
+            </div>
             
-            <Card className="bg-card dark:bg-gray-800 border-none shadow-sm hover:shadow transition-all duration-300">
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-heading-4 mb-4">Formamos guardias</h3>
-                  <p className="text-body-base text-muted-foreground">
-                    Formamos a nuestros guardias con foco en prevención, comunicación y reacción efectiva.
-                  </p>
+            <div className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Users className="h-8 w-8 text-[#F97316]" />
                 </div>
-              </CardContent>
-            </Card>
+                <h3 className="text-white text-xl font-semibold mb-4">Formamos guardias</h3>
+                <p className="text-muted-foreground">
+                  Formamos a nuestros guardias con foco en prevención, comunicación y reacción efectiva.
+                </p>
+              </div>
+            </div>
             
-            <Card className="bg-card dark:bg-gray-800 border-none shadow-sm hover:shadow transition-all duration-300">
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-heading-4 mb-4">Monitoreo 24/7</h3>
-                  <p className="text-body-base text-muted-foreground">
-                    Nuestro centro de control monitorea, responde y audita las 24 horas del día, los 7 días de la semana.
-                  </p>
+            <div className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <Clock4 className="h-8 w-8 text-[#F97316]" />
                 </div>
-              </CardContent>
-            </Card>
+                <h3 className="text-white text-xl font-semibold mb-4">Monitoreo 24/7</h3>
+                <p className="text-muted-foreground">
+                  Nuestro centro de control monitorea, responde y audita las 24 horas del día, los 7 días de la semana.
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-[#1E293B] rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-14 h-14 bg-[#1E293B] rounded-full flex items-center justify-center mb-6">
+                  <HeartHandshake className="h-8 w-8 text-[#F97316]" />
+                </div>
+                <h3 className="text-white text-xl font-semibold mb-4">Atención personalizada</h3>
+                <p className="text-muted-foreground">
+                  Brindamos atención dedicada a cada cliente, adaptando nuestros servicios a sus necesidades específicas.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -77,6 +77,38 @@ export default function CotizacionForm() {
     autocompleteInputRef.current = element;
   };
 
+  // Efecto para recuperar datos desde sessionStorage
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    // Obtener valores guardados en navegación previa
+    const savedIndustry = sessionStorage.getItem('user_industry') || '';
+    const savedService = sessionStorage.getItem('user_service') || '';
+    
+    // Rellenar formulario con datos guardados si existen
+    if (savedIndustry) {
+      setValue('tipoIndustria', savedIndustry);
+      console.log('✅ Industria cargada desde sessionStorage:', savedIndustry);
+    }
+    
+    // Personalizar el texto de cotización con el servicio si existe
+    if (savedService) {
+      const cotizacionInicial = `Estoy interesado en contratar servicios de ${savedService}`;
+      setValue('cotizacion', cotizacionInicial);
+      console.log('✅ Servicio cargado desde sessionStorage:', savedService);
+    }
+    
+    // También obtener UTMs para registrarlos en la conversión después
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source');
+    const utmMedium = urlParams.get('utm_medium');
+    const utmCampaign = urlParams.get('utm_campaign');
+    
+    if (utmSource || utmMedium || utmCampaign) {
+      console.log('✅ UTMs detectados en URL:', { utmSource, utmMedium, utmCampaign });
+    }
+  }, [setValue]);
+
   useEffect(() => {
     // Carga de la API de Google Maps
     const loader = new Loader({
@@ -142,10 +174,15 @@ export default function CotizacionForm() {
       if (typeof window !== 'undefined') {
         window.dataLayer = window.dataLayer || [];
         
+        // Obtener datos adicionales de sessionStorage
+        const serviceRequested = sessionStorage.getItem('user_service') || data.tipoIndustria;
+        const industryContext = sessionStorage.getItem('user_industry') || data.tipoIndustria;
+        
         // Crear el objeto de evento manualmente para asegurar que se envía correctamente
         const eventData = {
           event: 'submit_form_quotation',
-          service_requested: data.tipoIndustria,
+          service_requested: serviceRequested,
+          industry: industryContext,
           form_fields_filled: Object.keys(data).length,
           utm_source: new URLSearchParams(window.location.search).get('utm_source'),
           utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
@@ -167,7 +204,8 @@ export default function CotizacionForm() {
       pushEvent({
         name: 'submit_form_quotation',
         params: {
-          service_requested: data.tipoIndustria,
+          service_requested: sessionStorage.getItem('user_service') || data.tipoIndustria,
+          industry: sessionStorage.getItem('user_industry') || data.tipoIndustria,
           form_fields_filled: Object.keys(data).length
         }
       });
@@ -186,6 +224,11 @@ export default function CotizacionForm() {
       if (response.ok) {
         setFormStatus('success');
         form.reset();
+        // Limpiar sessionStorage después de enviar el formulario
+        sessionStorage.removeItem('user_service');
+        sessionStorage.removeItem('user_industry');
+        sessionStorage.removeItem('user_service_slug');
+        sessionStorage.removeItem('user_industry_slug');
       } else {
         setFormStatus('error');
       }

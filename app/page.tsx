@@ -133,33 +133,41 @@ export default function Home() {
       </section>
 
       {/* Estadísticas */}
-      <section className="gard-section bg-primary text-primary-foreground">
-        <div className="gard-container text-center">
-          <h2 className="text-heading-2 mb-12">Nuestro impacto en números</h2>
+      <section className="gard-section bg-gradient-to-r from-[#1A2A90] to-[#2535C0] text-white relative overflow-hidden">
+        {/* Patrón de fondo sutil */}
+        <div className="absolute inset-0 opacity-5" 
+             style={{
+               backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E\")",
+               backgroundRepeat: "repeat"
+             }}>
+        </div>
+        
+        <div className="gard-container text-center relative z-10">
+          <h2 className="text-heading-2 mb-12 text-white">Nuestro impacto en números</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6">
-              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <p className="text-body-base">Clientes satisfechos</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="p-6 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10 shadow-md transform hover:scale-105 transition duration-300">
+              <BarChart4 className="h-14 w-14 mx-auto mb-4 text-white" />
+              <div className="text-5xl font-bold mb-3 text-white">50+</div>
+              <p className="text-body-base text-gray-100">Clientes satisfechos</p>
             </div>
             
-            <div className="p-6">
-              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
-              <div className="text-4xl font-bold mb-2">15+</div>
-              <p className="text-body-base">Años de experiencia</p>
+            <div className="p-6 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10 shadow-md transform hover:scale-105 transition duration-300">
+              <BarChart4 className="h-14 w-14 mx-auto mb-4 text-white" />
+              <div className="text-5xl font-bold mb-3 text-white">8+</div>
+              <p className="text-body-base text-gray-100">Años de experiencia</p>
             </div>
             
-            <div className="p-6">
-              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
-              <div className="text-4xl font-bold mb-2">99.9%</div>
-              <p className="text-body-base">Tiempo de actividad</p>
+            <div className="p-6 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10 shadow-md transform hover:scale-105 transition duration-300">
+              <BarChart4 className="h-14 w-14 mx-auto mb-4 text-white" />
+              <div className="text-5xl font-bold mb-3 text-white">99.9%</div>
+              <p className="text-body-base text-gray-100">Actividad operativa</p>
             </div>
             
-            <div className="p-6">
-              <BarChart4 className="h-12 w-12 mx-auto mb-4" />
-              <div className="text-4xl font-bold mb-2">24/7</div>
-              <p className="text-body-base">Soporte técnico</p>
+            <div className="p-6 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10 shadow-md transform hover:scale-105 transition duration-300">
+              <BarChart4 className="h-14 w-14 mx-auto mb-4 text-white" />
+              <div className="text-5xl font-bold mb-3 text-white">24/7</div>
+              <p className="text-body-base text-gray-100">Central operativa</p>
             </div>
           </div>
         </div>

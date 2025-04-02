@@ -9,5 +9,6 @@ export const clients = [
   { name: "GL Events", imageId: "62c92cfb-7c18-4699-2433-552682479a00" },
   { name: "eCars", imageId: "d5c3a497-e5de-416c-de6b-95ade83f9900" },
   { name: "Delegación Chañaral", imageId: "72310c38-9a82-4923-bd28-800ba8d9ef00" },
-  { name: "Bbosch", imageId: "0b1d6037-3672-4cd9-1c72-6ba511bc5100" }
+  { name: "Bbosch", imageId: "0b1d6037-3672-4cd9-1c72-6ba511bc5100" },
+  { name: "Embajada de Brasil en Chile", imageId: "cf2de6d2-1d49-4db8-2d01-4b67f78f0d00" }
 ]; 

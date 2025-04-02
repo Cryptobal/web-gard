@@ -68,7 +68,7 @@ export default function OurServices({
 
   return (
     <section className="gard-section py-16 md:py-24 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 xl:px-16">
         <div className="text-center mb-12">
           <h2 className="text-heading-2 mb-4">{title}</h2>
           <p className="text-body-lg text-muted-foreground max-w-3xl mx-auto">
@@ -76,7 +76,7 @@ export default function OurServices({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="flex justify-center gap-4 overflow-x-auto">
           {serviciosFiltrados.map((service, index) => {
             // Determinar la ruta del enlace según si hay una industria especificada
             const href = industria 
@@ -87,7 +87,7 @@ export default function OurServices({
               <Link 
                 key={index} 
                 href={href}
-                className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all flex flex-col h-full"
+                className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col w-1/5 min-w-[200px]"
               >
                 <div className="relative aspect-[3/2] w-full mb-4">
                   <CloudflareImage
@@ -102,9 +102,9 @@ export default function OurServices({
                   {renderIcon(service.icon)}
                 </div>
                 
-                <h3 className="text-heading-4 mb-2 text-center">{service.name}</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-2 text-center">{service.name}</h3>
                 
-                <p className="text-body-base text-muted-foreground mb-4 text-center flex-grow">
+                <p className="text-sm text-muted-foreground mb-4 text-center flex-grow">
                   {service.description}
                 </p>
                 
