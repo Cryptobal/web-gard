@@ -3,7 +3,7 @@ import { getAllPosts, POSTS_PER_PAGE, getAllTags, getPostsByTag } from '@/lib/bl
 
 // Función para generar las URLs del sitemap
 async function generateSitemap() {
-  const baseUrl = 'https://gard.cl';
+  const baseUrl = 'https://www.gard.cl';
   
   // Páginas estáticas
   const staticPages = [
@@ -13,8 +13,11 @@ async function generateSitemap() {
     '/sobre-nosotros',
     '/tecnologia-seguridad',
     '/contacto',
+    '/cotizar',
     '/privacidad',
     '/terminos',
+    '/politica-ambiental',
+    '/reclutamiento',
     '/blog',
   ].map((route) => ({
     url: `${baseUrl}${route}`,

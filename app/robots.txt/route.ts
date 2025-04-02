@@ -3,8 +3,14 @@ export function GET() {
 User-agent: *
 Allow: /
 
+# Archivos específicos a no indexar
+Disallow: /*.json$
+Disallow: /*_buildManifest.js$
+Disallow: /*_ssgManifest.js$
+Disallow: /*.js.map$
+
 # Sitemap
-Sitemap: https://gard.cl/sitemap.xml
+Sitemap: https://www.gard.cl/sitemap.xml
 `;
 
   return new Response(content, {

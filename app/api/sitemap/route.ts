@@ -4,7 +4,7 @@ import { getAllPosts, POSTS_PER_PAGE, getAllTags, getPostsByTag } from '@/lib/bl
 
 // Generar las rutas del sitemap
 async function generateSitemap() {
-  const baseUrl = 'https://gard.cl';
+  const baseUrl = 'https://www.gard.cl';
   
   // Páginas estáticas
   const staticPages = [
@@ -14,8 +14,11 @@ async function generateSitemap() {
     '/sobre-nosotros',
     '/tecnologia-seguridad',
     '/contacto',
+    '/cotizar',
     '/privacidad',
     '/terminos',
+    '/politica-ambiental',
+    '/reclutamiento',
     '/blog',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
@@ -26,11 +29,14 @@ async function generateSitemap() {
 
   // Páginas de servicios
   const servicePages = [
-    '/servicios/seguridad-perimetral',
+    '/servicios/guardias-de-seguridad',
+    '/servicios/drones-seguridad',
+    '/servicios/seguridad-electronica',
     '/servicios/monitoreo',
-    '/servicios/prevencion-intrusiones',
+    '/servicios/seguridad-perimetral',
     '/servicios/auditoria-seguridad',
     '/servicios/consultoria',
+    '/servicios/prevencion-intrusiones'
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
