@@ -33,3 +33,6 @@ yarn-error.log*
 next-env.d.ts 
 node_modules
 /web-gard/
+
+# Sentry Config File
+.env.sentry-build-plugin
