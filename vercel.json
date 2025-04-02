@@ -1,8 +1,5 @@
 {
   "framework": "nextjs",
   "cleanUrls": true,
-  "trailingSlash": true,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
+  "trailingSlash": false
 } 
