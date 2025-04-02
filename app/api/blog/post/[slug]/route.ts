@@ -6,7 +6,10 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   try {
-    const { slug } = params;
+    let { slug } = params;
+    
+    // Limpiar el slug eliminando cualquier slash final para evitar conflictos
+    slug = slug.replace(/\/$/, '');
     
     console.log('API request for post with slug:', slug);
     

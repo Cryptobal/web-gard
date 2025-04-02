@@ -33,7 +33,8 @@ export default function BlogPost({ slug }: { slug: string }) {
     async function fetchPost() {
       try {
         // Usar fetch para obtener el post desde la API
-        const apiUrl = `/api/blog/post/${slug}`;
+        // Asegurarse de que la URL API no termine con slash para evitar redirecciones
+        const apiUrl = `/api/blog/post/${slug}`.replace(/\/$/, '');
         console.log('Fetching post from:', apiUrl);
         
         const response = await fetch(apiUrl, {
@@ -49,7 +50,7 @@ export default function BlogPost({ slug }: { slug: string }) {
         if (!response.ok) {
           if (response.status === 404) {
             console.error('Post not found, redirecting to not-found page');
-            router.push('/blog/not-found');
+            router.push('/blog/not-found/');
             return;
           }
           throw new Error(`Error ${response.status}: ${response.statusText}`);

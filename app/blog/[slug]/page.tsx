@@ -16,7 +16,8 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const { slug } = params;
+  // Limpiar el slug para asegurar compatibilidad
+  const slug = params.slug.replace(/\/$/, '');
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -61,7 +62,9 @@ export default function BlogPostPage({
     return notFound();
   }
   
-  console.log('Rendering BlogPostPage with slug:', params.slug);
+  // Limpiar el slug para asegurar compatibilidad
+  const slug = params.slug.replace(/\/$/, '');
+  console.log('Rendering BlogPostPage with slug:', slug);
   
-  return <BlogPost slug={params.slug} />;
+  return <BlogPost slug={slug} />;
 } 
