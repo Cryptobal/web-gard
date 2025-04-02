@@ -153,7 +153,7 @@ export default function LatestPosts({
       {showViewAll && compact && (
         <div className="text-center mt-6">
           <Link 
-            href="/blog"
+            href="/blog/"
             className="inline-flex items-center text-primary dark:text-primary hover:underline font-medium transition-colors"
           >
             <span>Ver todos los artículos</span>

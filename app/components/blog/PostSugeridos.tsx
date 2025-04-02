@@ -84,7 +84,7 @@ export default function PostSugeridos({ currentSlug, currentTags = [] }: PostSug
             key={post.slug} 
             className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-transform hover:scale-[1.02] h-full"
           >
-            <Link href={`/blog/${post.slug}`} className="block h-full flex flex-col">
+            <Link href={`/blog/${post.slug}/`} className="block h-full flex flex-col">
               {/* Imagen */}
               <div className="aspect-video relative overflow-hidden">
                 {post.imageId ? (

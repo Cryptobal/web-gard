@@ -92,7 +92,7 @@ export default function BlogLayout({ children, showSidebar = false }: BlogLayout
                         {latestPosts.map(post => (
                           <li key={post.slug} className="mb-3">
                             <Link 
-                              href={`/blog/${post.slug}`} 
+                              href={`/blog/${post.slug}/`} 
                               className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary hover:underline font-medium block"
                             >
                               {post.title}
@@ -126,7 +126,7 @@ export default function BlogLayout({ children, showSidebar = false }: BlogLayout
                         {topTags.slice(0, 12).map(tag => (
                           <Link
                             key={tag}
-                            href={`/blog/tag/${encodeURIComponent(tag)}`}
+                            href={`/blog/tag/${encodeURIComponent(tag)}/`}
                             className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-sm px-3 py-1 rounded-full text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
                           >
                             {tag}
