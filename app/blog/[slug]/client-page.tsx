@@ -251,16 +251,16 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
               Blog
             </a>
           </li>
-          {post.tags?.[0] && (
+          {post.tags && post.tags.length > 0 && (
             <>
               <li>/</li>
               <li>
                 <a 
-                  href={`/blog/tag/${encodeURIComponent(post.tags[0])}/`}
-                  onClick={(e) => handleInternalLinkClick(e, `/blog/tag/${encodeURIComponent(post.tags[0])}/`)}
+                  href={post.tags && post.tags.length > 0 ? `/blog/tag/${encodeURIComponent(post.tags[0])}/` : '/blog/'}
+                  onClick={(e) => post.tags && post.tags.length > 0 && handleInternalLinkClick(e, `/blog/tag/${encodeURIComponent(post.tags[0])}/`)}
                   className="hover:underline text-primary dark:text-accent font-medium"
                 >
-                  {post.tags[0]}
+                  {post.tags && post.tags.length > 0 ? post.tags[0] : 'Blog'}
                 </a>
               </li>
             </>
