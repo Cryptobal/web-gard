@@ -67,14 +67,14 @@ export default function ClientCarousel() {
               <button 
                 onClick={handlePrev}
                 className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-md flex items-center justify-center text-primary dark:text-accent hover:scale-105 transition-all pointer-events-auto"
-                aria-label="Anterior cliente"
+                aria-label="Anterior"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={handleNext}
                 className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-md flex items-center justify-center text-primary dark:text-accent hover:scale-105 transition-all pointer-events-auto"
-                aria-label="Siguiente cliente"
+                aria-label="Siguiente"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -91,7 +91,7 @@ export default function ClientCarousel() {
                   target={cliente.link ? "_blank" : undefined}
                   rel={cliente.link ? "noopener noreferrer" : undefined}
                   role="link"
-                  aria-label={`Cliente ${cliente.nombre} - ${cliente.industria}`}
+                  aria-label={cliente.nombre}
                   className={cn(
                     "keen-slider__slide h-full",
                     cliente.link ? "cursor-pointer" : "cursor-default"
@@ -144,7 +144,7 @@ export default function ClientCarousel() {
           
           {/* Indicadores (dots) */}
           {loaded && instanceRef.current && (
-            <div className="flex justify-center mt-6 gap-2">
+            <div className="flex justify-center mt-6 gap-4">
               {Array.from(
                 { length: Math.max(1, instanceRef.current.track.details.slides.length - slidesPerView() + 1) },
                 (_, idx) => (
@@ -152,12 +152,12 @@ export default function ClientCarousel() {
                     key={idx}
                     onClick={() => instanceRef.current?.moveToIdx(idx)}
                     className={cn(
-                      "w-2 h-2 rounded-full transition-all",
+                      "w-6 h-6 rounded-full transition-all flex items-center justify-center",
                       currentSlide === idx 
-                        ? "bg-primary dark:bg-accent w-6" 
+                        ? "bg-primary dark:bg-accent w-8" 
                         : "bg-gray-300 dark:bg-zinc-700"
                     )}
-                    aria-label={`Ir a slide ${idx + 1}`}
+                    aria-label={`Slide ${idx + 1}`}
                   />
                 )
               )}

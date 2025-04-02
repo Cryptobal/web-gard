@@ -218,7 +218,7 @@ export default function OurServices({
           <button 
             onClick={prevSlide}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md"
-            aria-label="Servicio anterior"
+            aria-label="Anterior"
           >
             <ChevronLeft className="h-6 w-6 text-primary dark:text-accent" />
           </button>
@@ -226,23 +226,23 @@ export default function OurServices({
           <button 
             onClick={nextSlide}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md"
-            aria-label="Servicio siguiente"
+            aria-label="Siguiente"
           >
             <ChevronRight className="h-6 w-6 text-primary dark:text-accent" />
           </button>
 
           {/* Indicadores de páginación */}
-          <div className="flex justify-center gap-2 mt-4">
+          <div className="flex justify-center gap-4 mt-4">
             {serviciosFiltrados.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`w-6 h-6 rounded-full transition-all duration-300 flex items-center justify-center ${
                   currentIndex === index 
-                    ? 'bg-primary dark:bg-accent w-4' 
+                    ? 'bg-primary dark:bg-accent w-8' 
                     : 'bg-gray-300 dark:bg-gray-700'
                 }`}
-                aria-label={`Ir a servicio ${index + 1}`}
+                aria-label={`${index + 1} - Ir a servicio ${index + 1}`}
               />
             ))}
           </div>

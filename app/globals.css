@@ -7,7 +7,7 @@
     --radius: 0.75rem;
 
     /* Variables de colores para modo claro */
-    --gard-primary: 215 100% 50%;
+    --gard-primary: 215 100% 45%;
     --gard-primary-foreground: 0 0% 100%;
     --gard-secondary: 215 80% 25%;
     --gard-secondary-foreground: 0 0% 100%;
@@ -28,7 +28,7 @@
 
   .dark {
     /* Variables de colores para modo oscuro */
-    --gard-primary: 215 100% 60%;
+    --gard-primary: 215 100% 55%;
     --gard-primary-foreground: 0 0% 100%;
     --gard-secondary: 215 70% 40%;
     --gard-secondary-foreground: 0 0% 100%;
@@ -177,7 +177,7 @@
   }
 
   .gard-btn-primary {
-    @apply bg-primary text-white shadow-sm hover:bg-primary/90;
+    @apply bg-primary text-white shadow-sm hover:bg-primary/90 font-bold;
   }
 
   .gard-btn-secondary {

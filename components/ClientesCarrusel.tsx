@@ -203,7 +203,7 @@ export default function ClientesCarrusel() {
                           href={cliente.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`Visitar sitio web de ${cliente.nombre}`}
+                          aria-label={`${cliente.nombre} - Visitar sitio web de ${cliente.nombre}`}
                           className="cursor-pointer group flex items-center justify-center"
                         >
                           <motion.div
@@ -255,7 +255,7 @@ export default function ClientesCarrusel() {
           
           {/* Indicadores (dots) */}
           {loaded && instanceRef.current && (
-            <div className="flex justify-center mt-8 gap-2">
+            <div className="flex justify-center mt-8 gap-4">
               {Array.from(
                 { length: Math.max(1, instanceRef.current.track.details.slides.length - slidesPerView() + 1) },
                 (_, idx) => (
@@ -263,12 +263,12 @@ export default function ClientesCarrusel() {
                     key={idx}
                     onClick={() => instanceRef.current?.moveToIdx(idx)}
                     className={cn(
-                      "w-2 h-2 rounded-full transition-all",
+                      "w-6 h-6 rounded-full transition-all flex items-center justify-center",
                       currentSlide === idx 
-                        ? "bg-blue-600 dark:bg-blue-400 w-6" 
+                        ? "bg-blue-600 dark:bg-blue-400 w-8" 
                         : "bg-gray-300 dark:bg-gray-700"
                     )}
-                    aria-label={`Ir a slide ${idx + 1}`}
+                    aria-label={`Slide ${idx + 1} - Ir a slide ${idx + 1}`}
                   />
                 )
               )}

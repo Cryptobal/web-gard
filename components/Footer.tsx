@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 gap-y-8">
           {/* Columna 1: Identidad */}
           <div className="flex flex-col space-y-6 items-center sm:items-start">
-            <Link href="/" className="inline-block" aria-label="Gard Security - Página Principal">
+            <Link href="/" className="inline-block" aria-label="Página Principal">
               <div itemProp="logo">
                 <CloudflareImage
                   imageId={cloudflareImages.logo.white}
@@ -42,7 +42,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/company/gard-security" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label="Visita nuestro LinkedIn"
+                aria-label="LinkedIn - Visita nuestro perfil de LinkedIn"
                 className="text-blue-100 hover:text-white hover:scale-110 transition-all duration-300"
                 itemProp="sameAs"
               >
@@ -52,7 +52,7 @@ export default function Footer() {
                 href="https://twitter.com/gard_cl" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label="Síguenos en X (Twitter)"
+                aria-label="X (Twitter) - Síguenos en X"
                 className="text-blue-100 hover:text-white hover:scale-110 transition-all duration-300"
                 itemProp="sameAs"
               >
@@ -62,7 +62,7 @@ export default function Footer() {
                 href="https://www.instagram.com/gardsecuritycl" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label="Síguenos en Instagram"
+                aria-label="Instagram - Síguenos en Instagram"
                 className="text-blue-100 hover:text-white hover:scale-110 transition-all duration-300"
                 itemProp="sameAs"
               >
@@ -72,7 +72,7 @@ export default function Footer() {
                 href="https://www.facebook.com/profile.php?id=61556809303758" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label="Síguenos en Facebook"
+                aria-label="Facebook - Síguenos en Facebook"
                 className="text-blue-100 hover:text-white hover:scale-110 transition-all duration-300"
                 itemProp="sameAs"
               >
@@ -82,7 +82,7 @@ export default function Footer() {
                 href="https://wa.me/56941137976" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label="Contáctanos por WhatsApp"
+                aria-label="WhatsApp - Contáctanos por WhatsApp"
                 className="text-blue-100 hover:text-white hover:scale-110 transition-all duration-300"
               >
                 <MessageSquare className="w-6 h-6" />
@@ -98,7 +98,7 @@ export default function Footer() {
                 <Link 
                   href="/" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Ir a la página de inicio"
+                  aria-label="Inicio"
                 >
                   Inicio
                 </Link>
@@ -107,7 +107,7 @@ export default function Footer() {
                 <Link 
                   href="/servicios" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Ver nuestros servicios"
+                  aria-label="Servicios"
                 >
                   Servicios
                 </Link>
@@ -116,7 +116,7 @@ export default function Footer() {
                 <Link 
                   href="/industrias" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Explorar industrias"
+                  aria-label="Industrias"
                 >
                   Industrias
                 </Link>
@@ -125,7 +125,7 @@ export default function Footer() {
                 <Link 
                   href="/sobre-nosotros" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Conoce más sobre Gard Security"
+                  aria-label="Sobre Nosotros"
                 >
                   Sobre Nosotros
                 </Link>
@@ -134,7 +134,7 @@ export default function Footer() {
                 <Link 
                   href="/blog" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Lee nuestro blog"
+                  aria-label="Blog"
                 >
                   Blog
                 </Link>
@@ -143,7 +143,7 @@ export default function Footer() {
                 <Link 
                   href="/reclutamiento" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Oportunidades de trabajo"
+                  aria-label="Trabaja con Nosotros"
                 >
                   Trabaja con Nosotros
                 </Link>
@@ -152,7 +152,7 @@ export default function Footer() {
                 <Link 
                   href="/contacto" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Contacta con nosotros"
+                  aria-label="Contacto"
                 >
                   Contacto
                 </Link>
@@ -168,7 +168,7 @@ export default function Footer() {
                 <Link 
                   href="/privacidad" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Ver política de privacidad"
+                  aria-label="Política de Privacidad"
                 >
                   Política de Privacidad
                 </Link>
@@ -177,7 +177,7 @@ export default function Footer() {
                 <Link 
                   href="/terminos" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Ver términos de servicio"
+                  aria-label="Términos de Servicio"
                 >
                   Términos de Servicio
                 </Link>
@@ -186,7 +186,7 @@ export default function Footer() {
                 <Link 
                   href="/politica-ambiental" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Ver política ambiental"
+                  aria-label="Política Ambiental"
                 >
                   Política Ambiental
                 </Link>
@@ -216,7 +216,7 @@ export default function Footer() {
                 <a 
                   href="tel:+56941137976" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Llamar a nuestro teléfono de contacto"
+                  aria-label="+56 9 4113 7976"
                   itemProp="telephone"
                 >
                   +56 9 4113 7976
@@ -227,7 +227,7 @@ export default function Footer() {
                 <a 
                   href="mailto:comercial@gard.cl" 
                   className="text-sm md:text-base text-blue-100 hover:text-white transition-colors"
-                  aria-label="Enviar correo electrónico"
+                  aria-label="comercial@gard.cl"
                   itemProp="email"
                 >
                   comercial@gard.cl

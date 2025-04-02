@@ -5,7 +5,8 @@ import CloudflareImage from '@/components/CloudflareImage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
 import { 
   ArrowRight, 
-  CheckCircle
+  CheckCircle,
+  Shield
 } from 'lucide-react';
 import { industries } from '@/app/data/industries';
 import { servicios } from '@/app/data/servicios';
@@ -124,6 +125,53 @@ export default function IndustriaPage({ params }: { params: { slug: string } }) 
         </div>
       </section>
 
+      {/* Sección: Desafíos de seguridad en esta industria */}
+      <section className="gard-section">
+        <div className="gard-container">
+          <h2 className="text-heading-2 mb-6 text-center">Desafíos de seguridad en {industry.name}</h2>
+          <p className="text-body-lg text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+            El sector de {industry.name} enfrenta riesgos y amenazas específicas que requieren un enfoque 
+            especializado en materia de seguridad. Conocemos estos desafíos y desarrollamos estrategias 
+            efectivas para abordarlos.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-card p-6 rounded-xl shadow-sm">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-heading-5 mb-3">Protección de activos valiosos</h3>
+              <p className="text-muted-foreground">
+                El sector {industry.name} maneja activos de alto valor que requieren protección 
+                especializada y constante vigilancia para prevenir robos o sabotajes.
+              </p>
+            </div>
+            
+            <div className="bg-card p-6 rounded-xl shadow-sm">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-heading-5 mb-3">Control de acceso crítico</h3>
+              <p className="text-muted-foreground">
+                Gestionar quién puede acceder a determinadas áreas es fundamental en {industry.name}, 
+                donde la seguridad perimetral y los protocolos de entrada requieren especial atención.
+              </p>
+            </div>
+            
+            <div className="bg-card p-6 rounded-xl shadow-sm">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-heading-5 mb-3">Cumplimiento normativo</h3>
+              <p className="text-muted-foreground">
+                Las empresas de {industry.name} deben cumplir con regulaciones estrictas de seguridad, 
+                lo que requiere conocimiento especializado y actualizaciones constantes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Sección 2 - ¿Por qué elegirnos? */}
       <section className="gard-section bg-muted/5">
         <div className="gard-container">
@@ -160,6 +208,75 @@ export default function IndustriaPage({ params }: { params: { slug: string } }) 
         </div>
       </section>
 
+      {/* Sección: Soluciones especializadas */}
+      <section className="gard-section">
+        <div className="gard-container">
+          <h2 className="text-heading-2 mb-6 text-center">Soluciones específicas para {industry.name}</h2>
+          <p className="text-body-lg text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+            Hemos desarrollado un conjunto de soluciones de seguridad especialmente diseñadas para 
+            abordar los desafíos únicos que enfrenta el sector de {industry.name}.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex border-b border-muted pb-6 mb-6">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-heading-5 mb-2">Guardias especializados en {industry.name}</h3>
+                <p className="text-muted-foreground">
+                  Nuestro personal recibe capacitación específica sobre los protocolos y procedimientos 
+                  de seguridad relevantes para el sector {industry.name}, garantizando un servicio 
+                  alineado con las mejores prácticas de la industria.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex border-b border-muted pb-6 mb-6">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-heading-5 mb-2">Sistemas de vigilancia avanzados</h3>
+                <p className="text-muted-foreground">
+                  Implementamos tecnología de videovigilancia y monitoreo adaptada a las necesidades 
+                  específicas de {industry.name}, con capacidad de detección temprana de incidentes 
+                  y respuesta rápida.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex border-b border-muted pb-6 mb-6 md:mb-0">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-heading-5 mb-2">Control de acceso personalizado</h3>
+                <p className="text-muted-foreground">
+                  Diseñamos e implementamos sistemas de control de acceso que cumplen con los 
+                  requisitos específicos de seguridad del sector {industry.name}, protegiendo 
+                  áreas sensibles y regulando el flujo de personal.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-heading-5 mb-2">Auditorías de seguridad especializadas</h3>
+                <p className="text-muted-foreground">
+                  Realizamos evaluaciones exhaustivas de la seguridad en instalaciones de {industry.name}, 
+                  identificando vulnerabilidades y recomendando mejoras para fortalecer la protección 
+                  general.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Imagen contextual */}
       <section className="relative h-[40vh] md:h-[60vh] overflow-hidden">
         <CloudflareImage
@@ -179,10 +296,49 @@ export default function IndustriaPage({ params }: { params: { slug: string } }) 
         nombreIndustria={industry.name}
       />
 
+      {/* Sección: Preguntas frecuentes */}
+      <section className="gard-section bg-muted/5">
+        <div className="gard-container">
+          <h2 className="text-heading-2 mb-8 text-center">Preguntas frecuentes sobre seguridad en {industry.name}</h2>
+          
+          <div className="space-y-6 max-w-4xl mx-auto">
+            <div className="bg-card p-6 rounded-xl">
+              <h3 className="text-heading-5 mb-3">¿Qué formación específica tienen sus guardias para el sector {industry.name}?</h3>
+              <p className="text-muted-foreground">
+                Todos nuestros guardias asignados al sector {industry.name} reciben capacitación especializada 
+                que incluye protocolos específicos de la industria, normativas de seguridad aplicables, 
+                y procedimientos de respuesta ante emergencias propias del sector. Además, realizamos 
+                actualizaciones periódicas para mantener al personal al día con las mejores prácticas.
+              </p>
+            </div>
+            
+            <div className="bg-card p-6 rounded-xl">
+              <h3 className="text-heading-5 mb-3">¿Cómo se adaptan sus servicios a los requisitos regulatorios de {industry.name}?</h3>
+              <p className="text-muted-foreground">
+                Nuestro equipo de expertos se mantiene constantemente actualizado sobre la normativa 
+                y regulaciones que afectan al sector {industry.name}. Diseñamos nuestras soluciones 
+                de seguridad asegurando el cumplimiento de todos los requisitos legales y estándares 
+                de la industria, ayudando a nuestros clientes a mantener su operación conforme y segura.
+              </p>
+            </div>
+            
+            <div className="bg-card p-6 rounded-xl">
+              <h3 className="text-heading-5 mb-3">¿Qué tecnologías específicas recomiendan para la seguridad en {industry.name}?</h3>
+              <p className="text-muted-foreground">
+                Para el sector {industry.name} recomendamos una combinación de sistemas de videovigilancia 
+                avanzados con análisis inteligente, controles de acceso biométricos, y sistemas de alarma 
+                integrados con nuestra central de monitoreo. La combinación exacta dependerá de la evaluación 
+                de riesgos específica de cada instalación, que realizamos como parte de nuestro servicio.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Final */}
       <CtaFinal 
         title={`Protege tu operación en el rubro ${industry.name}`}
-        description={`Cotiza servicios de seguridad personalizados para el sector ${industry.name}.`}
+        description={`Cotiza servicios de seguridad personalizados para el sector ${industry.name}. Nuestros expertos diseñarán una solución adaptada a tus necesidades específicas.`}
         ctaLabel="Cotiza según tu industria"
         ctaHref="/cotizar"
         variant="soft"

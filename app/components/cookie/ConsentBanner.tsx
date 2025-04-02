@@ -58,7 +58,7 @@ export default function ConsentBanner() {
               <button
                 onClick={rejectAll}
                 className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Rechazar todas las cookies excepto las esenciales"
+                aria-label="Rechazar todo"
               >
                 <span className="flex items-center justify-center gap-2">
                   <X className="h-4 w-4" />
@@ -69,7 +69,7 @@ export default function ConsentBanner() {
               <button
                 onClick={openPreferences}
                 className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Configurar preferencias de cookies"
+                aria-label="Configurar preferencias"
               >
                 <span className="flex items-center justify-center gap-2">
                   <Settings className="h-4 w-4" />
@@ -80,7 +80,7 @@ export default function ConsentBanner() {
               <button
                 onClick={acceptAll}
                 className="px-6 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white font-medium shadow-sm transition-colors"
-                aria-label="Aceptar todas las cookies"
+                aria-label="Aceptar todo"
               >
                 <span className="flex items-center justify-center gap-2">
                   <Check className="h-4 w-4" />

@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Términos de Servicio | Gard Security',
   description: 'Términos y condiciones de servicio de Gard Security. Conozca las normas que rigen el uso de nuestros servicios y sitio web.',
+  keywords: ['términos de servicio', 'condiciones de uso', 'acuerdo legal', 'servicios de seguridad', 'contrato de seguridad'],
 };
 
 export default function TerminosServicio() {
@@ -134,6 +135,72 @@ export default function TerminosServicio() {
                 <p className="mb-2"><strong>Gard Security</strong></p>
                 <p className="mb-2">Email: legal@gard.cl</p>
                 <p className="mb-0">Teléfono: +56 2 2345 6789</p>
+              </div>
+            </section>
+
+            <section className="mt-10">
+              <h2 className="text-heading-3 mb-4 text-gray-900 dark:text-white">Preguntas frecuentes sobre nuestros términos de servicio</h2>
+              
+              <div className="space-y-6 mt-6">
+                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                  <h3 className="text-heading-5 mb-3 text-gray-900 dark:text-white">¿Con qué frecuencia se actualizan estos términos?</h3>
+                  <p className="text-body-base text-gray-700 dark:text-gray-300">
+                    Revisamos nuestros términos de servicio periódicamente para asegurarnos de que reflejen 
+                    las mejores prácticas de la industria y cumplan con las regulaciones vigentes. 
+                    Generalmente realizamos actualizaciones anuales, pero podríamos modificarlos con 
+                    mayor frecuencia si hay cambios significativos en nuestros servicios o en la 
+                    legislación aplicable. Siempre notificaremos a nuestros clientes sobre cambios 
+                    importantes con al menos 30 días de anticipación.
+                  </p>
+                </div>
+                
+                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                  <h3 className="text-heading-5 mb-3 text-gray-900 dark:text-white">¿Qué sucede si existe un conflicto entre estos términos y mi contrato específico?</h3>
+                  <p className="text-body-base text-gray-700 dark:text-gray-300">
+                    En caso de discrepancia entre estos términos generales y las condiciones específicas 
+                    establecidas en su contrato de servicios de seguridad, prevalecerán las condiciones 
+                    de su contrato específico. Los contratos personalizados se elaboran para abordar 
+                    las necesidades particulares de cada cliente y pueden contener disposiciones que 
+                    modifiquen o complementen estos términos generales. Recomendamos revisar detenidamente 
+                    tanto los términos generales como su contrato específico.
+                  </p>
+                </div>
+                
+                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                  <h3 className="text-heading-5 mb-3 text-gray-900 dark:text-white">¿Cómo se manejan las disputas relacionadas con estos términos?</h3>
+                  <p className="text-body-base text-gray-700 dark:text-gray-300">
+                    Ante cualquier controversia relacionada con estos términos, buscamos primero una 
+                    solución amistosa mediante negociación directa. Si no se llega a un acuerdo, las 
+                    disputas se resolverán mediante arbitraje vinculante en Santiago, Chile, según las 
+                    reglas del Centro de Arbitraje y Mediación de la Cámara de Comercio de Santiago. 
+                    Este procedimiento es más rápido y eficiente que los litigios judiciales tradicionales, 
+                    permitiendo resolver los conflictos de manera justa y expedita.
+                  </p>
+                </div>
+                
+                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                  <h3 className="text-heading-5 mb-3 text-gray-900 dark:text-white">¿Estos términos se aplican a todos los servicios de Gard Security?</h3>
+                  <p className="text-body-base text-gray-700 dark:text-gray-300">
+                    Estos términos generales se aplican a todos los servicios básicos ofrecidos por 
+                    Gard Security. Sin embargo, algunos servicios especializados como protección VIP, 
+                    seguridad para eventos de alto perfil o servicios de consultoría avanzada pueden 
+                    tener términos adicionales específicos que complementan estas condiciones generales. 
+                    En esos casos, se le proporcionarán los términos adicionales antes de la contratación 
+                    del servicio especializado para su revisión y aceptación.
+                  </p>
+                </div>
+                
+                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                  <h3 className="text-heading-5 mb-3 text-gray-900 dark:text-white">¿Cómo puedo obtener una copia de estos términos para mis registros?</h3>
+                  <p className="text-body-base text-gray-700 dark:text-gray-300">
+                    Puede guardar o imprimir una copia de estos términos directamente desde esta página web 
+                    utilizando las funciones de su navegador. También puede solicitar una copia en formato 
+                    PDF enviando un correo electrónico a legal@gard.cl indicando su nombre y empresa. 
+                    Recomendamos conservar una copia de estos términos junto con su contrato específico 
+                    para futuras referencias. Si necesita una versión firmada para fines legales, por favor 
+                    especifíquelo en su solicitud.
+                  </p>
+                </div>
               </div>
             </section>
 

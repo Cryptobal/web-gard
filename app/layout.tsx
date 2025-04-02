@@ -18,7 +18,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-4XJ2YKYYDH';
 export const metadata: Metadata = {
   metadataBase: new URL('https://gard.cl'),
   title: {
-    default: 'Gard Security | Seguridad Empresarial de Clase Mundial',
+    default: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
     template: '%s | Gard Security',
   },
   description:
@@ -49,14 +49,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_ES',
     url: 'https://gard.cl',
-    title: 'Gard Security | Seguridad Empresarial de Clase Mundial',
+    title: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
     description:
       'Soluciones de seguridad privada para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
     siteName: 'Gard Security',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gard Security | Seguridad Empresarial de Clase Mundial',
+    title: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
     description:
       'Soluciones de seguridad integral para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
   },

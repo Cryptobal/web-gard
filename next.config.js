@@ -47,6 +47,11 @@ const nextConfig = {
         destination: '/tecnologia-seguridad',
         permanent: true,
       },
+      {
+        source: '/contacto-empresa-de-seguridad',
+        destination: '/cotizar',
+        permanent: true,
+      },
       
       // Asegurar que las URLs con slash final también funcionen
       {
@@ -77,6 +82,11 @@ const nextConfig = {
       {
         source: '/tecnologias/:path*',
         destination: '/tecnologia-seguridad/:path*',
+        permanent: true,
+      },
+      {
+        source: '/contacto-empresa-de-seguridad/:path*',
+        destination: '/cotizar/:path*',
         permanent: true,
       }
     ];
