@@ -1,5 +1,45 @@
 import { industries } from '../data/industries';
 import { getAllPosts, POSTS_PER_PAGE, getAllTags, getPostsByTag } from '@/lib/blog';
+import { isValidUrl } from '@/lib/utils';
+
+// Función para verificar y filtrar URLs
+async function filterValidUrls(urls: { url: string; lastModified: string; changeFrequency: string; priority: number; }[]) {
+  console.log(`Verificando ${urls.length} URLs...`);
+  
+  // Agrupar las URLs en lotes para procesarlas de forma más eficiente
+  const batchSize = 10; // Procesar 10 URLs a la vez
+  const validUrls: { url: string; lastModified: string; changeFrequency: string; priority: number; }[] = [];
+  
+  // Función para procesar un lote de URLs
+  const processBatch = async (batch: typeof urls) => {
+    // Verificar todas las URLs en el lote en paralelo
+    const results = await Promise.allSettled(
+      batch.map(async (urlItem) => {
+        const isValid = await isValidUrl(urlItem.url);
+        return { urlItem, isValid };
+      })
+    );
+    
+    // Filtrar las URLs válidas
+    results.forEach((result) => {
+      if (result.status === 'fulfilled' && result.value.isValid) {
+        validUrls.push(result.value.urlItem);
+      } else if (result.status === 'fulfilled') {
+        console.log(`URL no válida (redirección o error): ${result.value.urlItem.url}`);
+      }
+    });
+  };
+  
+  // Procesar las URLs en lotes
+  for (let i = 0; i < urls.length; i += batchSize) {
+    const batch = urls.slice(i, i + batchSize);
+    await processBatch(batch);
+    console.log(`Progreso: ${Math.min(i + batchSize, urls.length)}/${urls.length} URLs procesadas`);
+  }
+  
+  console.log(`URLs válidas: ${validUrls.length} de ${urls.length}`);
+  return validUrls;
+}
 
 // Función para generar las URLs del sitemap
 async function generateSitemap() {
@@ -130,7 +170,7 @@ async function generateSitemap() {
     }
   }
 
-  return [
+  const allUrls = [
     ...staticPages, 
     ...servicePages, 
     ...industryPages,
@@ -140,6 +180,9 @@ async function generateSitemap() {
     ...blogTagPages,
     ...blogTagPaginationPages
   ];
+  
+  // Filtrar URLs para incluir solo las que devuelven código 200
+  return await filterValidUrls(allUrls);
 }
 
 // Generar el XML del sitemap
