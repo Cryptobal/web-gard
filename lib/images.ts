@@ -9,7 +9,7 @@ export const cloudflareImages = {
   
   // Imágenes para el Hero
   hero: {
-    home: '9b4bb16c-85bf-41d0-0cd7-1962dc64c000',
+    home: '4824f8b9-abb0-4e77-c654-efe920697b00',
     about: '7d33f2ab-1ad7-4f8d-11c3-e82a0b54db00',
     services: '5eea1064-8a2d-4e8b-5606-d28775467a00',
     contact: '428c1028-8f6b-455a-e110-38421eeb5700',

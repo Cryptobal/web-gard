@@ -120,7 +120,7 @@ export default function Home() {
             
             <div className="relative h-[500px] rounded-2xl overflow-hidden">
               <CloudflareImage
-                imageId="09f20a0c-b345-4db8-ff81-14aad098db00"
+                imageId="2c554c0e-8f87-4f58-1ad5-29cbe6360600"
                 alt="El equipo de Gard Security"
                 fill
                 objectFit="cover"
