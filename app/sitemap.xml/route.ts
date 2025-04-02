@@ -23,13 +23,24 @@ async function generateSitemap() {
     priority: route === '' ? 1 : 0.8,
   }));
 
+  // URLs antiguas que ahora son redirecciones (no se incluyen en el sitemap)
+  // '/automatizacion-y-domotica',
+  // '/drones-de-seguridad-para-empresas-e-industrias',
+  // '/guardias-de-seguridad-privada-para-empresas',
+  // '/noticias-de-seguridad-privada',
+  // '/servicios-de-seguridad-privada',
+  // '/tecnologias',
+
   // Páginas de servicios
   const servicePages = [
-    '/servicios/seguridad-perimetral',
+    '/servicios/guardias-de-seguridad',
+    '/servicios/drones-seguridad',
+    '/servicios/seguridad-electronica',
     '/servicios/monitoreo',
-    '/servicios/prevencion-intrusiones',
+    '/servicios/seguridad-perimetral',
     '/servicios/auditoria-seguridad',
     '/servicios/consultoria',
+    '/servicios/prevencion-intrusiones'
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
