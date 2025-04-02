@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   ShieldCheck, 
@@ -8,8 +8,11 @@ import {
   Cpu, 
   MonitorSmartphone, 
   Scan, 
-  ArrowRight 
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import CloudflareImage from '@/components/CloudflareImage';
 import { services } from '@/app/data/services';
 import { serviciosPorIndustria } from '@/app/data/servicios-por-industria';
@@ -36,6 +39,26 @@ export default function OurServices({
   industria,
   nombreIndustria
 }: OurServicesProps) {
+  // Estado para controlar el carrusel en móviles
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detectar si es dispositivo móvil
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Comprobar al cargar
+    checkIfMobile();
+    
+    // Comprobar al redimensionar la ventana
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
   // Filtrar servicios según la industria si se proporciona
   const serviciosFiltrados = React.useMemo(() => {
     // Si se especificó una industria, filtrar por ella
@@ -66,6 +89,19 @@ export default function OurServices({
     return IconComponent ? <IconComponent className="h-10 w-10 text-primary dark:text-accent" /> : null;
   };
 
+  // Funciones para navegación del carrusel
+  const prevSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === 0 ? serviciosFiltrados.length - 1 : prev - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === serviciosFiltrados.length - 1 ? 0 : prev + 1
+    );
+  };
+
   return (
     <section className="gard-section py-16 md:py-24 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 xl:px-16">
@@ -76,7 +112,8 @@ export default function OurServices({
           </p>
         </div>
 
-        <div className="flex justify-center gap-4 overflow-x-auto">
+        {/* Vista de escritorio (sin cambios) */}
+        <div className={`md:flex justify-center gap-4 overflow-x-auto ${isMobile ? 'hidden' : 'flex'}`}>
           {serviciosFiltrados.map((service, index) => {
             // Determinar la ruta del enlace según si hay una industria especificada
             const href = industria 
@@ -116,6 +153,93 @@ export default function OurServices({
               </Link>
             );
           })}
+        </div>
+
+        {/* Vista de móvil (carrusel) */}
+        <div className={`relative ${isMobile ? 'block' : 'hidden'}`}>
+          <div 
+            ref={carouselRef}
+            className="flex justify-center"
+          >
+            {serviciosFiltrados.length > 0 && (
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="w-full max-w-[300px] mx-auto"
+              >
+                <Link 
+                  href={industria 
+                    ? `${serviciosFiltrados[currentIndex].href}/${industria}` 
+                    : serviciosFiltrados[currentIndex].href
+                  }
+                  className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md flex flex-col"
+                >
+                  <div className="relative aspect-[3/2] w-full mb-4">
+                    <CloudflareImage
+                      imageId={serviciosFiltrados[currentIndex].imageId}
+                      alt={serviciosFiltrados[currentIndex].name}
+                      fill
+                      className="rounded-xl object-cover w-full grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out"
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-center my-4">
+                    {renderIcon(serviciosFiltrados[currentIndex].icon)}
+                  </div>
+                  
+                  <h3 className="text-xl font-semibold text-foreground mb-2 text-center">
+                    {serviciosFiltrados[currentIndex].name}
+                  </h3>
+                  
+                  <p className="text-sm text-muted-foreground mb-4 text-center flex-grow">
+                    {serviciosFiltrados[currentIndex].description}
+                  </p>
+                  
+                  <div className="flex justify-center mt-auto">
+                    <span className="inline-flex items-center text-primary dark:text-accent font-medium">
+                      Saber más <ArrowRight className="ml-1 h-4 w-4" />
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Flechas de navegación */}
+          <button 
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md"
+            aria-label="Servicio anterior"
+          >
+            <ChevronLeft className="h-6 w-6 text-primary dark:text-accent" />
+          </button>
+          
+          <button 
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md"
+            aria-label="Servicio siguiente"
+          >
+            <ChevronRight className="h-6 w-6 text-primary dark:text-accent" />
+          </button>
+
+          {/* Indicadores de páginación */}
+          <div className="flex justify-center gap-2 mt-4">
+            {serviciosFiltrados.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  currentIndex === index 
+                    ? 'bg-primary dark:bg-accent w-4' 
+                    : 'bg-gray-300 dark:bg-gray-700'
+                }`}
+                aria-label={`Ir a servicio ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
