@@ -40,7 +40,7 @@ export default function PostCardCompact({ post, showImage = true, ultraCompact =
           overflow-hidden rounded-lg flex-shrink-0 relative 
           ${ultraCompact ? 'w-full h-20' : 'w-full md:w-24 h-20'}
         `}>
-          <Link href={`/blog/${slug}`} className="block">
+          <Link href={`/blog/${slug}/`} className="block">
             <CloudflareImage
               imageId={imageId}
               alt={title}
@@ -54,7 +54,7 @@ export default function PostCardCompact({ post, showImage = true, ultraCompact =
       
       <div className="flex-1">
         <Link 
-          href={`/blog/${slug}`}
+          href={`/blog/${slug}/`}
           className={`block font-bold text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors ${
             ultraCompact ? 'text-sm mb-1' : 'text-base md:text-lg mb-2'
           }`}

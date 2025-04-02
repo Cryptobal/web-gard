@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 interface BlogPost {
   slug: string;
@@ -133,6 +134,17 @@ export default function BlogLayout({ children, showSidebar = false }: BlogLayout
                         ))}
                       </div>
                     )}
+                  </div>
+
+                  {/* Link a la página principal del blog */}
+                  <div className="py-4 border-b border-border dark:border-gray-700">
+                    <Link 
+                      href="/blog/"
+                      className="flex items-center space-x-2 font-medium text-primary dark:text-accent hover:underline"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      <span>Volver al blog</span>
+                    </Link>
                   </div>
                 </div>
               </aside>

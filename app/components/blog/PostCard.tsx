@@ -28,7 +28,7 @@ export default function PostCard({
   return (
     <div className="gard-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
       <div>
-        <Link href={`/blog/${slug}`} className="block group">
+        <Link href={`/blog/${slug}/`} className="block group">
           {imageId ? (
             <div className="aspect-video relative overflow-hidden">
               <CloudflareImage
@@ -84,7 +84,7 @@ export default function PostCard({
           <div className="flex flex-wrap gap-2 px-6 pb-6 -mt-2">
             {tags.map((tag) => (
               <Link 
-                href={`/blog/tag/${encodeURIComponent(tag)}`}
+                href={`/blog/tag/${encodeURIComponent(tag)}/`}
                 key={tag}
                 className="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full hover:bg-primary/10 hover:text-primary dark:hover:bg-accent/10 dark:hover:text-accent transition-colors"
               >

@@ -113,7 +113,7 @@ export default function LatestPosts({
           
           {showViewAll && (
             <Link 
-              href="/blog"
+              href="/blog/"
               className="text-primary dark:text-primary hover:underline text-sm font-medium transition-colors"
             >
               Ver todos

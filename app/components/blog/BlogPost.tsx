@@ -80,7 +80,7 @@ export default function BlogPost({ slug }: { slug: string }) {
   }, [slug, router]);
 
   const handleBackToBlog = () => {
-    router.push('/blog');
+    router.push('/blog/');
   };
 
   if (loading) {
@@ -219,13 +219,13 @@ export default function BlogPost({ slug }: { slug: string }) {
           </li>
           <li>/</li>
           <li>
-            <Link href="/blog" className="hover:underline text-primary dark:text-accent font-medium">Blog</Link>
+            <Link href="/blog/" className="hover:underline text-primary dark:text-accent font-medium">Blog</Link>
           </li>
           {post.tags?.[0] && (
             <>
               <li>/</li>
               <li>
-                <Link href={`/blog/tag/${encodeURIComponent(post.tags[0])}`} className="hover:underline text-primary dark:text-accent font-medium">
+                <Link href={`/blog/tag/${encodeURIComponent(post.tags[0])}/`} className="hover:underline text-primary dark:text-accent font-medium">
                   {post.tags[0]}
                 </Link>
               </li>
@@ -285,7 +285,7 @@ export default function BlogPost({ slug }: { slug: string }) {
           {post.tags.map((tag) => (
             <Link
               key={tag}
-              href={`/blog/tag/${encodeURIComponent(tag)}`}
+              href={`/blog/tag/${encodeURIComponent(tag)}/`}
               className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-primary hover:text-white transition-colors"
             >
               {tag}
