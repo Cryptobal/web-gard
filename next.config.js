@@ -93,4 +93,19 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig; 
+// Integración con Sentry
+const { withSentryConfig } = require("@sentry/nextjs");
+
+module.exports = withSentryConfig(
+  nextConfig,
+  {
+    // Opciones de configuración de Sentry
+    org: "gard-tm",
+    project: "gard-web",
+    silent: !process.env.CI,
+    widenClientFileUpload: true,
+    tunnelRoute: "/monitoring",
+    disableLogger: true,
+    automaticVercelMonitors: true,
+  }
+);
