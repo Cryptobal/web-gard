@@ -1,39 +1,51 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 
 interface LinkParamsAwareProps {
   href: string;
   children: React.ReactNode;
   className?: string;
-  industryName: string;
-  industrySlug: string;
+  serviceName?: string;
+  serviceSlug?: string;
+  industryName?: string;
+  industrySlug?: string;
 }
 
-export default function LinkParamsAware({ href, children, className, industryName, industrySlug }: LinkParamsAwareProps) {
+export default function LinkParamsAware({ 
+  href, 
+  children, 
+  className, 
+  serviceName, 
+  serviceSlug,
+  industryName,
+  industrySlug
+}: LinkParamsAwareProps) {
   const handleClick = () => {
     if (typeof window !== 'undefined') {
-      // Guardar en sessionStorage los parámetros de la industria
-      sessionStorage.setItem('user_industry', industryName);
-      sessionStorage.setItem('user_industry_slug', industrySlug);
+      // Guardar en sessionStorage los parámetros del servicio/industria
+      if (serviceName) sessionStorage.setItem('user_service', serviceName);
+      if (serviceSlug) sessionStorage.setItem('user_service_slug', serviceSlug);
+      if (industryName) sessionStorage.setItem('user_industry', industryName);
+      if (industrySlug) sessionStorage.setItem('user_industry_slug', industrySlug);
       
-      // Obtener parámetros de la URL (por si venía con parámetros service, etc.)
+      // Obtener parámetros de la URL (por si venía con parámetros industry, etc.)
       const searchParams = new URLSearchParams(window.location.search);
-      const service = searchParams.get('service');
+      const urlIndustry = searchParams.get('industry');
       
-      if (service) {
-        sessionStorage.setItem('user_service', service);
+      if (urlIndustry && !industryName) {
+        sessionStorage.setItem('user_industry', urlIndustry);
       }
       
       // Registro en dataLayer
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'click_cta_primary',
-        cta_text: 'Cotizar seguridad',
-        industry_selected: industryName,
-        service_context: service || 'no_specified'
-      });
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'click_cta_primary',
+          cta_text: serviceName ? 'Cotizar servicio' : (industryName ? 'Cotizar industria' : 'Cotizar'),
+          service_selected: serviceName || 'not_specified',
+          industry_context: industryName || urlIndustry || 'not_specified'
+        });
+      }
     }
   };
 

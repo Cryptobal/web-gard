@@ -1,7 +1,8 @@
+import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, ArrowUpRight } from 'lucide-react';
 import { useEffect } from 'react';
 
 import { servicios, type Servicio } from '@/app/data/servicios';
@@ -23,6 +24,7 @@ import {
   Landmark,
   Hotel
 } from 'lucide-react';
+import LinkParamsAware from '@/app/components/LinkParamsAware';
 
 // Generar rutas estáticas para cada servicio
 export async function generateStaticParams() {
@@ -263,49 +265,5 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
         variant="soft"
       />
     </>
-  );
-}
-
-// Componente Link que almacena parámetros en sessionStorage
-'use client';
-
-interface LinkParamsAwareProps {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  serviceName: string;
-  serviceSlug: string;
-}
-
-function LinkParamsAware({ href, children, className, serviceName, serviceSlug }: LinkParamsAwareProps) {
-  const handleClick = () => {
-    if (typeof window !== 'undefined') {
-      // Guardar en sessionStorage los parámetros del servicio
-      sessionStorage.setItem('user_service', serviceName);
-      sessionStorage.setItem('user_service_slug', serviceSlug);
-      
-      // Obtener parámetros de la URL (por si venía con parámetros industry, etc.)
-      const searchParams = new URLSearchParams(window.location.search);
-      const industry = searchParams.get('industry');
-      
-      if (industry) {
-        sessionStorage.setItem('user_industry', industry);
-      }
-      
-      // Registro en dataLayer
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'click_cta_primary',
-        cta_text: 'Cotizar servicio',
-        service_selected: serviceName,
-        industry_context: industry || 'no_specified'
-      });
-    }
-  };
-
-  return (
-    <Link href={href} className={className} onClick={handleClick}>
-      {children}
-    </Link>
   );
 } 
