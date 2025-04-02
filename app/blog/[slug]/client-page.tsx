@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import CloudflareImage from '@/components/CloudflareImage';
 import { format } from 'date-fns';
@@ -27,25 +27,52 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Registrar métricas en Sentry
+  useEffect(() => {
+    Sentry.addBreadcrumb({
+      category: 'navigation',
+      message: `Navegación a: ${pathname}`,
+      level: 'info'
+    });
+    
+    // Registrar visita a la página
+    try {
+      Sentry.withScope(scope => {
+        scope.setTag("view", "blog_post");
+        scope.setTag("slug", slug);
+        Sentry.captureMessage(`Vista de blog: ${slug}`, "info");
+      });
+    } catch (e) {
+      console.error("Error registrando métricas:", e);
+    }
+  }, [pathname, slug]);
 
   // Asegurar que solo renderizamos en el cliente para evitar problemas de hidratación
   useEffect(() => {
     setMounted(true);
     
+    // Definir una función para obtener los datos
     async function fetchPost() {
       try {
         // Limpiar el slug para asegurar compatibilidad
         const cleanSlug = slug.replace(/\/$/, '');
         
-        // Usar fetch para obtener el post desde la API
-        const apiUrl = `/api/blog/post/${cleanSlug}`;
+        // Usar fetch con una URL absoluta para evitar problemas relativos
+        // y agregar un timestamp para evitar cachés
+        const timestamp = new Date().getTime();
+        const apiUrl = `${window.location.origin}/api/blog/post/${cleanSlug}?t=${timestamp}`;
+        
         console.log('Fetching post from:', apiUrl);
         
         const response = await fetch(apiUrl, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache'
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
           },
           // Asegurar que no se use caché para evitar problemas
           cache: 'no-store',
@@ -54,24 +81,45 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
         console.log('Response status:', response.status);
         
         if (!response.ok) {
+          // Log detallado para diagnóstico
+          console.error(`Error en respuesta API: ${response.status} ${response.statusText}`);
+          
+          // Capturar en Sentry
+          Sentry.captureMessage(`Error API [${response.status}]: ${cleanSlug}`, "error");
+          
           if (response.status === 404) {
             console.error('Post not found, redirecting to not-found page');
-            // Utilizamos shallow:false para forzar una navegación completa
-            router.push('/blog/not-found/', { scroll: true });
+            
+            // Redirección manual usando window.location para forzar recarga completa
+            window.location.href = '/blog/';
             return;
           }
+          
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
         
-        const data = await response.json();
+        // Intentar procesar la respuesta como JSON con manejo de errores explícito
+        let data;
+        try {
+          const text = await response.text();
+          console.log('Raw response:', text.substring(0, 150) + '...');
+          data = JSON.parse(text);
+        } catch (parseError) {
+          console.error('Error parsing JSON:', parseError);
+          Sentry.captureException(parseError);
+          throw new Error('Error al procesar la respuesta del servidor');
+        }
+        
         console.log('Post data received:', data);
         
         if (!data.post) {
           console.error('No post data in response');
+          Sentry.captureMessage(`No post data: ${cleanSlug}`, "error");
           setError('Datos del post no disponibles');
           return;
         }
         
+        // Establecer el post en el estado
         setPost(data.post);
         
         // Registrar en Sentry que el post se cargó correctamente
@@ -80,30 +128,42 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
           message: `Post cargado: ${cleanSlug}`,
           level: 'info'
         });
-      } catch (error) {
+        
+        // Actualizar el título de la página
+        document.title = `${data.post.title} | Blog de Gard Security`;
+        
+      } catch (error: any) {
         console.error('Error fetching post:', error);
         
-        // Capturar el error en Sentry
-        Sentry.captureException(error);
+        // Capturar el error en Sentry con detalles
+        Sentry.withScope(scope => {
+          scope.setExtra("slug", slug);
+          scope.setExtra("pathname", pathname);
+          Sentry.captureException(error);
+        });
         
-        setError('No se pudo cargar el artículo. Por favor, inténtalo de nuevo más tarde.');
+        setError(`Error al cargar el artículo: ${error.message || 'Error desconocido'}`);
       } finally {
         setLoading(false);
       }
     }
 
+    // Solo realizar la solicitud cuando el componente esté montado en el cliente
     if (mounted) {
-      fetchPost();
+      // Agregamos un pequeño retraso para asegurar que la navegación se ha completado
+      const timer = setTimeout(() => {
+        fetchPost();
+      }, 100);
+      
+      return () => clearTimeout(timer);
     }
-    
-    // Limpiar al desmontar
-    return () => {
-      // Cancelar cualquier solicitud pendiente si es necesario
-    };
-  }, [slug, router, mounted]);
+  }, [slug, router, mounted, pathname]);
 
-  const handleBackToBlog = () => {
-    router.push('/blog/', { scroll: true });
+  // Función para volver al blog
+  const handleBackToBlog = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // Navegación manual para evitar problemas
+    window.location.href = '/blog/';
   };
 
   // No renderizar nada hasta que el componente esté montado
@@ -158,6 +218,12 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
       .replace(/on\w+="[^"]*"/g, '');
   };
 
+  // Función para manejar los clics en los enlaces internos
+  const handleInternalLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    window.location.href = href;
+  };
+
   return (
     <BlogLayout showSidebar={true}>
       {/* Breadcrumbs - inmediatamente después del header */}
@@ -167,19 +233,35 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
       >
         <ol className="list-none p-0 inline-flex space-x-2">
           <li>
-            <Link href="/" className="hover:underline text-primary dark:text-accent font-medium">Inicio</Link>
+            <a 
+              href="/" 
+              onClick={(e) => handleInternalLinkClick(e, '/')}
+              className="hover:underline text-primary dark:text-accent font-medium"
+            >
+              Inicio
+            </a>
           </li>
           <li>/</li>
           <li>
-            <Link href="/blog/" className="hover:underline text-primary dark:text-accent font-medium">Blog</Link>
+            <a 
+              href="/blog/" 
+              onClick={(e) => handleInternalLinkClick(e, '/blog/')}
+              className="hover:underline text-primary dark:text-accent font-medium"
+            >
+              Blog
+            </a>
           </li>
           {post.tags?.[0] && (
             <>
               <li>/</li>
               <li>
-                <Link href={`/blog/tag/${encodeURIComponent(post.tags[0])}/`} className="hover:underline text-primary dark:text-accent font-medium">
+                <a 
+                  href={`/blog/tag/${encodeURIComponent(post.tags[0])}/`}
+                  onClick={(e) => handleInternalLinkClick(e, `/blog/tag/${encodeURIComponent(post.tags[0])}/`)}
+                  className="hover:underline text-primary dark:text-accent font-medium"
+                >
                   {post.tags[0]}
-                </Link>
+                </a>
               </li>
             </>
           )}
@@ -235,13 +317,14 @@ export default function ClientBlogPost({ slug }: { slug: string }) {
       {post.tags && post.tags.length > 0 && (
         <div className="mt-12 flex flex-wrap gap-3 justify-center">
           {post.tags.map((tag) => (
-            <Link
+            <a
               key={tag}
               href={`/blog/tag/${encodeURIComponent(tag)}/`}
+              onClick={(e) => handleInternalLinkClick(e, `/blog/tag/${encodeURIComponent(tag)}/`)}
               className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-primary hover:text-white transition-colors"
             >
               {tag}
-            </Link>
+            </a>
           ))}
         </div>
       )}
