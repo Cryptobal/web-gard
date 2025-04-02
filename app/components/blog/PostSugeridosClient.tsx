@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
 import { useRouter } from 'next/navigation';
+import CloudflareImage from '@/components/CloudflareImage';
 
 // Definición de la interfaz BlogPost sin importarla del servidor
 interface BlogPost {
@@ -17,32 +16,40 @@ interface BlogPost {
   content: string;
 }
 
-interface PostSugeridosProps {
-  currentSlug: string;
-  currentTags?: string[];
+interface WindowWithPostData extends Window {
+  currentPostData?: {
+    slug: string;
+    tags: string[];
+  };
 }
 
-export default function PostSugeridos({ currentSlug, currentTags = [] }: PostSugeridosProps) {
+export default function PostSugeridosClient() {
   const [sugeridos, setSugeridos] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const [currentSlug, setCurrentSlug] = useState<string>('');
+  const [currentTags, setCurrentTags] = useState<string[]>([]);
   
-  // Esperar a que el componente esté montado antes de renderizar cualquier contenido
+  // Obtener los datos del post actual de la ventana global
   useEffect(() => {
     setMounted(true);
+    
+    // Obtener datos del objeto window
+    const windowWithData = window as WindowWithPostData;
+    if (windowWithData.currentPostData) {
+      setCurrentSlug(windowWithData.currentPostData.slug);
+      setCurrentTags(windowWithData.currentPostData.tags || []);
+    }
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || !currentSlug || currentTags.length === 0) {
+      setLoading(false);
+      return;
+    }
     
     async function fetchSugeridos() {
-      // Si no hay tags para comparar, no mostramos sugeridos
-      if (!currentTags || currentTags.length === 0) {
-        setLoading(false);
-        return;
-      }
-
       try {
         // Obtener todos los posts usando la API
         const response = await fetch('/api/blog/posts', {
@@ -88,12 +95,7 @@ export default function PostSugeridos({ currentSlug, currentTags = [] }: PostSug
       }
     }
     
-    // Solo ejecutar si tenemos tags y un slug
-    if (currentSlug && currentTags.length > 0) {
-      fetchSugeridos();
-    } else {
-      setLoading(false);
-    }
+    fetchSugeridos();
   }, [currentSlug, currentTags, mounted]);
 
   // No renderizar nada hasta que el componente esté montado para evitar problemas de hidratación
@@ -112,8 +114,8 @@ export default function PostSugeridos({ currentSlug, currentTags = [] }: PostSug
   };
 
   return (
-    <section aria-labelledby="related-posts-heading" className="mt-16 mb-8 border-t border-gray-200 dark:border-gray-800 pt-10 pb-12">
-      <h2 id="related-posts-heading" className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
+    <>
+      <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
         Artículos relacionados
       </h2>
       
@@ -210,6 +212,6 @@ export default function PostSugeridos({ currentSlug, currentTags = [] }: PostSug
           ))
         )}
       </div>
-    </section>
+    </>
   );
 } 

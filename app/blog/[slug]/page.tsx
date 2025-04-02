@@ -7,7 +7,12 @@ import CloudflareImage from '@/components/CloudflareImage';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import BlogLayout from '@/app/components/blog/BlogLayout';
-import PostSugeridos from '@/app/components/blog/PostSugeridos';
+import dynamic from 'next/dynamic';
+
+// Cargar el PostSugeridosLoader de forma dinámica (solo en el cliente)
+const PostSugeridosLoader = dynamic(() => import('@/app/components/PostSugeridosLoader'), {
+  ssr: false, // No SSR para este componente
+});
 
 // Generar rutas estáticas para todos los posts
 export async function generateStaticParams() {
@@ -77,7 +82,6 @@ export default async function BlogPostPage({
   
   // Limpiar el slug para asegurar compatibilidad
   const slug = params.slug.replace(/\/$/, '');
-  console.log('Rendering BlogPostPage with slug:', slug);
   
   // Obtener datos del post del lado del servidor
   const post = await getPostBySlug(slug);
@@ -251,11 +255,23 @@ export default async function BlogPostPage({
         </div>
       )}
       
-      {/* Posts sugeridos */}
-      <PostSugeridos 
-        currentSlug={slug}
-        currentTags={post.tags}
-      />
+      {/* Contenedor para posts sugeridos */}
+      <div id="posts-sugeridos-container" className="mt-16 mb-8 border-t border-gray-200 dark:border-gray-800 pt-10">
+        {/* Datos de post para el cliente */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.currentPostData = {
+                slug: ${JSON.stringify(slug)},
+                tags: ${JSON.stringify(post.tags || [])}
+              };
+            `
+          }}
+        />
+        
+        {/* Cargar componente cliente para posts sugeridos */}
+        <PostSugeridosLoader />
+      </div>
     </BlogLayout>
   );
 } 
