@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Loader } from '@googlemaps/js-api-loader';
+import { useGtmEvent } from '../../components/EventTracker';
 
 // Declaración simplificada para Google Maps API
 declare global {
@@ -50,6 +51,7 @@ export default function CotizacionForm() {
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const autocompleteInputRef = useRef<HTMLInputElement | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const { pushEvent } = useGtmEvent();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -136,6 +138,43 @@ export default function CotizacionForm() {
     setFormStatus('idle');
     
     try {
+      // Verificar si dataLayer está disponible
+      if (typeof window !== 'undefined') {
+        window.dataLayer = window.dataLayer || [];
+        
+        // Crear el objeto de evento manualmente para asegurar que se envía correctamente
+        const eventData = {
+          event: 'submit_form_quotation',
+          service_requested: data.tipoIndustria,
+          form_fields_filled: Object.keys(data).length,
+          utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+          utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+          utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+          referrer: document.referrer
+        };
+        
+        // Enviar el evento al dataLayer
+        window.dataLayer.push(eventData);
+        
+        // Depuración del evento
+        console.log('GTM Event enviado manualmente:', eventData);
+        console.log('DataLayer actual:', window.dataLayer);
+      } else {
+        console.warn('Window no está disponible, no se pudo enviar el evento GTM');
+      }
+      
+      // También intentamos con el hook por si acaso
+      pushEvent({
+        name: 'submit_form_quotation',
+        params: {
+          service_requested: data.tipoIndustria,
+          form_fields_filled: Object.keys(data).length
+        }
+      });
+      
+      // Depuración del evento con el hook
+      console.log('GTM Event con hook:', window.dataLayer[window.dataLayer.length - 1]);
+      
       const response = await fetch('https://hook.us1.make.com/oq1dihqjq7xbl2xbk9wbbdp02h37831a', {
         method: 'POST',
         headers: {

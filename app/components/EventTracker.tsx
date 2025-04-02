@@ -2,6 +2,13 @@
 
 import { useEffect } from 'react';
 
+// Función utilitaria para capturar parámetros UTM desde la URL
+function getQueryParam(param: string) {
+  if (typeof window === 'undefined') return null;
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
 // Tipos para los eventos
 type EventName = 
   | 'click_cta_primary'
@@ -34,6 +41,10 @@ export function useGtmEvent() {
       window.dataLayer.push({
         event: name,
         ...params,
+        utm_source: getQueryParam('utm_source'),
+        utm_medium: getQueryParam('utm_medium'),
+        utm_campaign: getQueryParam('utm_campaign'),
+        referrer: document.referrer
       });
     }
   };
@@ -167,4 +178,4 @@ export function useTimeOnPageTracking() {
       });
     };
   }, []);
-} 
+}
