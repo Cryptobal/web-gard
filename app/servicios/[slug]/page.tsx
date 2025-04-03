@@ -323,7 +323,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
             {servicio.slug === 'guardias-de-seguridad' ? (
               <GaleriaGuardiasCarrusel 
                 imageIds={servicio.gallery} 
-                title={`Galería de ${servicio.name}`} 
+                title="Personal de Seguridad Certificado" 
               />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

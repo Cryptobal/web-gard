@@ -63,6 +63,38 @@ export default function GaleriaGuardiasCarrusel({ imageIds, title = "Galería de
     };
   }, []);
   
+  // Manejar eventos táctiles para evitar scroll no deseado
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      // Solo en móviles y cuando el touch está en el área del slider
+      if (isMobile && sliderContainerRef.current?.contains(e.target as Node)) {
+        // Prevenir el scroll vertical mientras se interactúa con el slider
+        document.body.style.overflow = 'hidden';
+      }
+    };
+    
+    const handleTouchEnd = () => {
+      // Restaurar el scroll cuando termina la interacción
+      if (isMobile) {
+        document.body.style.overflow = '';
+      }
+    };
+    
+    if (sliderContainerRef.current) {
+      sliderContainerRef.current.addEventListener('touchstart', handleTouchStart, { passive: false });
+      sliderContainerRef.current.addEventListener('touchend', handleTouchEnd);
+      sliderContainerRef.current.addEventListener('touchcancel', handleTouchEnd);
+    }
+    
+    return () => {
+      if (sliderContainerRef.current) {
+        sliderContainerRef.current.removeEventListener('touchstart', handleTouchStart);
+        sliderContainerRef.current.removeEventListener('touchend', handleTouchEnd);
+        sliderContainerRef.current.removeEventListener('touchcancel', handleTouchEnd);
+      }
+    };
+  }, [isMobile]);
+  
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slideChanged(slider) {
@@ -79,6 +111,8 @@ export default function GaleriaGuardiasCarrusel({ imageIds, title = "Galería de
     mode: "snap",
     drag: true,
     dragSpeed: 1,
+    // Prevenir que el swipe interfiera con el scroll de la página
+    rubberband: false,
     // En escritorio avanzamos de 3 en 3, en móvil de 1 en 1
     breakpoints: {
       '(min-width: 1024px)': {
@@ -200,7 +234,7 @@ export default function GaleriaGuardiasCarrusel({ imageIds, title = "Galería de
           <div className="keen-slider-container">
             <div 
               ref={sliderRef} 
-              className="keen-slider cursor-grab active:cursor-grabbing"
+              className="keen-slider cursor-grab active:cursor-grabbing touch-manipulation"
             >
               {imageIds.map((imageId, index) => (
                 <motion.div
