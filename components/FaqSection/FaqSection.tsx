@@ -13,7 +13,8 @@ import {
   Plane, 
   Cpu, 
   Building,
-  HelpCircle
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 // Definimos una interfaz para los datos FAQ
@@ -29,11 +30,11 @@ type FaqCategories = {
 
 // Iconos por categoría para móviles
 const categoryIcons: Record<string, React.ReactNode> = {
-  'Guardias de Seguridad': <ShieldCheck className="h-5 w-5" />,
-  'Monitoreo y CCTV': <Video className="h-5 w-5" />,
-  'Drones de Seguridad': <Plane className="h-5 w-5" />,
-  'Tecnología e Innovación': <Cpu className="h-5 w-5" />,
-  'Empresa y Operación': <Building className="h-5 w-5" />
+  'Guardias de Seguridad': <ShieldCheck className="h-6 w-6" />,
+  'Monitoreo y CCTV': <Video className="h-6 w-6" />,
+  'Drones de Seguridad': <Plane className="h-6 w-6" />,
+  'Tecnología e Innovación': <Cpu className="h-6 w-6" />,
+  'Empresa y Operación': <Building className="h-6 w-6" />
 };
 
 export default function FaqSection() {
@@ -44,11 +45,11 @@ export default function FaqSection() {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number>(400); // Altura predeterminada
+  const [contentHeight, setContentHeight] = useState<number>(400);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Detectar si estamos en móvil
+  // Detectar si estamos en dispositivo móvil
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -105,13 +106,8 @@ export default function FaqSection() {
     return () => window.removeEventListener('resize', calculateHeights);
   }, [categories, typedFaqData]);
 
-  // Scroll al título cuando cambia la categoría
+  // Reset expanded item when changing tab
   useEffect(() => {
-    // Eliminar el scroll automático al cargar o cambiar pestañas
-    // if (titleRef.current) {
-    //   titleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // }
-    // Reset expanded item when changing tab
     setExpandedItem(null);
   }, [activeTab]);
 
@@ -125,12 +121,26 @@ export default function FaqSection() {
     setExpandedItem(expandedItem === id ? null : id);
   };
 
+  // Navegar a la categoría anterior
+  const goToPrevCategory = () => {
+    const currentIndex = categories.indexOf(activeTab);
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : categories.length - 1;
+    setActiveTab(categories[prevIndex]);
+  };
+
+  // Navegar a la categoría siguiente
+  const goToNextCategory = () => {
+    const currentIndex = categories.indexOf(activeTab);
+    const nextIndex = currentIndex < categories.length - 1 ? currentIndex + 1 : 0;
+    setActiveTab(categories[nextIndex]);
+  };
+
   return (
     <section ref={sectionRef} className="gard-section gard-section-alt py-12">
       <div className="gard-container max-w-5xl mx-auto px-4">
         <h2 
           ref={titleRef}
-          className="text-heading-2 text-center mb-12"
+          className="text-heading-2 text-center mb-8"
           id="preguntas-frecuentes"
         >
           Preguntas Frecuentes
@@ -138,42 +148,69 @@ export default function FaqSection() {
         
         <div className="w-full">
           <Tabs defaultValue={activeTab} onValueChange={handleTabChange} className="w-full">
-            <div className="relative mb-8 overflow-hidden">
-              <TabsList className="flex flex-nowrap overflow-x-auto pb-2 justify-start md:justify-center gap-2 w-full">
-                {categories.map((category) => (
-                  <TabsTrigger 
-                    key={category} 
-                    value={category}
-                    className="relative rounded-xl py-2 px-4 text-sm md:text-base whitespace-nowrap flex-shrink-0 flex items-center justify-center"
-                    title={category} // Para accesibilidad en caso de mostrar solo iconos
-                  >
-                    {/* En móvil mostramos solo iconos, en desktop texto */}
-                    <span className="md:block hidden">{category}</span>
-                    <span className="md:hidden flex items-center justify-center" aria-hidden="true">
-                      {categoryIcons[category] || <HelpCircle className="h-5 w-5" />}
-                    </span>
-                    
-                    {activeTab === category && (
-                      <motion.div
-                        layoutId="underline"
-                        className="absolute left-0 right-0 bottom-0 h-0.5 bg-primary"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    )}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+            {/* Navegación de categorías */}
+            <div className="mb-8 relative">
+              {/* Flechas de navegación para móvil */}
+              <div className="md:hidden flex justify-between items-center mb-4">
+                <button 
+                  onClick={goToPrevCategory}
+                  className="p-2 rounded-full hover:bg-muted/30 transition-colors text-primary"
+                  aria-label="Categoría anterior"
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+                
+                <div className="text-center text-sm font-medium">
+                  {activeTab}
+                </div>
+                
+                <button 
+                  onClick={goToNextCategory}
+                  className="p-2 rounded-full hover:bg-muted/30 transition-colors text-primary"
+                  aria-label="Categoría siguiente"
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </button>
+              </div>
+              
+              {/* Pestañas de categorías (visible en desktop, oculto en móvil) */}
+              <div className="hidden md:flex justify-center">
+                <TabsList className="flex flex-nowrap space-x-6 justify-center p-2 rounded-xl bg-muted/50">
+                  {categories.map((category) => (
+                    <TabsTrigger 
+                      key={category} 
+                      value={category}
+                      className="relative p-3 rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all duration-200"
+                      title={category}
+                    >
+                      <span className={`flex items-center justify-center transition-colors ${activeTab === category ? 'text-primary' : 'text-muted-foreground'}`}>
+                        {categoryIcons[category]}
+                      </span>
+                      
+                      <span className="ml-2 text-sm">
+                        {category}
+                      </span>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+              
+              {/* Vista de un solo icono para móvil */}
+              <div className="flex md:hidden justify-center">
+                <div className="p-3 rounded-xl bg-muted/50 flex items-center justify-center">
+                  <span className="text-primary">
+                    {categoryIcons[activeTab]}
+                  </span>
+                </div>
+              </div>
             </div>
             
-            {/* Contenedor con altura fija para evitar saltos en transiciones */}
+            {/* Contenedor de contenido */}
             <div 
               ref={contentRef}
               className="relative"
               style={{ 
-                height: `${contentHeight}px`, 
-                overflow: 'hidden',
+                minHeight: `350px`,
                 transition: 'height 0.3s ease'
               }}
             >
@@ -183,12 +220,12 @@ export default function FaqSection() {
                     <TabsContent 
                       key={category} 
                       value={category}
-                      className="mt-4 w-full absolute top-0 left-0"
+                      className="mt-0 w-full"
                     >
                       <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0, x: isMobile ? 20 : 0 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: isMobile ? -20 : 0 }}
                         transition={{ 
                           duration: 0.25,
                           ease: "easeInOut"
@@ -210,12 +247,12 @@ export default function FaqSection() {
                                     <dt className="w-full">
                                       <button 
                                         onClick={() => toggleQuestion(questionId)}
-                                        className="flex justify-between items-center w-full text-left py-5 px-3 hover:bg-muted/20 rounded-md transition-all duration-200 group"
+                                        className="flex justify-between items-start w-full text-left py-4 px-3 hover:bg-muted/20 rounded-md transition-all duration-200 group"
                                         aria-expanded={isExpanded}
                                         aria-controls={`answer-${questionId}`}
                                       >
-                                        <span className="text-base font-semibold dark:text-white">{item.question}</span>
-                                        <span className="flex-shrink-0 ml-2 text-primary">
+                                        <span className="text-base font-semibold dark:text-white pr-3">{item.question}</span>
+                                        <span className="flex-shrink-0 ml-2 text-primary mt-1">
                                           {isExpanded ? (
                                             <Minus className="h-4 w-4 transition-transform duration-300" />
                                           ) : (
@@ -226,14 +263,14 @@ export default function FaqSection() {
                                     </dt>
                                     <dd 
                                       id={`answer-${questionId}`}
-                                      className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96' : 'max-h-0'}`}
+                                      className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[500px]' : 'max-h-0'}`}
                                     >
                                       {isExpanded && (
                                         <motion.div
                                           initial={{ opacity: 0 }}
                                           animate={{ opacity: 1 }}
                                           transition={{ duration: 0.2 }}
-                                          className="text-sm text-muted-foreground leading-relaxed mt-2 pl-4 py-3"
+                                          className="text-sm text-muted-foreground leading-relaxed mt-1 mb-3 px-4 py-3"
                                         >
                                           {item.answer}
                                         </motion.div>
@@ -253,32 +290,6 @@ export default function FaqSection() {
             </div>
           </Tabs>
         </div>
-        
-        {/* Datos estructurados para SEO (comentado para futura implementación) */}
-        {/* 
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": [
-                ${categories.flatMap(category => 
-                  typedFaqData[category].map(item => `
-                    {
-                      "@type": "Question",
-                      "name": "${item.question}",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "${item.answer}"
-                      }
-                    }
-                  `)
-                ).join(',')}
-              ]
-            }
-          `}
-        </script>
-        */}
       </div>
     </section>
   );
