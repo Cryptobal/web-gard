@@ -8,7 +8,7 @@ import CtaFinal from '@/components/ui/shared/CtaFinal';
 
 // Configuración de optimización para páginas estáticas
 export const runtime = 'edge';
-export const dynamicPage = 'force-static';
+export const dynamicParams = false;
 export const preferredRegion = 'chl1'; // Region de Chile para mejor performance
 
 export const metadata: Metadata = {

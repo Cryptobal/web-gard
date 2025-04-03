@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { CloudflareImage } from '@/components/ui';
 import { cloudflareImages } from '@/lib/images';
 import { 
@@ -15,16 +14,23 @@ import {
 
 // Configuración de optimización para páginas estáticas
 export const runtime = 'edge';
-export const dynamicPage = 'force-static';
+// Estas configuraciones controlan el comportamiento de renderizado y cache
+export const revalidate = false; // Sin revalidación automática
+export const dynamicParams = false; // Sólo permite parámetros pre-renderizados
 export const preferredRegion = 'chl1'; // Region de Chile para mejor performance
 
 // Importación dinámica de componentes pesados
-const FaqSection = dynamic(() => import('@/components/sections/FaqSection'), {
-  loading: () => <div className="w-full h-48 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl"></div>
-});
-const ClientesCarrusel = dynamic(() => import('@/components/sections/carousels/ClientesCarrusel'), {
-  loading: () => <div className="w-full h-24 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl"></div>
-});
+const FaqSection = lazy(() => import('@/components/sections/FaqSection'));
+const ClientesCarrusel = lazy(() => import('@/components/sections/carousels/ClientesCarrusel'));
+
+// Componentes de carga para las importaciones lazy
+const LoadingFaqSection = () => (
+  <div className="w-full h-48 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl"></div>
+);
+const LoadingClientes = () => (
+  <div className="w-full h-24 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl"></div>
+);
+
 import OurServices from '@/app/components/OurServices';
 import IndustriasGridPage from './components/IndustriasGridPage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
@@ -69,7 +75,9 @@ export default function Home() {
       </section>
 
       {/* Clientes que confían en nosotros */}
-      <ClientesCarrusel />
+      <Suspense fallback={<LoadingClientes />}>
+        <ClientesCarrusel />
+      </Suspense>
 
       {/* Servicios destacados */}
       <OurServices />
@@ -193,9 +201,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Preguntas Frecuentes - Comentado temporalmente */}
-      {/* <FaqSection /> */}
-      <FaqSection />
+      {/* Preguntas Frecuentes */}
+      <Suspense fallback={<LoadingFaqSection />}>
+        <FaqSection />
+      </Suspense>
 
       {/* CTA final */}
       <CtaFinal 
