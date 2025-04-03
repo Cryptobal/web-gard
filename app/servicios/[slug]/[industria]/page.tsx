@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { ArrowRight, CheckCircle, Shield, BarChart3, TrendingUp, LightbulbIcon } from 'lucide-react';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
 import { servicios } from '@/app/data/servicios';
@@ -26,7 +26,9 @@ function normalizeName(name: string): string {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const servicio = servicios.find(s => normalizeName(s.name) === params.slug);
+  // Buscar el servicio por su slug directamente
+  const servicio = servicios.find(s => s.slug === params.slug);
+  // Industria sigue usando la normalización porque se basa en el nombre
   const industry = industries.find(i => normalizeName(i.name) === params.industria);
   
   if (!servicio || !industry) {
@@ -51,7 +53,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default function ServicioIndustriaPage({ params }: PageProps) {
-  const servicio = servicios.find(s => normalizeName(s.name) === params.slug);
+  // Buscar el servicio por su slug directamente (en lugar de normalizar el nombre)
+  const servicio = servicios.find(s => s.slug === params.slug);
+  // Industria sigue usando la normalización porque se basa en el nombre
   const industry = industries.find(i => normalizeName(i.name) === params.industria);
   
   if (!servicio || !industry) {
@@ -70,8 +74,8 @@ export default function ServicioIndustriaPage({ params }: PageProps) {
   // Obtener datos específicos para esta combinación de servicio e industria
   const servicioIndustriaData = getServicioIndustriaData(params.slug, params.industria);
   
-  // Obtener slugs normalizados para pasar a los componentes
-  const servicioSlug = normalizeName(servicio.name);
+  // Usar el slug definido en el servicio en lugar de normalizarlo nuevamente
+  const servicioSlug = servicio.slug;
   const industriaSlug = normalizeName(industry.name);
   
   return (
