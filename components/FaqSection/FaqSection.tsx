@@ -13,8 +13,7 @@ import {
   Plane, 
   Cpu, 
   Building,
-  ChevronLeft,
-  ChevronRight
+  HelpCircle
 } from 'lucide-react';
 
 // Definimos una interfaz para los datos FAQ
@@ -28,13 +27,13 @@ type FaqCategories = {
   [key: string]: FaqItem[];
 };
 
-// Iconos por categoría para móviles
+// Iconos por categoría
 const categoryIcons: Record<string, React.ReactNode> = {
-  'Guardias de Seguridad': <ShieldCheck className="h-6 w-6" />,
-  'Monitoreo y CCTV': <Video className="h-6 w-6" />,
-  'Drones de Seguridad': <Plane className="h-6 w-6" />,
-  'Tecnología e Innovación': <Cpu className="h-6 w-6" />,
-  'Empresa y Operación': <Building className="h-6 w-6" />
+  'Guardias de Seguridad': <ShieldCheck className="h-8 w-8" />,
+  'Monitoreo y CCTV': <Video className="h-8 w-8" />,
+  'Drones de Seguridad': <Plane className="h-8 w-8" />,
+  'Tecnología e Innovación': <Cpu className="h-8 w-8" />,
+  'Empresa y Operación': <Building className="h-8 w-8" />
 };
 
 export default function FaqSection() {
@@ -46,65 +45,6 @@ export default function FaqSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number>(400);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detectar si estamos en dispositivo móvil
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Precalcular alturas para transiciones fluidas
-  useEffect(() => {
-    const calculateHeights = () => {
-      const heights: Record<string, number> = {};
-      
-      categories.forEach(category => {
-        const tempDiv = document.createElement('div');
-        tempDiv.style.position = 'absolute';
-        tempDiv.style.visibility = 'hidden';
-        tempDiv.style.width = '100%';
-        
-        // Clonar el contenido para esta categoría
-        tempDiv.innerHTML = `
-          <div class="card border-0 shadow-sm">
-            <div class="pt-6">
-              <dl class="w-full divide-y divide-gray-200">
-                ${typedFaqData[category].map(item => `
-                  <div class="py-2 w-full">
-                    <dt class="w-full">
-                      <button class="flex justify-between items-center w-full py-5 px-3">
-                        <span class="text-base font-semibold">${item.question}</span>
-                      </button>
-                    </dt>
-                  </div>
-                `).join('')}
-              </dl>
-            </div>
-          </div>
-        `;
-        
-        document.body.appendChild(tempDiv);
-        heights[category] = tempDiv.offsetHeight + 30; // Extra padding
-        document.body.removeChild(tempDiv);
-      });
-      
-      // Establecer la altura máxima
-      const maxHeight = Math.max(...Object.values(heights), 400);
-      setContentHeight(maxHeight);
-    };
-    
-    calculateHeights();
-    
-    window.addEventListener('resize', calculateHeights);
-    return () => window.removeEventListener('resize', calculateHeights);
-  }, [categories, typedFaqData]);
 
   // Reset expanded item when changing tab
   useEffect(() => {
@@ -121,20 +61,6 @@ export default function FaqSection() {
     setExpandedItem(expandedItem === id ? null : id);
   };
 
-  // Navegar a la categoría anterior
-  const goToPrevCategory = () => {
-    const currentIndex = categories.indexOf(activeTab);
-    const prevIndex = currentIndex > 0 ? currentIndex - 1 : categories.length - 1;
-    setActiveTab(categories[prevIndex]);
-  };
-
-  // Navegar a la categoría siguiente
-  const goToNextCategory = () => {
-    const currentIndex = categories.indexOf(activeTab);
-    const nextIndex = currentIndex < categories.length - 1 ? currentIndex + 1 : 0;
-    setActiveTab(categories[nextIndex]);
-  };
-
   return (
     <section ref={sectionRef} className="gard-section gard-section-alt py-12">
       <div className="gard-container max-w-5xl mx-auto px-4">
@@ -148,71 +74,33 @@ export default function FaqSection() {
         
         <div className="w-full">
           <Tabs defaultValue={activeTab} onValueChange={handleTabChange} className="w-full">
-            {/* Navegación de categorías */}
-            <div className="mb-8 relative">
-              {/* Flechas de navegación para móvil */}
-              <div className="md:hidden flex justify-between items-center mb-4">
-                <button 
-                  onClick={goToPrevCategory}
-                  className="p-2 rounded-full hover:bg-muted/30 transition-colors text-primary"
-                  aria-label="Categoría anterior"
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-                
-                <div className="text-center text-sm font-medium">
-                  {activeTab}
-                </div>
-                
-                <button 
-                  onClick={goToNextCategory}
-                  className="p-2 rounded-full hover:bg-muted/30 transition-colors text-primary"
-                  aria-label="Categoría siguiente"
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-              </div>
-              
-              {/* Pestañas de categorías (visible en desktop, oculto en móvil) */}
-              <div className="hidden md:flex justify-center">
-                <TabsList className="flex flex-nowrap space-x-6 justify-center p-2 rounded-xl bg-muted/50">
-                  {categories.map((category) => (
-                    <TabsTrigger 
-                      key={category} 
-                      value={category}
-                      className="relative p-3 rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all duration-200"
-                      title={category}
-                    >
-                      <span className={`flex items-center justify-center transition-colors ${activeTab === category ? 'text-primary' : 'text-muted-foreground'}`}>
-                        {categoryIcons[category]}
-                      </span>
-                      
-                      <span className="ml-2 text-sm">
-                        {category}
-                      </span>
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </div>
-              
-              {/* Vista de un solo icono para móvil */}
-              <div className="flex md:hidden justify-center">
-                <div className="p-3 rounded-xl bg-muted/50 flex items-center justify-center">
-                  <span className="text-primary">
-                    {categoryIcons[activeTab]}
-                  </span>
-                </div>
-              </div>
+            <div className="mb-8 flex justify-center">
+              <TabsList className="flex flex-nowrap space-x-5 md:space-x-6 justify-center p-3 rounded-xl bg-muted/50">
+                {categories.map((category) => (
+                  <TabsTrigger 
+                    key={category} 
+                    value={category}
+                    className="relative p-3 rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all duration-200"
+                    title={category}
+                  >
+                    {/* Mostrar solo íconos, con el activo en color primario */}
+                    <span className={`flex items-center justify-center transition-colors ${activeTab === category ? 'text-primary' : 'text-muted-foreground'}`}>
+                      {categoryIcons[category] || <HelpCircle className="h-8 w-8" />}
+                    </span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+            
+            {/* Nombre de la categoría seleccionada para mejor contexto */}
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-medium">{activeTab}</h3>
             </div>
             
             {/* Contenedor de contenido */}
             <div 
               ref={contentRef}
-              className="relative"
-              style={{ 
-                minHeight: `350px`,
-                transition: 'height 0.3s ease'
-              }}
+              className="relative min-h-[350px]"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {categories.map((category) => (
@@ -221,13 +109,14 @@ export default function FaqSection() {
                       key={category} 
                       value={category}
                       className="mt-0 w-full"
+                      forceMount={activeTab === category ? true : undefined}
                     >
                       <motion.div
-                        initial={{ opacity: 0, x: isMobile ? 20 : 0 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: isMobile ? -20 : 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
                         transition={{ 
-                          duration: 0.25,
+                          duration: 0.3,
                           ease: "easeInOut"
                         }}
                         className="w-full"
