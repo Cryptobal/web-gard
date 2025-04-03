@@ -26,6 +26,7 @@ import {
   Hotel
 } from 'lucide-react';
 import LinkParamsAware from '@/app/components/LinkParamsAware';
+import GaleriaGuardiasCarrusel from '@/components/GaleriaGuardiasCarrusel';
 
 // Generar rutas estáticas para cada servicio
 export async function generateStaticParams() {
@@ -302,20 +303,31 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
       {servicio.gallery.length > 0 && (
         <section className="gard-section py-16 md:py-24 bg-gray-50 dark:bg-gray-800">
           <div className="gard-container max-w-7xl mx-auto px-4">
-            <h2 className="text-heading-2 mb-10 text-center">Galería de {servicio.name}</h2>
+            {/* Mostrar título solo para servicios que no sean guardias */}
+            {servicio.slug !== 'guardias-de-seguridad' && (
+              <h2 className="text-heading-2 mb-10 text-center">Galería de {servicio.name}</h2>
+            )}
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {servicio.gallery.map((imageId, index) => (
-                <div key={index} className="relative aspect-video rounded-2xl overflow-hidden shadow-sm">
-                  <CloudflareImage
-                    imageId={imageId}
-                    alt={`${servicio.name} - Imagen ${index + 1}`}
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              ))}
-            </div>
+            {/* Usar el carrusel para guardias de seguridad y grid para los demás servicios */}
+            {servicio.slug === 'guardias-de-seguridad' ? (
+              <GaleriaGuardiasCarrusel 
+                imageIds={servicio.gallery} 
+                title={`Galería de ${servicio.name}`} 
+              />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {servicio.gallery.map((imageId, index) => (
+                  <div key={index} className="relative aspect-video rounded-2xl overflow-hidden shadow-sm">
+                    <CloudflareImage
+                      imageId={imageId}
+                      alt={`${servicio.name} - Imagen ${index + 1}`}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
