@@ -60,9 +60,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Clientes que confían en nosotros */}
-      <ClientesCarrusel />
-
       {/* Servicios destacados */}
       <OurServices />
 
@@ -131,6 +128,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Clientes que confían en nosotros */}
+      <ClientesCarrusel />
 
       {/* Estadísticas */}
       <section className="gard-section bg-gradient-to-r from-[#1A2A90] to-[#2535C0] text-white relative overflow-hidden">

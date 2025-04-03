@@ -15,6 +15,7 @@ import {
   Building,
   HelpCircle
 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // Definimos una interfaz para los datos FAQ
 interface FaqItem {
@@ -90,28 +91,23 @@ export default function FaqSection() {
         `;
         
         document.body.appendChild(tempDiv);
-        heights[category] = tempDiv.offsetHeight + 30; // Extra padding
+        heights[category] = tempDiv.offsetHeight + 100; // Extra padding aumentado para evitar cortes
         document.body.removeChild(tempDiv);
       });
       
-      // Establecer la altura máxima
-      const maxHeight = Math.max(...Object.values(heights), 400);
-      setContentHeight(maxHeight);
+      // Establecer la altura máxima con más margen para móviles
+      const maxHeight = Math.max(...Object.values(heights), 500);
+      setContentHeight(isMobile ? maxHeight + 100 : maxHeight);
     };
     
     calculateHeights();
     
     window.addEventListener('resize', calculateHeights);
     return () => window.removeEventListener('resize', calculateHeights);
-  }, [categories, typedFaqData]);
+  }, [categories, typedFaqData, isMobile]);
 
-  // Scroll al título cuando cambia la categoría
+  // Reset expanded item when changing tab
   useEffect(() => {
-    // Eliminar el scroll automático al cargar o cambiar pestañas
-    // if (titleRef.current) {
-    //   titleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // }
-    // Reset expanded item when changing tab
     setExpandedItem(null);
   }, [activeTab]);
 
@@ -126,37 +122,63 @@ export default function FaqSection() {
   };
 
   return (
-    <section ref={sectionRef} className="gard-section gard-section-alt py-12">
-      <div className="gard-container max-w-5xl mx-auto px-4">
-        <h2 
+    <section 
+      ref={sectionRef} 
+      className="gard-section py-16 md:py-24 bg-gradient-to-b from-[#0D0F1C] to-[#171B2F] relative overflow-hidden"
+    >
+      {/* Patrón de fondo sutil */}
+      <div className="absolute inset-0 opacity-5" 
+        style={{
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E\")",
+          backgroundRepeat: "repeat"
+        }}>
+      </div>
+      
+      <div className="gard-container max-w-5xl mx-auto px-4 relative z-10">
+        <motion.h2 
           ref={titleRef}
-          className="text-heading-2 text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-heading-2 text-center mb-12 text-white"
           id="preguntas-frecuentes"
         >
           Preguntas Frecuentes
-        </h2>
+        </motion.h2>
         
         <div className="w-full">
           <Tabs defaultValue={activeTab} onValueChange={handleTabChange} className="w-full">
             <div className="relative mb-8 overflow-hidden">
-              <TabsList className="flex flex-nowrap overflow-x-auto pb-2 justify-start md:justify-center gap-2 w-full">
+              <TabsList className="flex flex-nowrap overflow-x-auto pb-3 justify-start md:justify-center gap-2 md:gap-3 w-full bg-transparent">
                 {categories.map((category) => (
                   <TabsTrigger 
                     key={category} 
                     value={category}
-                    className="relative rounded-xl py-2 px-4 text-sm md:text-base whitespace-nowrap flex-shrink-0 flex items-center justify-center"
-                    title={category} // Para accesibilidad en caso de mostrar solo iconos
+                    className={cn(
+                      "relative rounded-xl py-2 px-3 md:py-2.5 md:px-4 text-sm md:text-base whitespace-nowrap flex-shrink-0",
+                      "flex items-center justify-center transition-all duration-300",
+                      "text-white/80 hover:text-white font-medium",
+                      "data-[state=active]:text-white",
+                      "border-b-2 border-transparent",
+                      "data-[state=active]:border-primary dark:data-[state=active]:border-accent"
+                    )}
+                    title={category}
                   >
-                    {/* En móvil mostramos solo iconos, en desktop texto */}
-                    <span className="md:block hidden">{category}</span>
-                    <span className="md:hidden flex items-center justify-center" aria-hidden="true">
-                      {categoryIcons[category] || <HelpCircle className="h-5 w-5" />}
+                    {/* En móviles mostraremos textos abreviados o nombres completos según el espacio */}
+                    <span className="hidden md:block">{category}</span>
+                    <span className="block md:hidden">
+                      {category === 'Guardias de Seguridad' ? 'Guardias' : 
+                       category === 'Monitoreo y CCTV' ? 'Monitoreo' :
+                       category === 'Drones de Seguridad' ? 'Drones' :
+                       category === 'Tecnología e Innovación' ? 'Tecnología' :
+                       category === 'Empresa y Operación' ? 'Empresa' : 
+                       category}
                     </span>
                     
                     {activeTab === category && (
                       <motion.div
-                        layoutId="underline"
-                        className="absolute left-0 right-0 bottom-0 h-0.5 bg-primary"
+                        layoutId="tab-background"
+                        className="absolute inset-0 bg-primary/10 dark:bg-primary/20 rounded-lg -z-10"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3 }}
@@ -167,14 +189,15 @@ export default function FaqSection() {
               </TabsList>
             </div>
             
-            {/* Contenedor con altura fija para evitar saltos en transiciones */}
+            {/* Contenedor con altura dinámica para evitar saltos y cortes en transiciones */}
             <div 
               ref={contentRef}
               className="relative"
               style={{ 
                 height: `${contentHeight}px`, 
+                minHeight: isMobile ? "600px" : "400px", // Altura mínima para asegurar que todo sea visible
                 overflow: 'hidden',
-                transition: 'height 0.3s ease'
+                transition: 'height 0.4s ease'
               }}
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -186,18 +209,18 @@ export default function FaqSection() {
                       className="mt-4 w-full absolute top-0 left-0"
                     >
                       <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
                         transition={{ 
-                          duration: 0.25,
+                          duration: 0.4,
                           ease: "easeInOut"
                         }}
                         className="w-full"
                       >
-                        <Card className="border-0 shadow-sm">
-                          <CardContent className="pt-6">
-                            <dl className="w-full divide-y divide-gray-200 dark:divide-gray-800">
+                        <Card className="border-0 shadow-lg bg-[#151824]/80 backdrop-blur-sm rounded-xl overflow-hidden">
+                          <CardContent className="pt-6 pb-10"> {/* Añadido padding bottom para evitar cortes */}
+                            <dl className="w-full divide-y divide-gray-700/30">
                               {typedFaqData[category].map((item: FaqItem, index: number) => {
                                 const questionId = `${category}-question-${index}`;
                                 const isExpanded = expandedItem === questionId;
@@ -205,35 +228,55 @@ export default function FaqSection() {
                                 return (
                                   <div 
                                     key={index} 
-                                    className="py-2 w-full"
+                                    className="py-3 w-full"
                                   >
                                     <dt className="w-full">
                                       <button 
                                         onClick={() => toggleQuestion(questionId)}
-                                        className="flex justify-between items-center w-full text-left py-5 px-3 hover:bg-muted/20 rounded-md transition-all duration-200 group"
+                                        className={cn(
+                                          "flex justify-between items-center w-full text-left py-5 px-4",
+                                          "hover:bg-primary/5 dark:hover:bg-primary/10 rounded-lg transition-all duration-300",
+                                          "group transform hover:translate-x-1"
+                                        )}
                                         aria-expanded={isExpanded}
                                         aria-controls={`answer-${questionId}`}
                                       >
-                                        <span className="text-base font-semibold dark:text-white">{item.question}</span>
-                                        <span className="flex-shrink-0 ml-2 text-primary">
+                                        <span className="text-base font-semibold text-white group-hover:text-primary dark:group-hover:text-accent transition-colors">
+                                          {item.question}
+                                        </span>
+                                        <span className="flex-shrink-0 ml-3">
                                           {isExpanded ? (
-                                            <Minus className="h-4 w-4 transition-transform duration-300" />
+                                            <motion.div
+                                              initial={{ rotate: 0 }}
+                                              animate={{ rotate: 45 }}
+                                              transition={{ duration: 0.3 }}
+                                              className="flex items-center justify-center" // Centrar icono
+                                            >
+                                              <Plus className="h-5 w-5 text-accent" />
+                                            </motion.div>
                                           ) : (
-                                            <Plus className="h-4 w-4 transition-transform duration-300" />
+                                            <motion.div
+                                              whileHover={{ scale: 1.2 }}
+                                              transition={{ duration: 0.2 }}
+                                              className="flex items-center justify-center" // Centrar icono
+                                            >
+                                              <Plus className="h-5 w-5 text-primary" />
+                                            </motion.div>
                                           )}
                                         </span>
                                       </button>
                                     </dt>
                                     <dd 
                                       id={`answer-${questionId}`}
-                                      className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96' : 'max-h-0'}`}
+                                      className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[500px]' : 'max-h-0'}`} // Aumentado max-height
                                     >
                                       {isExpanded && (
                                         <motion.div
-                                          initial={{ opacity: 0 }}
-                                          animate={{ opacity: 1 }}
-                                          transition={{ duration: 0.2 }}
-                                          className="text-sm text-muted-foreground leading-relaxed mt-2 pl-4 py-3"
+                                          initial={{ opacity: 0, y: -10 }}
+                                          animate={{ opacity: 1, y: 0 }}
+                                          exit={{ opacity: 0, y: -10 }}
+                                          transition={{ duration: 0.4, ease: "easeOut" }}
+                                          className="px-4 py-4 my-2 ml-2 mr-4 bg-gray-800/50 rounded-lg text-gray-200 text-sm leading-relaxed border-l-2 border-primary/30"
                                         >
                                           {item.answer}
                                         </motion.div>
@@ -253,32 +296,6 @@ export default function FaqSection() {
             </div>
           </Tabs>
         </div>
-        
-        {/* Datos estructurados para SEO (comentado para futura implementación) */}
-        {/* 
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": [
-                ${categories.flatMap(category => 
-                  typedFaqData[category].map(item => `
-                    {
-                      "@type": "Question",
-                      "name": "${item.question}",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "${item.answer}"
-                      }
-                    }
-                  `)
-                ).join(',')}
-              ]
-            }
-          `}
-        </script>
-        */}
       </div>
     </section>
   );
