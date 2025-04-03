@@ -16,9 +16,12 @@ import {
   ShieldAlert
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useKeenSlider } from 'keen-slider/react';
+import "keen-slider/keen-slider.min.css";
 import CloudflareImage from '@/components/CloudflareImage';
 import { services } from '@/app/data/services';
 import { serviciosPorIndustria } from '@/app/data/servicios-por-industria';
+import { cn } from '@/lib/utils';
 
 // Mapeo de nombres de íconos a componentes de Lucide
 const iconComponents: Record<string, React.FC<{ className?: string }>> = {
@@ -46,23 +49,23 @@ export default function OurServices({
   nombreIndustria
 }: OurServicesProps) {
   // Estado para controlar el carrusel en móviles
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const [displayMode, setDisplayMode] = useState<'desktop' | 'mobile'>('desktop');
 
-  // Detectar si es dispositivo móvil
+  // Detectar si es dispositivo móvil y actualizar el modo de visualización
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const updateDisplayMode = () => {
+      setDisplayMode(window.innerWidth < 768 ? 'mobile' : 'desktop');
     };
     
     // Comprobar al cargar
-    checkIfMobile();
+    updateDisplayMode();
     
     // Comprobar al redimensionar la ventana
-    window.addEventListener('resize', checkIfMobile);
+    window.addEventListener('resize', updateDisplayMode);
     
-    return () => window.removeEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', updateDisplayMode);
   }, []);
 
   // Filtrar servicios según la industria si se proporciona
@@ -89,23 +92,38 @@ export default function OurServices({
     return services;
   }, [industria]);
 
+  // Configuración de keen-slider para móviles
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+    slides: {
+      perView: 1,
+      spacing: 16
+    },
+    created() {
+      setLoaded(true);
+    }
+  });
+
   // Función para renderizar el ícono correcto según el nombre
   const renderIcon = (iconName: string) => {
     const IconComponent = iconComponents[iconName as keyof typeof iconComponents];
     return IconComponent ? <IconComponent className="h-10 w-10 text-primary dark:text-accent" /> : null;
   };
 
-  // Funciones para navegación del carrusel
-  const prevSlide = () => {
-    setCurrentIndex((prev) => 
-      prev === 0 ? serviciosFiltrados.length - 1 : prev - 1
-    );
+  // Maneja la navegación del carrusel
+  const handlePrev = () => {
+    if (instanceRef.current) {
+      instanceRef.current.prev();
+    }
   };
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => 
-      prev === serviciosFiltrados.length - 1 ? 0 : prev + 1
-    );
+  const handleNext = () => {
+    if (instanceRef.current) {
+      instanceRef.current.next();
+    }
   };
 
   return (
@@ -118,90 +136,38 @@ export default function OurServices({
           </p>
         </div>
 
-        {/* Vista de escritorio (sin cambios) */}
-        <div className={`md:flex justify-center gap-4 overflow-x-auto flex-wrap ${isMobile ? 'hidden' : 'flex'}`}>
-          {serviciosFiltrados.map((service, index) => {
-            // Determinar la ruta del enlace según si hay una industria especificada
-            const href = industria 
-              ? `${service.href}/${industria}` 
-              : service.href;
-              
-            return (
-              <Link 
-                key={index} 
-                href={href}
-                className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col w-1/5 min-w-[200px] max-w-[23%] mb-6"
-              >
-                <div className="relative aspect-[3/2] w-full mb-4">
-                  <CloudflareImage
-                    imageId={service.imageId}
-                    alt={service.name}
-                    fill
-                    className="rounded-xl object-cover w-full grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out"
-                  />
-                </div>
+        {/* Vista de escritorio */}
+        <div className={displayMode === 'desktop' ? 'block' : 'hidden'}>
+          <div className="flex justify-center gap-4 overflow-x-auto flex-wrap">
+            {serviciosFiltrados.map((service, index) => {
+              // Determinar la ruta del enlace según si hay una industria especificada
+              const href = industria 
+                ? `${service.href}/${industria}` 
+                : service.href;
                 
-                <div className="flex items-center justify-center my-4">
-                  {renderIcon(service.icon)}
-                </div>
-                
-                <h3 className="text-xl font-semibold text-foreground mb-2 text-center">{service.name}</h3>
-                
-                <p className="text-sm text-muted-foreground mb-4 text-center flex-grow">
-                  {service.description}
-                </p>
-                
-                <div className="flex justify-center mt-auto">
-                  <span className="inline-flex items-center text-primary dark:text-accent font-medium">
-                    Saber más <ArrowRight className="ml-1 h-4 w-4" />
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Vista de móvil (carrusel) */}
-        <div className={`relative ${isMobile ? 'block' : 'hidden'}`}>
-          <div 
-            ref={carouselRef}
-            className="flex justify-center"
-          >
-            {serviciosFiltrados.length > 0 && (
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="w-full max-w-[300px] mx-auto"
-              >
+              return (
                 <Link 
-                  href={industria 
-                    ? `${serviciosFiltrados[currentIndex].href}/${industria}` 
-                    : serviciosFiltrados[currentIndex].href
-                  }
-                  className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md flex flex-col"
+                  key={index} 
+                  href={href}
+                  className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out flex flex-col w-full md:w-[46%] lg:w-[30%] xl:w-[22%] mb-6"
                 >
                   <div className="relative aspect-[3/2] w-full mb-4">
                     <CloudflareImage
-                      imageId={serviciosFiltrados[currentIndex].imageId}
-                      alt={serviciosFiltrados[currentIndex].name}
+                      imageId={service.imageId}
+                      alt={service.name}
                       fill
                       className="rounded-xl object-cover w-full grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out"
                     />
                   </div>
                   
                   <div className="flex items-center justify-center my-4">
-                    {renderIcon(serviciosFiltrados[currentIndex].icon)}
+                    {renderIcon(service.icon)}
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-foreground mb-2 text-center">
-                    {serviciosFiltrados[currentIndex].name}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2 text-center">{service.name}</h3>
                   
                   <p className="text-sm text-muted-foreground mb-4 text-center flex-grow">
-                    {serviciosFiltrados[currentIndex].description}
+                    {service.description}
                   </p>
                   
                   <div className="flex justify-center mt-auto">
@@ -210,42 +176,102 @@ export default function OurServices({
                     </span>
                   </div>
                 </Link>
-              </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Vista de móvil con keen-slider */}
+        <div className={displayMode === 'mobile' ? 'block' : 'hidden'}>
+          <div className="relative">
+            {/* Botones de navegación */}
+            {loaded && instanceRef.current && (
+              <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 flex justify-between z-10 pointer-events-none">
+                <button 
+                  onClick={handlePrev}
+                  className="w-12 h-12 rounded-full bg-black/20 hover:bg-black/40 flex items-center justify-center text-primary transition-all pointer-events-auto"
+                  aria-label="Anterior"
+                >
+                  <ChevronLeft className="w-7 h-7" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="w-12 h-12 rounded-full bg-black/20 hover:bg-black/40 flex items-center justify-center text-primary transition-all pointer-events-auto"
+                  aria-label="Siguiente"
+                >
+                  <ChevronRight className="w-7 h-7" />
+                </button>
+              </div>
             )}
+            
+            {/* Carrusel con Keen Slider */}
+            <div ref={sliderRef} className="keen-slider">
+              {serviciosFiltrados.map((service, index) => {
+                // Determinar la ruta del enlace según si hay una industria
+                const href = industria 
+                  ? `${service.href}/${industria}` 
+                  : service.href;
+                  
+                return (
+                  <div key={index} className="keen-slider__slide px-2 py-2">
+                    <Link 
+                      href={href}
+                      className="bg-card dark:bg-gray-800 rounded-2xl p-4 shadow-md flex flex-col h-full"
+                    >
+                      <div className="relative aspect-[3/2] w-full mb-4">
+                        <CloudflareImage
+                          imageId={service.imageId}
+                          alt={service.name}
+                          fill
+                          className="rounded-xl object-cover w-full grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition duration-300 ease-in-out"
+                        />
+                      </div>
+                      
+                      <div className="flex items-center justify-center my-4">
+                        {renderIcon(service.icon)}
+                      </div>
+                      
+                      <h3 className="text-xl font-semibold text-foreground mb-2 text-center">
+                        {service.name}
+                      </h3>
+                      
+                      <p className="text-sm text-muted-foreground mb-4 text-center flex-grow">
+                        {service.description}
+                      </p>
+                      
+                      <div className="flex justify-center mt-auto">
+                        <span className="inline-flex items-center text-primary dark:text-accent font-medium">
+                          Saber más <ArrowRight className="ml-1 h-4 w-4" />
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-
-          {/* Flechas de navegación */}
-          <button 
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md"
-            aria-label="Anterior"
-          >
-            <ChevronLeft className="h-6 w-6 text-primary dark:text-accent" />
-          </button>
           
-          <button 
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md"
-            aria-label="Siguiente"
-          >
-            <ChevronRight className="h-6 w-6 text-primary dark:text-accent" />
-          </button>
-
-          {/* Indicadores de páginación */}
-          <div className="flex justify-center gap-4 mt-4">
-            {serviciosFiltrados.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-6 h-6 rounded-full transition-all duration-300 flex items-center justify-center ${
-                  currentIndex === index 
-                    ? 'bg-primary dark:bg-accent w-8' 
-                    : 'bg-gray-300 dark:bg-gray-700'
-                }`}
-                aria-label={`${index + 1} - Ir a servicio ${index + 1}`}
-              />
-            ))}
-          </div>
+          {/* Indicadores de posición (dots) */}
+          {loaded && instanceRef.current && (
+            <div className="flex justify-center gap-2 mt-6">
+              {Array.from(
+                { length: serviciosFiltrados.length },
+                (_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => instanceRef.current?.moveToIdx(idx)}
+                    className={cn(
+                      "w-3 h-3 rounded-full transition-all duration-300",
+                      currentSlide === idx 
+                        ? "bg-primary w-8" 
+                        : "bg-gray-300 dark:bg-gray-700"
+                    )}
+                    aria-label={`Slide ${idx + 1}`}
+                  />
+                )
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>

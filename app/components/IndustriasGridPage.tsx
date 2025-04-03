@@ -21,6 +21,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 // Mapeo de nombres de íconos a componentes de Lucide
 const iconComponents: Record<string, React.ComponentType<any>> = {
@@ -124,11 +125,6 @@ export default function IndustriasGridPage({ servicioSlug }: IndustriasGridPageP
   if (isMobile) {
     return (
       <div className="relative">
-        {/* Contador de industrias (ej: 3/12) */}
-        <div className="text-center text-sm mb-4 text-muted-foreground">
-          {currentIndex + 1} / {industries.length}
-        </div>
-        
         {/* Contenedor del carrusel */}
         <div className="relative overflow-hidden">
           <AnimatePresence mode="wait" initial={false}>
@@ -147,7 +143,7 @@ export default function IndustriasGridPage({ servicioSlug }: IndustriasGridPageP
           {/* Botones de navegación */}
           <button 
             onClick={goToPrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 text-primary p-2 rounded-full transition-colors"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 text-primary p-2 rounded-full transition-colors w-12 h-12 flex items-center justify-center"
             aria-label="Industria anterior"
           >
             <ChevronLeft className="h-7 w-7" />
@@ -155,11 +151,28 @@ export default function IndustriasGridPage({ servicioSlug }: IndustriasGridPageP
           
           <button 
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 text-primary p-2 rounded-full transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 text-primary p-2 rounded-full transition-colors w-12 h-12 flex items-center justify-center"
             aria-label="Industria siguiente"
           >
             <ChevronRight className="h-7 w-7" />
           </button>
+        </div>
+        
+        {/* Indicadores (dots) en lugar del contador numérico */}
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: industries.length }, (_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={cn(
+                "w-3 h-3 rounded-full transition-all duration-300",
+                currentIndex === idx 
+                  ? "bg-primary w-8" 
+                  : "bg-gray-300 dark:bg-gray-700"
+              )}
+              aria-label={`Industria ${idx + 1}`}
+            />
+          ))}
         </div>
       </div>
     );

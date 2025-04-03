@@ -52,7 +52,7 @@ export default function ClientesCarrusel() {
     },
     created() {
       setLoaded(true);
-    },
+    }
   });
 
   // Maneja la navegación del carrusel
@@ -111,14 +111,14 @@ export default function ClientesCarrusel() {
   };
 
   return (
-    <section className="py-20 md:py-28 w-full bg-white dark:bg-[#0D0F1C]">
+    <section className="py-20 md:py-28 w-full bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <motion.h2 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-heading-2 text-blue-900 dark:text-white font-title mb-4"
+            className="text-heading-2 text-gray-900 dark:text-white font-title mb-4"
           >
             Empresas que confían en nosotros
           </motion.h2>
@@ -141,34 +141,24 @@ export default function ClientesCarrusel() {
           aria-label="Carrusel de clientes"
           role="region"
         >
-          {/* Botones de navegación */}
+          {/* Botones de navegación - Actualizado para usar el mismo estilo que IndustriasGridPage */}
           {loaded && instanceRef.current && (
-            <>
+            <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 flex justify-between z-10 pointer-events-none">
               <button 
                 onClick={handlePrev}
-                className={cn(
-                  "absolute top-1/2 -translate-y-1/2 left-0 z-10",
-                  "w-10 h-10 rounded-full bg-neutral-800 hover:bg-neutral-700 dark:bg-[#1A1A1A] shadow-md",
-                  "flex items-center justify-center text-white transition-all pointer-events-auto",
-                  (isHovering || isMobile) ? "opacity-100" : "opacity-0"
-                )}
+                className="w-12 h-12 rounded-full bg-black/20 hover:bg-black/40 flex items-center justify-center text-primary transition-all pointer-events-auto"
                 aria-label="Anterior"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-7 h-7" />
               </button>
               <button
                 onClick={handleNext}
-                className={cn(
-                  "absolute top-1/2 -translate-y-1/2 right-0 z-10",
-                  "w-10 h-10 rounded-full bg-neutral-800 hover:bg-neutral-700 dark:bg-[#1A1A1A] shadow-md",
-                  "flex items-center justify-center text-white transition-all pointer-events-auto",
-                  (isHovering || isMobile) ? "opacity-100" : "opacity-0"
-                )}
+                className="w-12 h-12 rounded-full bg-black/20 hover:bg-black/40 flex items-center justify-center text-primary transition-all pointer-events-auto"
                 aria-label="Siguiente"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-7 h-7" />
               </button>
-            </>
+            </div>
           )}
           
           {/* Carrusel */}
@@ -190,8 +180,8 @@ export default function ClientesCarrusel() {
                   <div 
                     className={cn(
                       "h-[340px] md:h-[360px] lg:h-[380px]",
-                      "bg-gray-100 dark:bg-[#1C1C1E]",
-                      "rounded-xl shadow-lg shadow-black/10 overflow-hidden",
+                      "bg-white dark:bg-gray-800",
+                      "rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-gray-700",
                       "flex flex-col items-center justify-center text-center gap-y-2",
                       "p-6 lg:p-8 hover:scale-[1.02] transition-transform duration-300"
                     )}
@@ -216,7 +206,7 @@ export default function ClientesCarrusel() {
                               alt={`Logo de ${cliente.nombre} - ${cliente.industria}`}
                               width={200}
                               height={80}
-                              className="object-contain max-h-full dark:invert"
+                              className="object-contain max-h-full filter grayscale hover:grayscale-0 transition-all duration-300"
                             />
                           </motion.div>
                         </Link>
@@ -227,7 +217,7 @@ export default function ClientesCarrusel() {
                             alt={`Logo de ${cliente.nombre} - ${cliente.industria}`}
                             width={200}
                             height={80}
-                            className="object-contain max-h-full dark:invert"
+                            className="object-contain max-h-full filter grayscale hover:grayscale-0 transition-all duration-300"
                           />
                         </div>
                       )}
@@ -235,15 +225,15 @@ export default function ClientesCarrusel() {
                     
                     {/* Información del cliente */}
                     <div className="flex flex-col items-center flex-grow">
-                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-blue-900 dark:text-white">
+                      <h3 className="text-heading-4 text-gray-900 dark:text-white font-title mb-2">
                         {cliente.nombre}
                       </h3>
                       
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <p className="text-body-base text-gray-600 dark:text-gray-300 mb-4">
                         {cliente.industria}
                       </p>
                       
-                      <p className="text-sm italic text-gray-500 dark:text-slate-300">
+                      <p className="text-sm italic text-gray-500 dark:text-gray-400 mb-4 flex-grow">
                         "{cliente.frase}"
                       </p>
                     </div>
@@ -253,9 +243,9 @@ export default function ClientesCarrusel() {
             </div>
           </div>
           
-          {/* Indicadores (dots) */}
+          {/* Indicadores (dots) - Actualizado con colores primarios consistentes */}
           {loaded && instanceRef.current && (
-            <div className="flex justify-center mt-8 gap-4">
+            <div className="flex justify-center mt-6 gap-2">
               {Array.from(
                 { length: Math.max(1, instanceRef.current.track.details.slides.length - slidesPerView() + 1) },
                 (_, idx) => (
@@ -263,12 +253,12 @@ export default function ClientesCarrusel() {
                     key={idx}
                     onClick={() => instanceRef.current?.moveToIdx(idx)}
                     className={cn(
-                      "w-6 h-6 rounded-full transition-all flex items-center justify-center",
+                      "w-3 h-3 rounded-full transition-all duration-300",
                       currentSlide === idx 
-                        ? "bg-blue-600 dark:bg-blue-400 w-8" 
+                        ? "bg-primary w-8" 
                         : "bg-gray-300 dark:bg-gray-700"
                     )}
-                    aria-label={`Slide ${idx + 1} - Ir a slide ${idx + 1}`}
+                    aria-label={`Slide ${idx + 1}`}
                   />
                 )
               )}
