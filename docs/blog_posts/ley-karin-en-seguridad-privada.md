@@ -102,7 +102,7 @@ imageUrl: /images/blog/ley-karin-en-seguridad-privada.jpg
 
 
 
-<p>Para más información sobre cómo Gard Security puede ayudar a tu empresa a cumplir con la Ley Karin y mejorar tu seguridad, visita <a href="https://gard.cl">nuestra página principal</a> y nuestras <a href="https://gard.cl">subpáginas específicas</a>.</p>
+<p>Para más información sobre cómo Gard Security puede ayudar a tu empresa a cumplir con la Ley Karin y mejorar tu seguridad, visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">nuestra página principal</a> y nuestras <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">subpáginas específicas</a>.</p>
 
 
 
@@ -150,11 +150,11 @@ imageUrl: /images/blog/ley-karin-en-seguridad-privada.jpg
 
 
 
-<p>Para más detalles sobre nuestros servicios y cómo podemos ayudarte a cumplir con la Ley Karin, no dudes en <a href="https://gard.cl">contactarnos</a>.</p>
+<p>Para más detalles sobre nuestros servicios y cómo podemos ayudarte a cumplir con la Ley Karin, no dudes en <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">contactarnos</a>.</p>
 
 
 
-<p>¿Quieres asegurar que tu empresa cumple con la Ley Karin? Visita <a href="https://gard.cl">Gard Security</a> y descubre cómo podemos ayudarte a mantener la seguridad y el cumplimiento normativo en tu organización.</p>
+<p>¿Quieres asegurar que tu empresa cumple con la Ley Karin? Visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard Security</a> y descubre cómo podemos ayudarte a mantener la seguridad y el cumplimiento normativo en tu organización.</p>
 								</div>
 				</div>
 					</div>

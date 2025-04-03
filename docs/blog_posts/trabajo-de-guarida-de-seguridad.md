@@ -228,7 +228,7 @@ imageUrl: /images/blog/trabajo-de-guarida-de-seguridad.jpg
 <h2 class="wp-block-heading">Conclusión</h2>
 <p></p>
 <p></p>
-<p>¿Estás listo para avanzar en tu carrera como guardia de seguridad? Visita <a href="https://gard.cl/">Gard Security</a> para explorar oportunidades en una empresa que lidera con innovación y compromiso con la excelencia.</p>
+<p>¿Estás listo para avanzar en tu carrera como guardia de seguridad? Visita <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">Gard Security</a> para explorar oportunidades en una empresa que lidera con innovación y compromiso con la excelencia.</p>
 <p></p>
 <p></p>
 <p></p>

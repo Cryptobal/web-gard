@@ -66,7 +66,7 @@ imageUrl: /images/blog/listado-de-empresas-de-seguridad-en-chile.jpg
 
 
 <ol class="wp-block-list">
-<li><strong><a href="https://gard.cl">Gard Security</a></strong>
+<li><strong><a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard Security</a></strong>
 <ul class="wp-block-list">
 <li>Conocida por su amplia gama de servicios de seguridad, incluyendo guardias, tecnología de seguridad electrónica y drones de vigilancia. Gard ofrece soluciones personalizadas para empresas, industrias y eventos masivos.</li>
 </ul>
@@ -74,7 +74,7 @@ imageUrl: /images/blog/listado-de-empresas-de-seguridad-en-chile.jpg
 
 
 
-<li><strong><a href="https://alarmas.prosegur.cl/Landings/SEM/Alarmas-hogar-brand_terms2">Prosegur</a></strong>
+<li><strong><a href="https://alarmas.prosegur.cl/Landings/SEM/Alarmas-hogar-brand_terms2" rel="noopener noreferrer" target="_blank">Prosegur</a></strong>
 <ul class="wp-block-list">
 <li>Una de las empresas de seguridad más grandes a nivel global, con una fuerte presencia en Chile. Ofrecen soluciones que van desde transporte de valores hasta servicios de vigilancia y tecnología de seguridad.</li>
 </ul>
@@ -82,7 +82,7 @@ imageUrl: /images/blog/listado-de-empresas-de-seguridad-en-chile.jpg
 
 
 
-<li><strong><a href="https://www.securitasdirect.es/">Securitas</a></strong>
+<li><strong><a href="https://www.securitasdirect.es/" rel="noopener noreferrer" target="_blank">Securitas</a></strong>
 <ul class="wp-block-list">
 <li>Securitas es reconocida por su enfoque en la innovación y la tecnología, ofreciendo soluciones de seguridad adaptadas a las necesidades específicas de cada cliente.</li>
 </ul>
@@ -90,7 +90,7 @@ imageUrl: /images/blog/listado-de-empresas-de-seguridad-en-chile.jpg
 
 
 
-<li><strong><a href="https://www.alfaseguridad.cl/">Alfa Seguridad</a></strong>
+<li><strong><a href="https://www.alfaseguridad.cl/" rel="noopener noreferrer" target="_blank">Alfa Seguridad</a></strong>
 <ul class="wp-block-list">
 <li>Especializada en la provisión de guardias de seguridad para empresas y eventos, Alfa Seguridad se destaca por su compromiso con la calidad y la formación continua de su personal.</li>
 </ul>
@@ -133,4 +133,4 @@ imageUrl: /images/blog/listado-de-empresas-de-seguridad-en-chile.jpg
 
 
 
-<p>Para obtener más información sobre cómo Gard Security puede ayudarte con tus necesidades de seguridad, visita nuestra <a href="https://gard.cl">página principal</a> o explora nuestros servicios especializados en <a href="https://gard.cl/guardias-de-seguridad-privada-para-empresas/">guardias de seguridad</a>, <a href="https://gard.cl/seguridad-electronica/">seguridad electrónica</a> y <a href="https://gard.cl/drones-de-seguridad-para-empresas-e-industrias/">drones de seguridad</a>.</p>
+<p>Para obtener más información sobre cómo Gard Security puede ayudarte con tus necesidades de seguridad, visita nuestra <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">página principal</a> o explora nuestros servicios especializados en <a href="/servicios/guardias-de-seguridad">guardias de seguridad</a>, <a href="/servicios/seguridad-electronica">seguridad electrónica</a> y <a href="/servicios/drones-seguridad">drones de seguridad</a>.</p>

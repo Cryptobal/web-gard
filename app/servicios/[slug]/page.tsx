@@ -18,11 +18,12 @@ import { useEffect } from 'react';
 
 import { servicios, type Servicio } from '@/app/data/servicios';
 import { industries } from '@/app/data/industries';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
 import IndustriasGridPage from '@/app/components/IndustriasGridPage';
 import ServiceDescription from '@/app/components/services/ServiceDescription';
-import ServiciosRelacionados from '@/components/ServiciosRelacionados';
+import { ServiciosRelacionados } from '@/components/sections';
+import { ServiceSchema } from '@/lib/schema';
 import { 
   Mountain, 
   ShoppingCart, 
@@ -37,7 +38,7 @@ import {
   Hotel
 } from 'lucide-react';
 import LinkParamsAware from '@/app/components/LinkParamsAware';
-import GaleriaGuardiasCarrusel from '@/components/GaleriaGuardiasCarrusel';
+import GaleriaGuardiasCarrusel from '@/components/sections/carousels/GaleriaGuardiasCarrusel';
 
 // Generar rutas estáticas para cada servicio
 export async function generateStaticParams() {
@@ -48,84 +49,117 @@ export async function generateStaticParams() {
 
 // Generar metadata dinámica para SEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  // Verificar si el servicio existe o redirigir a 404
   const servicio = servicios.find((s) => s.slug === params.slug);
   
+  // Si no existe el servicio, devolver metadatos genéricos para la página 404
   if (!servicio) {
     return {
       title: 'Servicio no encontrado | Gard Security',
-      description: 'No se ha encontrado el servicio solicitado',
+      description: 'El servicio que estás buscando no se encuentra disponible o ha sido movido.',
+      robots: {
+        index: false,
+        follow: false,
+      }
     };
   }
+
+  const baseUrl = 'https://gard.cl';
+  const url = `${baseUrl}/servicios/${servicio.slug}`;
+  const cloudflareImageBaseUrl = 'https://imagedelivery.net/gGw8cfmEZedi85dYm6qcFw';
+  const ogImageUrl = `${cloudflareImageBaseUrl}/${servicio.heroImageId}/public`;
+  
+  // Descripción más detallada para cada servicio
+  let description = servicio.description;
+  let metaTitle = `${servicio.name} | Gard Security`;
+  let keywords = [...servicio.keywords];
   
   // Metadatos específicos para guardias de seguridad
   if (servicio.slug === 'guardias-de-seguridad') {
-    return {
-      title: `Servicio de Guardias de Seguridad Profesionales | Gard Security`,
-      description: `Guardias de seguridad certificados para empresas, control de acceso, disuasión y prevención. Personal altamente capacitado en protocolos preventivos y vigilancia empresarial.`,
-      keywords: [
-        ...servicio.keywords,
-        'disuasión de riesgos',
-        'control preventivo',
-        'guardias para control de acceso',
-        'supervisión de seguridad',
-        'guardias certificados'
-      ],
-    };
+    metaTitle = `Servicio de Guardias de Seguridad Profesionales | Gard Security`;
+    description = `Guardias de seguridad certificados para empresas, control de acceso, disuasión y prevención. Personal altamente capacitado en protocolos preventivos y vigilancia empresarial.`;
+    keywords = [
+      ...servicio.keywords,
+      'disuasión de riesgos',
+      'control preventivo',
+      'guardias para control de acceso',
+      'supervisión de seguridad',
+      'guardias certificados'
+    ];
   }
   
   // Metadatos específicos para auditoría de seguridad
   if (params.slug === 'auditoria-seguridad') {
-    return {
-      title: `Auditoría de Seguridad Profesional | Evaluación y Diagnóstico | Gard Security`,
-      description: `Servicio de auditoría completa de sistemas de seguridad física y electrónica. Identificamos vulnerabilidades y proponemos soluciones para fortalecer la protección de su empresa.`,
-      keywords: [
-        'auditoría de seguridad',
-        'evaluación de vulnerabilidades',
-        'diagnóstico de seguridad',
-        'análisis de riesgos',
-        'consultoría especializada',
-        'cumplimiento normativo'
-      ],
-    };
+    metaTitle = `Auditoría de Seguridad Profesional | Evaluación y Diagnóstico | Gard Security`;
+    description = `Servicio de auditoría completa de sistemas de seguridad física y electrónica. Identificamos vulnerabilidades y proponemos soluciones para fortalecer la protección de su empresa.`;
+    keywords = [
+      'auditoría de seguridad',
+      'evaluación de vulnerabilidades',
+      'diagnóstico de seguridad',
+      'análisis de riesgos',
+      'consultoría especializada',
+      'cumplimiento normativo'
+    ];
   }
   
   // Metadatos específicos para consultoría
   if (params.slug === 'consultoria') {
-    return {
-      title: `Consultoría en Seguridad Privada y Corporativa | Gard Security`,
-      description: `Asesoramiento especializado en seguridad para empresas e instituciones. Desarrollamos estrategias personalizadas para optimizar la protección de sus activos y personal.`,
-      keywords: [
-        'consultoría de seguridad',
-        'asesoramiento especializado',
-        'estrategias de protección',
-        'optimización de seguridad',
-        'gestión de riesgos',
-        'seguridad corporativa'
-      ],
-    };
+    metaTitle = `Consultoría en Seguridad Privada y Corporativa | Gard Security`;
+    description = `Asesoramiento especializado en seguridad para empresas e instituciones. Desarrollamos estrategias personalizadas para optimizar la protección de sus activos y personal.`;
+    keywords = [
+      'consultoría de seguridad',
+      'asesoramiento especializado',
+      'estrategias de protección',
+      'optimización de seguridad',
+      'gestión de riesgos',
+      'seguridad corporativa'
+    ];
   }
   
   // Metadatos específicos para prevención de intrusiones
   if (params.slug === 'prevencion-intrusiones') {
-    return {
-      title: `Sistemas de Prevención de Intrusiones | Detección Temprana | Gard Security`,
-      description: `Soluciones avanzadas para prevenir accesos no autorizados a sus instalaciones. Combinamos tecnología, barreras físicas y protocolos específicos para anticiparnos a posibles amenazas.`,
-      keywords: [
-        'prevención de intrusiones',
-        'detección temprana',
-        'control de accesos',
-        'protección perimetral',
-        'sistemas anti-intrusión',
-        'seguridad proactiva'
-      ],
-    };
+    metaTitle = `Sistemas de Prevención de Intrusiones | Detección Temprana | Gard Security`;
+    description = `Soluciones avanzadas para prevenir accesos no autorizados a sus instalaciones. Combinamos tecnología, barreras físicas y protocolos específicos para anticiparnos a posibles amenazas.`;
+    keywords = [
+      'prevención de intrusiones',
+      'detección temprana',
+      'control de accesos',
+      'protección perimetral',
+      'sistemas anti-intrusión',
+      'seguridad proactiva'
+    ];
   }
   
-  // Metadatos por defecto para los demás servicios
+  // Metadatos completos para cualquier servicio
   return {
-    title: `${servicio.name} | Gard Security`,
-    description: servicio.description,
-    keywords: servicio.keywords,
+    title: metaTitle,
+    description: description,
+    keywords: keywords,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: metaTitle,
+      description: description,
+      url: url,
+      siteName: 'Gard Security',
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${servicio.name} - Gard Security`,
+        },
+      ],
+      locale: 'es_CL',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: metaTitle,
+      description: description,
+      images: [ogImageUrl],
+    },
   };
 }
 
@@ -241,37 +275,18 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
   const beneficios = beneficiosPorServicio[servicio.slug] || [];
   const descripcionLarga = descripcionesLargas[servicio.slug] || servicio.description;
 
-  // Crear el JSON-LD para Schema.org
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    'name': servicio.name,
-    'description': descripcionLarga,
-    'provider': {
-      '@type': 'Organization',
-      'name': 'Gard Security',
-      'url': 'https://www.gard.cl',
-      'logo': 'https://www.gard.cl/images/logo.png'
-    },
-    'serviceType': servicio.name,
-    'offers': {
-      '@type': 'Offer',
-      'availability': 'https://schema.org/InStock',
-      'url': `https://www.gard.cl/servicios/${servicio.slug}`,
-      'areaServed': {
-        '@type': 'Country',
-        'name': 'Chile'
-      }
-    }
+  // Datos para el esquema JSON-LD
+  const serviceSchemaData = {
+    name: servicio.name,
+    description: descripcionLarga,
+    url: `https://gard.cl/servicios/${servicio.slug}`,
+    imageUrl: `https://imagedelivery.net/gGw8cfmEZedi85dYm6qcFw/${servicio.heroImageId}/public`
   };
   
   return (
     <>
-      {/* Schema.org JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* Schema.org JSON-LD usando el componente de servicios */}
+      <ServiceSchema {...serviceSchemaData} />
 
       {/* Hero Section */}
       <section className="relative w-full h-[45vh] md:h-[60vh]">
@@ -297,6 +312,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           alt={`${servicio.name} - Gard Security`}
           fill
           priority
+          imageType="hero"
           className="object-cover"
         />
       </section>

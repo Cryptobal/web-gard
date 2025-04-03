@@ -73,11 +73,11 @@ imageUrl: >-
 
 
 
-<p>Para conocer más sobre cómo podemos proporcionar soluciones de seguridad en su próximo evento de gran escala, visite <a href="https://gard.cl">nuestra página</a>.</p>
+<p>Para conocer más sobre cómo podemos proporcionar soluciones de seguridad en su próximo evento de gran escala, visite <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">nuestra página</a>.</p>
 
 
 
-<p><a href="https://gard.cl">Explora nuestros casos de éxito en seguridad para eventos deportivos y más.</a></p>
+<p><a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Explora nuestros casos de éxito en seguridad para eventos deportivos y más.</a></p>
 
 
 

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { industries } from '@/app/data/industries';
 import { 
   Mountain, 
@@ -93,6 +93,8 @@ export default function IndustriasGridPage({ servicioSlug }: IndustriasGridPageP
     const href = servicioSlug 
       ? `/servicios/${servicioSlug}/${slug}` // Para página de servicios
       : `/industrias/${slug}`; // Para página de industrias normal
+    
+    console.log(`Industria: ${industria.name}, Slug: ${slug}, URL: ${href}`); // Depuración
     
     return (
       <Link 

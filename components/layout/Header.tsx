@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeToggle } from '@/components/ui';
 import { Menu, X } from 'lucide-react';
-import CloudflareImage from './CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { cloudflareImages } from '@/lib/images';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
+import { SkipLink } from '@/components/ui';
 
 const navLinks = [
   { href: '/servicios', label: 'Servicios' },
@@ -87,6 +88,9 @@ export default function Header() {
 
   return (
     <header className={headerClasses}>
+      {/* Skip Link para accesibilidad */}
+      <SkipLink targetId="main-content" />
+      
       <div className="gard-container px-4 md:px-6 flex items-center justify-between">
         <Link href="/" className="relative z-50 flex items-center transition-all duration-300 ease-in-out">
           <CloudflareImage

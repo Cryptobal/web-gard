@@ -210,7 +210,7 @@ imageUrl: >-
 
 
 
-<p>Elegir entre G4S y Securitas puede depender de las necesidades específicas de tu empresa y del contexto en el que operas. Ambas empresas ofrecen servicios de seguridad de alta calidad y tienen una presencia global significativa. Sin embargo, si buscas una empresa que entienda el mercado chileno y ofrezca soluciones de seguridad personalizadas y avanzadas, Gard es tu mejor opción. Gard no solo proporciona guardias de seguridad altamente capacitados y tecnología de punta, sino que también ofrece un conocimiento profundo del entorno local y un enfoque en la adaptación a las necesidades específicas de sus clientes chilenos. Visita <a href="https://gard.cl">Gard</a> para descubrir cómo pueden ayudarte a proteger lo que más valoras.</p>
+<p>Elegir entre G4S y Securitas puede depender de las necesidades específicas de tu empresa y del contexto en el que operas. Ambas empresas ofrecen servicios de seguridad de alta calidad y tienen una presencia global significativa. Sin embargo, si buscas una empresa que entienda el mercado chileno y ofrezca soluciones de seguridad personalizadas y avanzadas, Gard es tu mejor opción. Gard no solo proporciona guardias de seguridad altamente capacitados y tecnología de punta, sino que también ofrece un conocimiento profundo del entorno local y un enfoque en la adaptación a las necesidades específicas de sus clientes chilenos. Visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard</a> para descubrir cómo pueden ayudarte a proteger lo que más valoras.</p>
 
 
 
@@ -218,7 +218,7 @@ imageUrl: >-
 
 
 
-<p>Para más información sobre cómo Gard puede proteger tu negocio, visita nuestra <a href="https://gard.cl">página principal</a> y descubre nuestras soluciones de seguridad adaptadas a tus necesidades. Además, explora nuestras subpáginas para obtener detalles específicos sobre nuestros servicios y cómo podemos ayudarte a mantener tu empresa segura y protegida.</p>
+<p>Para más información sobre cómo Gard puede proteger tu negocio, visita nuestra <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">página principal</a> y descubre nuestras soluciones de seguridad adaptadas a tus necesidades. Además, explora nuestras subpáginas para obtener detalles específicos sobre nuestros servicios y cómo podemos ayudarte a mantener tu empresa segura y protegida.</p>
 
 
 
@@ -227,15 +227,15 @@ imageUrl: >-
 
 
 <ul class="wp-block-list">
-<li><a href="https://www.g4s.com">G4S</a></li>
+<li><a href="https://www.g4s.com" rel="noopener noreferrer" target="_blank">G4S</a></li>
 
 
 
-<li><a href="https://www.securitas.com">Securitas</a></li>
+<li><a href="https://www.securitas.com" rel="noopener noreferrer" target="_blank">Securitas</a></li>
 
 
 
-<li><a href="https://gard.cl">Gard</a></li>
+<li><a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard</a></li>
 </ul>
 								</div>
 				</div>

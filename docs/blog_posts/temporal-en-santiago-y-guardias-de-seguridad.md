@@ -70,7 +70,7 @@ imageUrl: /images/blog/temporal-en-santiago-y-guardias-de-seguridad.jpg
 <!-- Conclusión -->
 <h2 id="conclusion-guardias-seguridad-temporales">Conclusión</h2>
 <p>El temporal que azotó Santiago el pasado viernes ha dejado claro que la preparación y la respuesta adecuada ante eventos climáticos extremos son esenciales para la protección de las empresas y sus instalaciones. La seguridad privada, con su capacidad para ofrecer una vigilancia continua y una respuesta rápida, se convierte en un aliado indispensable en estas situaciones. Empresas como Gard están a la vanguardia, proporcionando soluciones de seguridad que garantizan la protección y la continuidad de las operaciones, incluso en los momentos más críticos.</p>
-<p>Para más información sobre cómo la seguridad privada puede ayudar a tu empresa a estar preparada ante emergencias, visita <a href="https://gard.cl">Gard Security</a>.</p>
+<p>Para más información sobre cómo la seguridad privada puede ayudar a tu empresa a estar preparada ante emergencias, visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard Security</a>.</p>
 								</div>
 				</div>
 					</div>

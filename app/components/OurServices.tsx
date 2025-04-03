@@ -18,7 +18,7 @@ import {
 import { motion } from 'framer-motion';
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { services } from '@/app/data/services';
 import { serviciosPorIndustria } from '@/app/data/servicios-por-industria';
 import { cn } from '@/lib/utils';
@@ -145,6 +145,8 @@ export default function OurServices({
                 ? `${service.href}/${industria}` 
                 : service.href;
                 
+              console.log(`Servicio: ${service.name}, URL: ${href}`); // Depuración
+                
               return (
                 <Link 
                   key={index} 
@@ -212,6 +214,8 @@ export default function OurServices({
                   ? `${service.href}/${industria}` 
                   : service.href;
                   
+                console.log(`Servicio: ${service.name}, URL: ${href}`); // Depuración
+                
                 return (
                   <div key={index} className="keen-slider__slide px-2 py-2">
                     <Link 

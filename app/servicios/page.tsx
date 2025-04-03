@@ -2,9 +2,14 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import OurServices from '@/app/components/OurServices';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
+
+// Configuración de optimización para páginas estáticas
+export const runtime = 'edge';
+export const dynamicPage = 'force-static';
+export const preferredRegion = 'chl1'; // Region de Chile para mejor performance
 
 export const metadata: Metadata = {
   title: "Servicios de Seguridad Privada | Gard Security",

@@ -123,7 +123,7 @@ imageUrl: >-
 <p>Externalizar el personal de seguridad es una estrategia inteligente que permite a las empresas mejorar la calidad de su seguridad, reducir costos y centrarse en sus competencias principales. Con la ayuda de empresas de seguridad privada, las organizaciones pueden beneficiarse de servicios profesionales, tecnología avanzada y una mayor flexibilidad en la gestión de su seguridad. Si buscas optimizar la seguridad de tu empresa, considera la opción de outsourcing y descubre cómo esta práctica puede transformar tu negocio.</p>
 <p></p>
 <p></p>
-<p>¿Estás listo para mejorar la seguridad de tu empresa? Descubre cómo los expertos en <b><a href="https://gard.cl">Gard Security</a> </b>pueden ayudarte a implementar soluciones de seguridad efectivas y eficientes. ¡Visítanos ahora y asegura la protección que tu empresa necesita!</p>
+<p>¿Estás listo para mejorar la seguridad de tu empresa? Descubre cómo los expertos en <b><a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard Security</a> </b>pueden ayudarte a implementar soluciones de seguridad efectivas y eficientes. ¡Visítanos ahora y asegura la protección que tu empresa necesita!</p>
 <p></p>								</div>
 				</div>
 					</div>

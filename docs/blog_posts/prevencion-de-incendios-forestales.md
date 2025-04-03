@@ -39,7 +39,7 @@ imageUrl: /images/blog/prevencion-de-incendios-forestales.jpg
 			<div class="elementor-widget-wrap elementor-element-populated">
 						<div class="elementor-element elementor-element-4dc47203 elementor-widget elementor-widget-heading" data-id="4dc47203" data-element_type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-xl"><a href="https://gard.cl/">La importancia de la seguridad privada en la prevención de incendios forestales</a></h2>				</div>
+					<h2 class="elementor-heading-title elementor-size-xl"><a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">La importancia de la seguridad privada en la prevención de incendios forestales</a></h2>				</div>
 				</div>
 				<div class="elementor-element elementor-element-1c4e445c elementor-widget elementor-widget-text-editor" data-id="1c4e445c" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">

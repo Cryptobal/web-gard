@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 
 // Definición de la interfaz BlogPost sin importarla del servidor
 interface BlogPost {

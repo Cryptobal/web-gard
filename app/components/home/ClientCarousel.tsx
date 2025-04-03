@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { CLIENTES } from '@/app/data/clientes';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';

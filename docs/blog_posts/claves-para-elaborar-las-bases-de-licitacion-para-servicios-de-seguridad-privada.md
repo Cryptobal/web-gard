@@ -151,7 +151,7 @@ imageUrl: >-
 <p></p>
 <p></p>
 <p></p>
-<p>Para más información sobre cómo estructurar las bases de una licitación para servicios de seguridad privada y asegurar la protección de su empresa, visite <a href="https://gard.cl/">Gard.cl</a> y descubra nuestras soluciones de seguridad personalizadas.</p>
+<p>Para más información sobre cómo estructurar las bases de una licitación para servicios de seguridad privada y asegurar la protección de su empresa, visite <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">Gard.cl</a> y descubra nuestras soluciones de seguridad personalizadas.</p>
 <p></p>
 <p></p>
 <p></p>
@@ -166,7 +166,7 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.interior.gob.cl/">Ministerio del Interior y Seguridad Pública de Chile</a></li>
+<li><a href="https://www.interior.gob.cl/" rel="noopener noreferrer" target="_blank">Ministerio del Interior y Seguridad Pública de Chile</a></li>
 </ul>
 </li>
 </ul>
@@ -175,14 +175,14 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.bcn.cl/leychile">Normativa de Seguridad Privada en Chile</a></li>
+<li><a href="https://www.bcn.cl/leychile" rel="noopener noreferrer" target="_blank">Normativa de Seguridad Privada en Chile</a></li>
 </ul>
 </li>
 </ul>
 <p></p>
 <p></p>
 <ul>
-<li><a href="https://www.carabineros.cl/">Reglamento de Seguridad Privada de Carabineros de Chile</a></li>
+<li><a href="https://www.carabineros.cl/" rel="noopener noreferrer" target="_blank">Reglamento de Seguridad Privada de Carabineros de Chile</a></li>
 </ul>
 <div>&nbsp;</div>
 <p></p>

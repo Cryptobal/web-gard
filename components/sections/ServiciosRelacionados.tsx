@@ -17,7 +17,7 @@ import {
 import { motion } from 'framer-motion';
 import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { servicios, type Servicio } from '@/app/data/servicios';
 import { cn } from '@/lib/utils';
 

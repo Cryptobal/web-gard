@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 
 // Definición local de la interfaz BlogPost
 interface BlogPost {

@@ -126,7 +126,7 @@ imageUrl: >-
 <ol>
 <li style="list-style-type: none;">
 <ol>
-<li><a href="https://www.latercera.com/">La Tercera</a></li>
+<li><a href="https://www.latercera.com/" rel="noopener noreferrer" target="_blank">La Tercera</a></li>
 </ol>
 </li>
 </ol>
@@ -135,7 +135,7 @@ imageUrl: >-
 <ol>
 <li style="list-style-type: none;">
 <ol>
-<li><a href="https://www.emol.com/">El Mercurio</a></li>
+<li><a href="https://www.emol.com/" rel="noopener noreferrer" target="_blank">El Mercurio</a></li>
 </ol>
 </li>
 </ol>
@@ -144,7 +144,7 @@ imageUrl: >-
 <ol>
 <li style="list-style-type: none;">
 <ol>
-<li><a href="https://www.df.cl/">Diario Financiero</a></li>
+<li><a href="https://www.df.cl/" rel="noopener noreferrer" target="_blank">Diario Financiero</a></li>
 </ol>
 </li>
 </ol>
@@ -153,7 +153,7 @@ imageUrl: >-
 <ol>
 <li style="list-style-type: none;">
 <ol>
-<li><a href="https://www.onemi.cl/">Gobierno de Chile &#8211; ONEMI</a></li>
+<li><a href="https://www.onemi.cl/" rel="noopener noreferrer" target="_blank">Gobierno de Chile &#8211; ONEMI</a></li>
 </ol>
 </li>
 </ol>
@@ -162,7 +162,7 @@ imageUrl: >-
 <ol>
 <li style="list-style-type: none;">
 <ol>
-<li><a href="https://www.interior.gob.cl/">Ministerio del Interior y Seguridad Pública</a></li>
+<li><a href="https://www.interior.gob.cl/" rel="noopener noreferrer" target="_blank">Ministerio del Interior y Seguridad Pública</a></li>
 </ol>
 </li>
 </ol>
@@ -171,7 +171,7 @@ imageUrl: >-
 <ol>
 <li style="list-style-type: none;">
 <ol>
-<li><a href="https://www.seguridadpublica.cl/">Subsecretaría de Prevención del Delito</a></li></ol></li></ol>
+<li><a href="https://www.seguridadpublica.cl/" rel="noopener noreferrer" target="_blank">Subsecretaría de Prevención del Delito</a></li></ol></li></ol>
 <p></p>
 <p></p>
 <p></p>
@@ -186,7 +186,7 @@ imageUrl: >-
 <h2 id="h-conoce-a-gard-security-lideres-en-seguridad-privada" class="wp-block-heading">Conoce a Gard Security, líderes en Seguridad Privada:</h2>
 <p></p>
 <p></p>
-<p>¿Estás preparado para el próximo temporal? Contacta con nosotros en <a href="https://gard.cl/">Gard Chile</a> y descubre cómo nuestros servicios de seguridad privada pueden proteger tu propiedad y garantizar tu tranquilidad durante cualquier emergencia climática. No esperes a que ocurra una emergencia, actúa ahora y asegura la protección de tus bienes y seres queridos.</p>
+<p>¿Estás preparado para el próximo temporal? Contacta con nosotros en <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">Gard Chile</a> y descubre cómo nuestros servicios de seguridad privada pueden proteger tu propiedad y garantizar tu tranquilidad durante cualquier emergencia climática. No esperes a que ocurra una emergencia, actúa ahora y asegura la protección de tus bienes y seres queridos.</p>
 <p></p>								</div>
 				</div>
 					</div>

@@ -1,0 +1,1 @@
+// Pages components - actualmente vacío 

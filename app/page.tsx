@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import dynamic from 'next/dynamic';
+import { CloudflareImage } from '@/components/ui';
 import { cloudflareImages } from '@/lib/images';
 import { 
   ArrowRight, 
@@ -11,12 +12,19 @@ import {
   CheckCircle,
   HelpCircle
 } from 'lucide-react';
-// Comentado temporalmente mientras solucionamos el error
-// import FaqSection from '@/components/FaqSection/FaqSection';
-// Restore component import
-import FaqSection from '@/components/FaqSection/FaqSection';
-// import TrustedClients from '@/app/components/TrustedClients';
-import ClientesCarrusel from '@/components/ClientesCarrusel';
+
+// Configuración de optimización para páginas estáticas
+export const runtime = 'edge';
+export const dynamicPage = 'force-static';
+export const preferredRegion = 'chl1'; // Region de Chile para mejor performance
+
+// Importación dinámica de componentes pesados
+const FaqSection = dynamic(() => import('@/components/sections/FaqSection'), {
+  loading: () => <div className="w-full h-48 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl"></div>
+});
+const ClientesCarrusel = dynamic(() => import('@/components/sections/carousels/ClientesCarrusel'), {
+  loading: () => <div className="w-full h-24 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-xl"></div>
+});
 import OurServices from '@/app/components/OurServices';
 import IndustriasGridPage from './components/IndustriasGridPage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';

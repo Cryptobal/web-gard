@@ -76,7 +76,7 @@ imageUrl: /images/blog/crisis-de-delincuencia.jpg
 <p>Proteger tu empresa en la actual crisis de delincuencia requiere un enfoque proactivo y estratégico. Implementar estos consejos puede ayudarte a minimizar los riesgos y mantener un entorno seguro para tus empleados y operaciones. No subestimes la importancia de contar con profesionales de la seguridad y de utilizar tecnología avanzada para garantizar la protección de tu empresa.</p>
 
 <!-- Llamado a la acción -->
-<p>Para obtener más información sobre soluciones de seguridad, visita <a href="https://gard.cl/">Gard</a> y descubre cómo podemos ayudarte a fortalecer la seguridad de tu negocio. También te recomendamos explorar servicios específicos como <a href="https://gard.cl/guardias-de-seguridad-privada-para-empresas/"><strong>Guardias de Seguridad Privada para Empresas</strong></a>, <a href="https://gard.cl/seguridad-electronica/"><strong>Seguridad Electrónica</strong></a>, y <a href="https://gard.cl/drones-de-seguridad-para-empresas-e-industrias/"><strong>Drones de Seguridad para Empresas e Industrias</strong></a>.</p>
+<p>Para obtener más información sobre soluciones de seguridad, visita <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">Gard</a> y descubre cómo podemos ayudarte a fortalecer la seguridad de tu negocio. También te recomendamos explorar servicios específicos como <a href="/servicios/guardias-de-seguridad"><strong>Guardias de Seguridad Privada para Empresas</strong></a>, <a href="/servicios/seguridad-electronica"><strong>Seguridad Electrónica</strong></a>, y <a href="/servicios/drones-seguridad"><strong>Drones de Seguridad para Empresas e Industrias</strong></a>.</p>
 								</div>
 				</div>
 					</div>

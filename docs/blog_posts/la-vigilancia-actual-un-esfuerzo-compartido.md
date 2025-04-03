@@ -133,4 +133,4 @@ imageUrl: /images/blog/la-vigilancia-actual-un-esfuerzo-compartido.jpg
 
 
 
-<p>Para aprender más sobre cómo Gard Security puede ayudarte a proteger tu negocio o evento, visita nuestra <a href="https://gard.cl">página principal</a> o explora nuestros servicios especializados en <a href="https://gard.cl/guardias-de-seguridad-privada-para-empresas/">guardias de seguridad</a>, <a href="https://gard.cl/seguridad-electronica/">seguridad electrónica</a> y <a href="https://gard.cl/drones-de-seguridad-para-empresas-e-industrias/">drones de seguridad</a>.</p>
+<p>Para aprender más sobre cómo Gard Security puede ayudarte a proteger tu negocio o evento, visita nuestra <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">página principal</a> o explora nuestros servicios especializados en <a href="/servicios/guardias-de-seguridad">guardias de seguridad</a>, <a href="/servicios/seguridad-electronica">seguridad electrónica</a> y <a href="/servicios/drones-seguridad">drones de seguridad</a>.</p>

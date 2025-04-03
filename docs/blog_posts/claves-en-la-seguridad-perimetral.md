@@ -72,7 +72,7 @@ imageUrl: /images/blog/claves-en-la-seguridad-perimetral.jpg
 <p>La seguridad perimetral es un componente crítico para la protección de cualquier empresa. A través de la implementación de tecnologías avanzadas y la adopción de soluciones innovadoras, las empresas pueden garantizar que sus activos, información y personal estén seguros. Empresas de diversos sectores ya han experimentado los beneficios de una sólida seguridad perimetral, y continúan invirtiendo en estas medidas para protegerse de las amenazas del futuro.</p>
 
 <!-- Llamado a la acción -->
-<p>Si estás buscando mejorar la seguridad de tu empresa, considera trabajar con una empresa de seguridad privada como Gard. Visita <a href="https://gard.cl">Gard</a> para explorar más sobre cómo podemos ayudarte a proteger tu negocio.</p>
+<p>Si estás buscando mejorar la seguridad de tu empresa, considera trabajar con una empresa de seguridad privada como Gard. Visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard</a> para explorar más sobre cómo podemos ayudarte a proteger tu negocio.</p>
 								</div>
 				</div>
 					</div>

@@ -228,7 +228,7 @@ imageUrl: >-
 
 
 
-<p>¿Estás listo para llevar la seguridad de tu empresa al siguiente nivel? Descubre cómo Gard puede ayudarte a implementar las últimas tecnologías de inteligencia artificial en tus sistemas de seguridad. Visita <a href="https://gard.cl">Gard</a> para más información y para explorar nuestras soluciones de seguridad avanzada.</p>
+<p>¿Estás listo para llevar la seguridad de tu empresa al siguiente nivel? Descubre cómo Gard puede ayudarte a implementar las últimas tecnologías de inteligencia artificial en tus sistemas de seguridad. Visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard</a> para más información y para explorar nuestras soluciones de seguridad avanzada.</p>
 								</div>
 				</div>
 					</div>

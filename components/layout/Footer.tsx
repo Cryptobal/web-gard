@@ -1,7 +1,9 @@
 'use client';
 
+import React from 'react';
+
 import Link from 'next/link';
-import CloudflareImage from './CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { cloudflareImages } from '@/lib/images';
 import { Mail, MapPin, Phone, Linkedin, Instagram, Facebook, MessageCircle } from 'lucide-react';
 import { useTheme } from 'next-themes';

@@ -47,7 +47,7 @@ imageUrl: >-
 				<div class="elementor-widget-container">
 							<ul class="elementor-icon-list-items">
 							<li class="elementor-icon-list-item">
-											<a href="https://gard.cl/guardias-de-seguridad/">
+											<a href="https://gard.cl/guardias-de-seguridad/" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-far-check-circle" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg>						</span>
@@ -55,7 +55,7 @@ imageUrl: >-
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
-											<a href="https://gard.cl/drones/">
+											<a href="https://gard.cl/drones/" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-far-check-circle" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg>						</span>
@@ -63,7 +63,7 @@ imageUrl: >-
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
-											<a href="https://gard.cl/servicios/">
+											<a href="https://gard.cl/servicios/" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-far-check-circle" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg>						</span>
@@ -71,7 +71,7 @@ imageUrl: >-
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
-											<a href="https://share.hsforms.com/1ljVMAtFHR2WX-spFyR-NcQqt8km">
+											<a href="https://share.hsforms.com/1ljVMAtFHR2WX-spFyR-NcQqt8km" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-far-check-circle" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg>						</span>
@@ -181,7 +181,7 @@ imageUrl: >-
 					<div class="elementor-background-overlay"></div>
 						<div class="elementor-element elementor-element-2415a049 elementor-widget elementor-widget-heading" data-id="2415a049" data-element_type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default"><a href="https://gard.cl/noticias/">Noticias</a></h3>				</div>
+					<h3 class="elementor-heading-title elementor-size-default"><a href="https://gard.cl/noticias/" rel="noopener noreferrer" target="_blank">Noticias</a></h3>				</div>
 				</div>
 				<div class="elementor-element elementor-element-477262a8 elementor-widget elementor-widget-text-editor" data-id="477262a8" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
@@ -207,7 +207,7 @@ imageUrl: >-
 				<div class="elementor-widget-container">
 							<ul class="elementor-icon-list-items">
 							<li class="elementor-icon-list-item">
-											<a href="https://gard.cl/guardias-de-seguridad/">
+											<a href="https://gard.cl/guardias-de-seguridad/" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>						</span>
@@ -215,7 +215,7 @@ imageUrl: >-
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
-											<a href="https://gard.cl/drones/">
+											<a href="https://gard.cl/drones/" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>						</span>
@@ -223,7 +223,7 @@ imageUrl: >-
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
-											<a href="https://share.hsforms.com/1ljVMAtFHR2WX-spFyR-NcQqt8km">
+											<a href="https://share.hsforms.com/1ljVMAtFHR2WX-spFyR-NcQqt8km" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>						</span>
@@ -231,7 +231,7 @@ imageUrl: >-
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
-											<a href="https://gard.cl/nosotros/">
+											<a href="https://gard.cl/nosotros/" rel="noopener noreferrer" target="_blank">
 
 												<span class="elementor-icon-list-icon">
 							<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>						</span>

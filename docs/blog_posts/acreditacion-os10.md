@@ -36,7 +36,7 @@ imageUrl: /images/blog/acreditacion-os10.jpg
 
 
 
-<p class="">La OS10 de <a href="http://www.carabineros.cl">Carabineros de Chile</a> no solo es una entidad fiscalizadora; es el pilar que garantiza que los guardias de seguridad y las empresas de seguridad privada operen bajo estándares estrictos de profesionalismo y eficacia. La acreditación OS10 es, por lo tanto, más que un requisito legal; es un distintivo de calidad y compromiso con la seguridad pública y privada. Las empresas acreditadas por OS10, como Gard Security, pueden ofrecer no solo servicios superiores, sino también una mayor tranquilidad a sus clientes, asegurando que los profesionales de seguridad están adecuadamente entrenados y certificados.</p>
+<p class="">La OS10 de <a href="http://www.carabineros.cl"rel="noopener noreferrer">Carabineros de Chile</a> no solo es una entidad fiscalizadora; es el pilar que garantiza que los guardias de seguridad y las empresas de seguridad privada operen bajo estándares estrictos de profesionalismo y eficacia. La acreditación OS10 es, por lo tanto, más que un requisito legal; es un distintivo de calidad y compromiso con la seguridad pública y privada. Las empresas acreditadas por OS10, como Gard Security, pueden ofrecer no solo servicios superiores, sino también una mayor tranquilidad a sus clientes, asegurando que los profesionales de seguridad están adecuadamente entrenados y certificados.</p>
 
 
 
@@ -60,11 +60,11 @@ imageUrl: /images/blog/acreditacion-os10.jpg
 
 
 
-<p class="">La acreditación <a href="https://www.zosepcar.cl/OS10.php">OS10</a> no es solo un requisito, es una inversión en la calidad y seguridad de los servicios ofrecidos por empresas como Gard Security. En un entorno donde la seguridad es una prioridad máxima, estar al día con las certificaciones y aprovechar las regulaciones actuales y futuras es crucial. La nueva ley de seguridad en Chile representa tanto un desafío como una oportunidad para mejorar y destacar en el ámbito de la seguridad privada.</p>
+<p class="">La acreditación <a href="https://www.zosepcar.cl/OS10.php" rel="noopener noreferrer" target="_blank">OS10</a> no es solo un requisito, es una inversión en la calidad y seguridad de los servicios ofrecidos por empresas como Gard Security. En un entorno donde la seguridad es una prioridad máxima, estar al día con las certificaciones y aprovechar las regulaciones actuales y futuras es crucial. La nueva ley de seguridad en Chile representa tanto un desafío como una oportunidad para mejorar y destacar en el ámbito de la seguridad privada.</p>
 
 
 
-<p class="">¿Quieres conocer más sobre cómo Gard Security mantiene su liderazgo en la industria a través de la acreditación OS10 y cómo nos preparamos para la nueva ley de seguridad? Visita nuestra página <a href="https://gard.cl">Gard Security</a> para más información y descubre nuestras soluciones de seguridad que no solo cumplen con las regulaciones actuales, sino que también están preparadas para los desafíos futuros. ¡Asegura lo mejor para tu seguridad con Gard!</p>
+<p class="">¿Quieres conocer más sobre cómo Gard Security mantiene su liderazgo en la industria a través de la acreditación OS10 y cómo nos preparamos para la nueva ley de seguridad? Visita nuestra página <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard Security</a> para más información y descubre nuestras soluciones de seguridad que no solo cumplen con las regulaciones actuales, sino que también están preparadas para los desafíos futuros. ¡Asegura lo mejor para tu seguridad con Gard!</p>
 								</div>
 				</div>
 					</div>

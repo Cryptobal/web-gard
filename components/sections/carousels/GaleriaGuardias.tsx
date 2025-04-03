@@ -12,7 +12,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import GaleriaGuardiasCarrusel from '@/components/GaleriaGuardiasCarrusel';
+import GaleriaGuardiasCarrusel from '@/components/sections/carousels/GaleriaGuardiasCarrusel';
 import { servicios } from '@/app/data/servicios';
 
 export default function GaleriaGuardias() {

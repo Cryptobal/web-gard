@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import CotizacionForm from './components/CotizacionForm';
 import UrlParamsProcessor from './components/UrlParamsProcessor';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {

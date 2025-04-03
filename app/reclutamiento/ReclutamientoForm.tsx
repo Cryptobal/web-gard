@@ -28,7 +28,7 @@ import {
   Shield
 } from 'lucide-react';
 
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { cloudflareImages } from '@/lib/images';
 import {
   Form,

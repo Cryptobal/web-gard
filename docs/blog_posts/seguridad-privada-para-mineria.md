@@ -147,8 +147,8 @@ imageUrl: /images/blog/seguridad-privada-para-mineria.jpg
 
 
 
-<p>La presencia de Gard en la industria minera es un testimonio de su capacidad para ofrecer soluciones de seguridad adaptadas a las necesidades específicas de este sector. Con un enfoque en la tecnología, la capacitación del personal y el compromiso con la comunidad, Gard garantiza un entorno seguro y eficiente para todas las operaciones mineras. Para más información sobre los servicios de seguridad que ofrece Gard, visita <a href="https://gard.cl">su página principal</a> y las subpáginas de <a href="https://gard.cl/guardias-de-seguridad-privada-para-empresas/">guardias de seguridad privada para empresas</a> y <a href="https://gard.cl/seguridad-electronica/">seguridad electrónica</a>.</p>
+<p>La presencia de Gard en la industria minera es un testimonio de su capacidad para ofrecer soluciones de seguridad adaptadas a las necesidades específicas de este sector. Con un enfoque en la tecnología, la capacitación del personal y el compromiso con la comunidad, Gard garantiza un entorno seguro y eficiente para todas las operaciones mineras. Para más información sobre los servicios de seguridad que ofrece Gard, visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">su página principal</a> y las subpáginas de <a href="/servicios/guardias-de-seguridad">guardias de seguridad privada para empresas</a> y <a href="/servicios/seguridad-electronica">seguridad electrónica</a>.</p>
 
 
 
-<p>Si tu empresa necesita soluciones de seguridad especializadas en la industria minera, no dudes en contactar a Gard. Visita <a href="https://gard.cl">su sitio web</a> para obtener más información y descubrir cómo pueden ayudarte a proteger tus operaciones de manera eficiente y segura.</p>
+<p>Si tu empresa necesita soluciones de seguridad especializadas en la industria minera, no dudes en contactar a Gard. Visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">su sitio web</a> para obtener más información y descubrir cómo pueden ayudarte a proteger tus operaciones de manera eficiente y segura.</p>

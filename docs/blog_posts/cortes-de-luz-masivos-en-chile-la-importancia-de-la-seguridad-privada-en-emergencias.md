@@ -73,7 +73,7 @@ imageUrl: >-
 
 
 
-<p>👉 Conoce más sobre nuestros servicios de <a href="https://gard.cl/guardias-de-seguridad-privada-para-empresas/">guardias de seguridad privada para empresas</a>.</p>
+<p>👉 Conoce más sobre nuestros servicios de <a href="/servicios/guardias-de-seguridad">guardias de seguridad privada para empresas</a>.</p>
 
 
 
@@ -85,7 +85,7 @@ imageUrl: >-
 
 
 
-<p>👉 Descubre nuestras soluciones de <a href="https://gard.cl/seguridad-electronica/">seguridad electrónica</a>.</p>
+<p>👉 Descubre nuestras soluciones de <a href="/servicios/seguridad-electronica">seguridad electrónica</a>.</p>
 
 
 
@@ -97,7 +97,7 @@ imageUrl: >-
 
 
 
-<p>👉 Más información sobre nuestros <a href="https://gard.cl/drones-de-seguridad-para-empresas-e-industrias/">drones de seguridad</a>.</p>
+<p>👉 Más información sobre nuestros <a href="/servicios/drones-seguridad">drones de seguridad</a>.</p>
 
 
 
@@ -129,4 +129,4 @@ imageUrl: >-
 
 
 
-<p>Si buscas proteger tu hogar, empresa o industria, visita <a href="https://gard.cl/">Gard Security</a> y conoce cómo podemos ayudarte a garantizar la seguridad en todo momento.</p>
+<p>Si buscas proteger tu hogar, empresa o industria, visita <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">Gard Security</a> y conoce cómo podemos ayudarte a garantizar la seguridad en todo momento.</p>

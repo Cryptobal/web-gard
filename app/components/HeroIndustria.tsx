@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { ArrowRight } from 'lucide-react';
 
 interface HeroIndustriaProps {

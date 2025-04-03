@@ -179,7 +179,7 @@ imageUrl: >-
 <p>En instalaciones industriales, donde la seguridad es crucial debido a la presencia de equipos y materiales valiosos, el control de rondas online asegura que las rondas de seguridad se realicen de manera eficiente y que cualquier incidente se gestione rápidamente.</p>
 <p></p>
 <p></p>
-<p>Si estás buscando una empresa de seguridad privada que utilice tecnología avanzada para garantizar la transparencia y eficiencia en sus servicios, visita <a href="https://gard.cl"><b>Gard</b></a> y descubre cómo podemos ayudarte a proteger tus activos más valiosos.</p>
+<p>Si estás buscando una empresa de seguridad privada que utilice tecnología avanzada para garantizar la transparencia y eficiencia en sus servicios, visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank"><b>Gard</b></a> y descubre cómo podemos ayudarte a proteger tus activos más valiosos.</p>
 <p> </p>
 <p></p>
 <p></p>

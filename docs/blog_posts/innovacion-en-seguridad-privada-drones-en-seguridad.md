@@ -41,11 +41,11 @@ imageUrl: /images/blog/innovacion-en-seguridad-privada-drones-en-seguridad.jpg
 <p></p>
 <h3 id="h-1-mayor-cobertura-en-menor-tiempo" class="wp-block-heading">1. <strong>Mayor Cobertura en Menor Tiempo</strong></h3>
 <p></p>
-<p>Los drones son capaces de monitorear grandes extensiones de terreno, lo que los convierte en aliados indispensables para empresas de seguridad privada que buscan proteger áreas amplias, como complejos industriales, condominios o eventos masivos. Gracias a su autonomía, estos dispositivos complementan perfectamente el trabajo de los guardias de seguridad. <a href="https://gard.cl/seguridad-electronica/">Descubre más</a>.</p>
+<p>Los drones son capaces de monitorear grandes extensiones de terreno, lo que los convierte en aliados indispensables para empresas de seguridad privada que buscan proteger áreas amplias, como complejos industriales, condominios o eventos masivos. Gracias a su autonomía, estos dispositivos complementan perfectamente el trabajo de los guardias de seguridad. <a href="/servicios/seguridad-electronica">Descubre más</a>.</p>
 <p></p>
 <h3 id="h-2-deteccion-temprana-de-amenazas" class="wp-block-heading">2. <strong>Detección Temprana de Amenazas</strong></h3>
 <p></p>
-<p>Equipados con cámaras de alta resolución y sensores térmicos, los drones pueden detectar intrusos o actividades sospechosas antes de que se conviertan en un problema grave. Esto permite que las empresas de seguridad actúen de manera proactiva, aumentando la eficacia de sus servicios. <a href="https://gard.cl/drones-de-seguridad-para-empresas-e-industrias/">Más información aquí</a>.</p>
+<p>Equipados con cámaras de alta resolución y sensores térmicos, los drones pueden detectar intrusos o actividades sospechosas antes de que se conviertan en un problema grave. Esto permite que las empresas de seguridad actúen de manera proactiva, aumentando la eficacia de sus servicios. <a href="/servicios/drones-seguridad">Más información aquí</a>.</p>
 <p></p>
 <h3 id="h-3-reduccion-de-riesgos-para-el-personal" class="wp-block-heading">3. <strong>Reducción de Riesgos para el Personal</strong></h3>
 <p></p>
@@ -109,7 +109,7 @@ imageUrl: /images/blog/innovacion-en-seguridad-privada-drones-en-seguridad.jpg
 </ul>
 <p></p>
 <p></p>
-<p><a href="https://gard.cl/">Conoce más sobre los servicios de seguridad de Gard Security</a>.</p>
+<p><a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">Conoce más sobre los servicios de seguridad de Gard Security</a>.</p>
 <p></p>
 <hr class="wp-block-separator has-alpha-channel-opacity" />
 <p></p>
@@ -123,7 +123,7 @@ imageUrl: /images/blog/innovacion-en-seguridad-privada-drones-en-seguridad.jpg
 <p></p>
 <h2 id="h-necesitas-soluciones-de-seguridad-moderna" class="wp-block-heading">¿Necesitas Soluciones de Seguridad Moderna?</h2>
 <p></p>
-<p>Gard Security está a la vanguardia de la seguridad privada en Chile. Si buscas servicios de guardias de seguridad, vigilancia con drones o seguridad electrónica, visita nuestra página web <a href="https://gard.cl/">aquí</a> y descubre cómo podemos ayudarte.</p>
+<p>Gard Security está a la vanguardia de la seguridad privada en Chile. Si buscas servicios de guardias de seguridad, vigilancia con drones o seguridad electrónica, visita nuestra página web <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">aquí</a> y descubre cómo podemos ayudarte.</p>
 <p></p>
 <h4 id="h-enlaces-relacionados" class="wp-block-heading">Enlaces Relacionados:</h4>
 <p></p>
@@ -135,7 +135,7 @@ imageUrl: /images/blog/innovacion-en-seguridad-privada-drones-en-seguridad.jpg
 <ul class="wp-block-list">
 <li style="list-style-type: none;">
 <ul class="wp-block-list">
-<li><a href="https://gard.cl/drones-de-seguridad-para-empresas-e-industrias/">Drones para Empresas e Industrias</a></li>
+<li><a href="/servicios/drones-seguridad">Drones para Empresas e Industrias</a></li>
 </ul>
 </li>
 </ul>
@@ -143,7 +143,7 @@ imageUrl: /images/blog/innovacion-en-seguridad-privada-drones-en-seguridad.jpg
 <ul class="wp-block-list">
 <li style="list-style-type: none;">
 <ul class="wp-block-list">
-<li><a href="https://gard.cl/seguridad-electronica/">Seguridad Electrónica</a></li>
+<li><a href="/servicios/seguridad-electronica">Seguridad Electrónica</a></li>
 </ul>
 </li>
 </ul>
@@ -151,7 +151,7 @@ imageUrl: /images/blog/innovacion-en-seguridad-privada-drones-en-seguridad.jpg
 <ul class="wp-block-list">
 <li style="list-style-type: none;">
 <ul class="wp-block-list">
-<li><a href="https://gard.cl/guardias-de-seguridad-privada-para-empresas/">Guardias de Seguridad para Empresas</a></li>
+<li><a href="/servicios/guardias-de-seguridad">Guardias de Seguridad para Empresas</a></li>
 </ul>
 </li>
 </ul>

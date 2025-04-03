@@ -59,7 +59,7 @@ imageUrl: /images/blog/robo-hormiga.jpg
 <p>El robo hormiga es un desafío significativo para muchas empresas, pero con las estrategias adecuadas, es posible minimizar su impacto y proteger los activos de tu negocio. Implementar medidas de seguridad efectivas, realizar auditorías constantes y contar con un equipo de seguridad confiable son pasos esenciales para evitar pérdidas y asegurar el crecimiento sostenible de tu empresa.</p>
 
 <!-- Llamado a la acción -->
-<p>Para más información sobre cómo proteger tu empresa, visita <a href="https://gard.cl">Gard</a>.</p>
+<p>Para más información sobre cómo proteger tu empresa, visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard</a>.</p>
 								</div>
 				</div>
 					</div>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { ArrowRight, CheckCircle, Clock, Zap, Shield, Users, Cpu, MonitorSmartphone, HeartHandshake, BookOpen, Bell, Clock4 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';

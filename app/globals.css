@@ -3,6 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  /* Estilos de accesibilidad */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--gard-primary));
+    outline-offset: 2px;
+  }
+
+  /* Focus visible para enlaces y botones interactivos */
+  a:focus-visible, 
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply ring-2 ring-primary ring-offset-2 ring-offset-background outline-none;
+  }
+
   :root {
     --radius: 0.75rem;
 

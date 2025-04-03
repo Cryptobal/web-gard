@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import BlogLayout from '@/app/components/blog/BlogLayout';
 import PostSugeridos from '@/app/components/blog/PostSugeridos';
 import { CLOUDFLARE_ACCOUNT_HASH } from '@/lib/images';

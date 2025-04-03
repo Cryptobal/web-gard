@@ -80,7 +80,7 @@ imageUrl: /images/blog/inteligencia-artificial-en-la-seguridad-privada.jpg
 
 
 
-<p>La inteligencia artificial está marcando un antes y un después en la seguridad privada, no solo haciendo más eficientes las operaciones, sino también creando un ambiente más seguro y controlado. Invitamos a empresas y profesionales del sector a explorar las soluciones avanzadas que ofrece <a href="https://gard.cl/">GARD</a> en seguridad privada. Para más información sobre cómo integrar la IA en tu estrategia de seguridad, visita nuestro sitio web y descubre cómo podemos ayudarte a proteger mejor tu negocio.</p>
+<p>La inteligencia artificial está marcando un antes y un después en la seguridad privada, no solo haciendo más eficientes las operaciones, sino también creando un ambiente más seguro y controlado. Invitamos a empresas y profesionales del sector a explorar las soluciones avanzadas que ofrece <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">GARD</a> en seguridad privada. Para más información sobre cómo integrar la IA en tu estrategia de seguridad, visita nuestro sitio web y descubre cómo podemos ayudarte a proteger mejor tu negocio.</p>
 								</div>
 				</div>
 					</div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import IndustriasGridPage from '@/app/components/IndustriasGridPage';
 import HeroIndustria from '@/app/components/HeroIndustria';
 import CtaFinal from '@/components/ui/shared/CtaFinal';

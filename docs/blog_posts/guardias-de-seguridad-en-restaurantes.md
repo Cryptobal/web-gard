@@ -25,7 +25,7 @@ imageUrl: /images/blog/guardias-de-seguridad-en-restaurantes.jpg
 
 
 
-<p>El reciente incidente protagonizado por Denisse Campos en un bar de Viña del Mar ha puesto de relieve la importancia de contar con medidas de seguridad efectivas en restaurantes y bares. La exmodelo insultó y amenazó a los trabajadores del bar Moai, llegando incluso a romper un vidrio y lanzar una silla. (<a href="https://www.pagina7.cl/noticias/redes-sociales/2025/02/12/denisse-campos-protagonizo-violenta-pelea-en-bar-de-vina-del-mar-amenazo-de-muerte-a-trabajadora?utm_source=chatgpt.com">Fuente</a>)</p>
+<p>El reciente incidente protagonizado por Denisse Campos en un bar de Viña del Mar ha puesto de relieve la importancia de contar con medidas de seguridad efectivas en restaurantes y bares. La exmodelo insultó y amenazó a los trabajadores del bar Moai, llegando incluso a romper un vidrio y lanzar una silla. (<a href="https://www.pagina7.cl/noticias/redes-sociales/2025/02/12/denisse-campos-protagonizo-violenta-pelea-en-bar-de-vina-del-mar-amenazo-de-muerte-a-trabajadora?utm_source=chatgpt.com" rel="noopener noreferrer" target="_blank">Fuente</a>)</p>
 
 
 
@@ -149,4 +149,4 @@ imageUrl: /images/blog/guardias-de-seguridad-en-restaurantes.jpg
 
 
 
-<p>Si buscas soluciones de <strong>seguridad privada</strong> para tu restaurante o negocio, te invitamos a conocer más sobre los <strong>servicios de seguridad</strong> que ofrece <a href="https://gard.cl/">Gard</a>.</p>
+<p>Si buscas soluciones de <strong>seguridad privada</strong> para tu restaurante o negocio, te invitamos a conocer más sobre los <strong>servicios de seguridad</strong> que ofrece <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">Gard</a>.</p>

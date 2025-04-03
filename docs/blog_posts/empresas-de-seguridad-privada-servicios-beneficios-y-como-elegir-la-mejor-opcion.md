@@ -343,7 +343,7 @@ imageUrl: >-
 <p>Las empresas de seguridad privada son esenciales para garantizar la protección y tranquilidad en diversos ámbitos. Al elegir una empresa, es crucial considerar su experiencia, tecnología y la personalización de sus servicios. Asegúrate de evaluar todas las opciones y seleccionar la que mejor se adapte a tus necesidades específicas. La seguridad no es algo en lo que debas escatimar; invierte en profesionales que puedan brindarte la protección y tranquilidad que mereces.</p>
 <p></p>
 <p></p>
-<p>Para obtener más información y contratar servicios de seguridad privada de calidad, visita <a href="https://gard.cl/">GARD</a> y asegúrate de contar con la mejor protección para tu empresa o propiedad.</p>
+<p>Para obtener más información y contratar servicios de seguridad privada de calidad, visita <a href="https://gard.cl/" rel="noopener noreferrer" target="_blank">GARD</a> y asegúrate de contar con la mejor protección para tu empresa o propiedad.</p>
 <p></p>
 <p></p>
 <p></p>
@@ -358,13 +358,13 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.interior.gob.cl/">Ministerio del Interior y Seguridad Pública de Chile</a></li></ul></li></ul>
+<li><a href="https://www.interior.gob.cl/" rel="noopener noreferrer" target="_blank">Ministerio del Interior y Seguridad Pública de Chile</a></li></ul></li></ul>
 <p></p>
 <p></p>
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.spchile.cl/">Superintendencia de Seguridad Privada</a></li>
+<li><a href="https://www.spchile.cl/" rel="noopener noreferrer" target="_blank">Superintendencia de Seguridad Privada</a></li>
 </ul>
 </li>
 </ul>
@@ -373,7 +373,7 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.revistaseguridadminera.com/">Revista Seguridad Minera</a></li>
+<li><a href="https://www.revistaseguridadminera.com/" rel="noopener noreferrer" target="_blank">Revista Seguridad Minera</a></li>
 </ul>
 </li>
 </ul>
@@ -382,7 +382,7 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.iapsa.org/">International Association of Private Security</a></li>
+<li><a href="https://www.iapsa.org/" rel="noopener noreferrer" target="_blank">International Association of Private Security</a></li>
 </ul>
 </li>
 </ul>
@@ -391,7 +391,7 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.latercera.com/">La Tercera</a></li>
+<li><a href="https://www.latercera.com/" rel="noopener noreferrer" target="_blank">La Tercera</a></li>
 </ul>
 </li>
 </ul>
@@ -400,7 +400,7 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.emol.com/">Emol</a></li>
+<li><a href="https://www.emol.com/" rel="noopener noreferrer" target="_blank">Emol</a></li>
 </ul>
 </li>
 </ul>
@@ -409,7 +409,7 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.elmercurio.com/">El Mercurio</a></li>
+<li><a href="https://www.elmercurio.com/" rel="noopener noreferrer" target="_blank">El Mercurio</a></li>
 </ul>
 </li>
 </ul>
@@ -418,7 +418,7 @@ imageUrl: >-
 <ul>
 <li style="list-style-type: none;">
 <ul>
-<li><a href="https://www.df.cl/">Diario Financiero</a></li>
+<li><a href="https://www.df.cl/" rel="noopener noreferrer" target="_blank">Diario Financiero</a></li>
 </ul>
 </li>
 </ul>

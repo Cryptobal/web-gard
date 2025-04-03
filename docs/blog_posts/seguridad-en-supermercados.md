@@ -85,7 +85,7 @@ imageUrl: /images/blog/seguridad-en-supermercados.jpg
 <!-- Conclusión -->
 <h2 id="conclusion-mejor-seguridad-supermercado">Conclusión: Escoger la Mejor Seguridad para tu Supermercado</h2>
 <p>La seguridad en los supermercados es un aspecto que no puede ser subestimado. Escoger la mejor empresa de seguridad implica una cuidadosa evaluación de sus servicios, la tecnología que ofrecen, y la profesionalidad de sus guardias. Al considerar estos factores, podrás garantizar que tu supermercado esté protegido de manera integral, lo que a su vez proporcionará un entorno seguro y confiable para tus clientes y empleados.</p>
-<p>Para obtener más información sobre cómo proteger tu negocio, visita <a href="https://gard.cl">Gard.cl</a>, donde encontrarás soluciones integrales de seguridad adaptadas a tus necesidades.</p>
+<p>Para obtener más información sobre cómo proteger tu negocio, visita <a href="https://gard.cl" rel="noopener noreferrer" target="_blank">Gard.cl</a>, donde encontrarás soluciones integrales de seguridad adaptadas a tus necesidades.</p>
 								</div>
 				</div>
 					</div>

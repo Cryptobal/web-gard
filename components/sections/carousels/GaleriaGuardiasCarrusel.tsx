@@ -19,7 +19,7 @@ import { useKeenSlider } from 'keen-slider/react';
 import "keen-slider/keen-slider.min.css";
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import CloudflareImage from '@/components/CloudflareImage';
+import { CloudflareImage } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 interface GaleriaGuardiasCarruselProps {

@@ -3,13 +3,13 @@ import type { Metadata } from 'next';
 import { inter, poppins } from './fonts';
 import './globals.css';
 import { Providers } from './providers';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Header, Footer } from '@/components/layout';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import GoogleTagManager from './components/GoogleTagManager';
 import CookieConsent from './components/cookie/CookieConsent';
 import { GoogleAnalytics } from './components/cookie/ConsentAwareScript';
+import { OrganizationSchema } from '@/lib/schema';
 
 // Obtener GTM ID desde variables de entorno
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || '';
@@ -74,6 +74,9 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${inter.variable} ${poppins.variable}`}>
+        {/* JSON-LD Schema para SEO */}
+        <OrganizationSchema />
+        
         {/* Sistema de gestión de consentimiento de cookies */}
         <CookieConsent>
           {/* Google Tag Manager (solo se carga con consentimiento de analytics) */}
@@ -84,7 +87,7 @@ export default function RootLayout({
           
           <Providers>
             <Header />
-            <main className="min-h-screen">
+            <main id="main-content" className="min-h-screen">
               {children}
             </main>
             <Footer />
