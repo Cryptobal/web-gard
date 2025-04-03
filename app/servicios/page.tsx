@@ -9,7 +9,7 @@ import CtaFinal from '@/components/ui/shared/CtaFinal';
 // Configuración de optimización para páginas estáticas
 export const runtime = 'edge';
 export const dynamicParams = false;
-export const preferredRegion = 'chl1'; // Region de Chile para mejor performance
+export const preferredRegion = 'iad1'; // USA East (anteriormente era 'chl1')
 
 export const metadata: Metadata = {
   title: "Servicios de Seguridad Privada | Gard Security",

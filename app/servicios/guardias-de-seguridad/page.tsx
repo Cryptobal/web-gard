@@ -5,7 +5,7 @@ import ServicioPage from '../[slug]/page';
 // Configuración de optimización para páginas estáticas
 export const runtime = 'edge';
 export const dynamicParams = false;
-export const preferredRegion = 'chl1';
+export const preferredRegion = 'iad1';
 
 // Metadatos dinámicos para SEO
 export const metadata: Metadata = {

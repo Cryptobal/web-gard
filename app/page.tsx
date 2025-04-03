@@ -17,7 +17,7 @@ export const runtime = 'edge';
 // Estas configuraciones controlan el comportamiento de renderizado y cache
 export const revalidate = false; // Sin revalidación automática
 export const dynamicParams = false; // Sólo permite parámetros pre-renderizados
-export const preferredRegion = 'chl1'; // Region de Chile para mejor performance
+export const preferredRegion = 'iad1'; // USA East (anteriormente era 'chl1')
 
 // Importación dinámica de componentes pesados
 const FaqSection = lazy(() => import('@/components/sections/FaqSection'));
