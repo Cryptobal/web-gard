@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function LayoutLandingCotizadorInteligente({ children }: { children: React.ReactNode }) {
   return (
-    <main className="min-h-screen bg-gray-900 text-white">
+    <main className="min-h-screen bg-gray-900 text-white flex flex-col">
       <ClientDarkMode />
-      {children}
+      <div className="flex-1">{children}</div>
     </main>
   );
 } 

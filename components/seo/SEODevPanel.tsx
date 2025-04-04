@@ -18,6 +18,7 @@ export default function SEODevPanel() {
   const [open, setOpen] = useState(false);
   const [metaData, setMetaData] = useState<MetaData>({});
   const [isDev, setIsDev] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
   const pathname = usePathname(); // Obtener la ruta actual
 
   // Función para actualizar los metadatos
@@ -41,6 +42,31 @@ export default function SEODevPanel() {
       canonical: canonicalHref,
       metas: metaInfo,
     });
+  };
+
+  // Función para copiar todos los metadatos
+  const copyAllMetadata = () => {
+    // Crear un texto formateado con toda la información SEO
+    let seoText = `SEO DEBUG INFORMATION\n\n`;
+    seoText += `URL: ${window.location.href}\n`;
+    seoText += `Canonical: ${metaData.canonical || 'No definido'}\n`;
+    seoText += `Title: ${metaData.title || 'No definido'}\n`;
+    seoText += `Path: ${pathname}\n\n`;
+    
+    seoText += `METADATA:\n`;
+    if (metaData.metas) {
+      Object.entries(metaData.metas).forEach(([key, value]) => {
+        seoText += `${key}: ${value}\n`;
+      });
+    }
+    
+    // Copiar al portapapeles
+    navigator.clipboard.writeText(seoText)
+      .then(() => {
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      })
+      .catch(err => console.error('Error al copiar:', err));
   };
 
   // Efecto para configurar el modo desarrollo
@@ -95,6 +121,13 @@ export default function SEODevPanel() {
                 title="Actualizar metadatos"
               >
                 🔄 Actualizar
+              </button>
+              <button
+                onClick={copyAllMetadata}
+                className="text-xs bg-green-600 hover:bg-green-700 px-2 py-1 rounded flex items-center"
+                title="Copiar todos los metadatos"
+              >
+                {copySuccess ? '✓ Copiado!' : '📋 Copiar todo'}
               </button>
               <button onClick={() => setOpen(false)} className="text-sm text-gray-400 hover:text-white">✕ cerrar</button>
             </div>
