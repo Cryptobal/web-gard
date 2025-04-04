@@ -26,6 +26,7 @@ import {
   Hotel
 } from 'lucide-react';
 import LinkParamsAware from '@/app/components/LinkParamsAware';
+import GaleriaCarrusel from '@/app/components/GaleriaCarrusel';
 
 // Generar rutas estáticas para cada servicio
 export async function generateStaticParams() {
@@ -304,18 +305,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           <div className="gard-container max-w-7xl mx-auto px-4">
             <h2 className="text-heading-2 mb-10 text-center">Galería de {servicio.name}</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {servicio.gallery.map((imageId, index) => (
-                <div key={index} className="relative aspect-video rounded-2xl overflow-hidden shadow-sm">
-                  <CloudflareImage
-                    imageId={imageId}
-                    alt={`${servicio.name} - Imagen ${index + 1}`}
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              ))}
-            </div>
+            <GaleriaCarrusel imagenes={servicio.gallery} titulo={servicio.name} />
           </div>
         </section>
       )}
