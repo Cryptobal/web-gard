@@ -19,25 +19,6 @@ const metadataInfo = {
   }
 };
 
-// Componente para el logo principal
-const GardLogo = () => {
-  return (
-    <div className="fixed top-5 left-5 z-50 bg-transparent">
-      <Link href="/" className="block hover:opacity-90 transition-opacity">
-        <div className="relative w-56 h-24">
-          <CloudflareImage 
-            imageId={cloudflareImages.logo.white}
-            alt="Gard Security Logo"
-            fill
-            className="object-contain drop-shadow-md"
-            priority
-          />
-        </div>
-      </Link>
-    </div>
-  );
-};
-
 // Componente lado cliente para forzar metadatos
 const MetadataEnforcer = () => {
   useEffect(() => {
@@ -159,9 +140,6 @@ export default function CotizadorInteligentePage() {
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
       
-      {/* Logo fijo en la esquina superior izquierda */}
-      <GardLogo />
-      
       {/* Hero Section - Sin espacios superiores */}
       <section className="relative w-full h-[50vh] md:h-[60vh]">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
@@ -169,9 +147,22 @@ export default function CotizadorInteligentePage() {
           <h1 className="text-white text-4xl md:text-5xl font-bold mb-4">
             Cotizador Inteligente de Guardias
           </h1>
-          <p className="text-white text-lg md:text-xl opacity-90 max-w-3xl">
+          <p className="text-white text-lg md:text-xl opacity-90 max-w-3xl mb-8">
             Configura los turnos, calcula costos y solicita tu cotización personalizada
           </p>
+          
+          {/* Logo bajo el texto del Hero */}
+          <Link href="/" className="block mt-6 hover:opacity-90 transition-opacity">
+            <div className="relative w-48 h-20">
+              <CloudflareImage 
+                imageId={cloudflareImages.logo.white}
+                alt="Gard Security Logo"
+                fill
+                className="object-contain drop-shadow-lg"
+                priority
+              />
+            </div>
+          </Link>
         </div>
         <CloudflareImage
           imageId="09f20a0c-b345-4db8-ff81-14aad098db00"
