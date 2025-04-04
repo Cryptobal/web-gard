@@ -1,27 +1,33 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Gard Security | Seguridad Privada Profesional para Empresas',
-  description: 'Empresa líder en seguridad privada en Chile. Servicios de guardias, monitoreo, seguridad electrónica, drones y protección para industrias.',
+  title: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
+  description: 'Gard Security ofrece soluciones de seguridad integral para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
   keywords: [
-    'empresa de seguridad privada',
-    'guardias de seguridad',
-    'seguridad para empresas',
-    'monitoreo de seguridad',
-    'drones de vigilancia',
+    'seguridad empresarial',
+    'seguridad perimetral',
+    'protección de datos',
+    'auditoría de seguridad',
+    'consultoría de seguridad',
   ],
-  robots: 'index, follow',
+  robots: {
+    index: true,
+    follow: true
+  },
+  alternates: {
+    canonical: 'https://gard.cl'
+  },
   openGraph: {
-    title: 'Gard Security | Expertos en Seguridad Privada para Empresas',
-    description: 'Conoce nuestros servicios de seguridad física y tecnológica para industrias, edificios y empresas. Cotiza online.',
-    url: 'https://gard.cl/',
-    siteName: 'Gard Security',
     type: 'website',
     locale: 'es_CL',
+    url: 'https://gard.cl',
+    title: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
+    description: 'Soluciones de seguridad privada para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
+    siteName: 'Gard Security',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gard Security | Seguridad Privada Profesional',
-    description: 'Soluciones de seguridad física y electrónica para empresas. Confianza, tecnología y experiencia.',
-  },
+    title: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
+    description: 'Soluciones de seguridad integral para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
+  }
 }; 

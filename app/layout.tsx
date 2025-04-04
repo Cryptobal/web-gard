@@ -12,11 +12,31 @@ import CookieConsent from './components/cookie/CookieConsent';
 import { GoogleAnalytics } from './components/cookie/ConsentAwareScript';
 import dynamic from 'next/dynamic';
 
-// Carga dinámica del SEODevPanel solo en desarrollo
+// Importación forzada de metadatos en desarrollo - ahora debe hacerse en componentes cliente
+// Eliminamos la importación directa que estaba causando errores
+// if (process.env.NODE_ENV === 'development') {
+//   import('./force-metadata').then(module => {
+//     console.log('Forzando importación de metadatos para desarrollo');
+//     module.forceMetadataImport();
+//   }).catch(err => {
+//     console.error('Error al forzar importación de metadatos:', err);
+//   });
+// }
+
+// Carga dinámica de componentes que deben ser de cliente
 const SEODevPanelWrapper = dynamic(
   () => import('@/components/seo/SEODevPanelWrapper'),
   { ssr: false }
 );
+
+// Definimos un componente nulo para usarlo cuando no estamos en desarrollo
+const NullComponent = () => null;
+
+// Carga dinámica del componente que fuerza metadatos (solo desarrollo)
+// Modificada la importación para usar el componente desde components/seo
+const ForceMetadataClient = process.env.NODE_ENV === 'development'
+  ? dynamic(() => import('@/components/seo/ForceMetadataClient'), { ssr: false })
+  : NullComponent;
 
 // Obtener GTM ID desde variables de entorno
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || '';
@@ -28,19 +48,11 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 export const metadata: Metadata = {
   metadataBase: new URL('https://gard.cl'),
   title: {
-    default: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
-    template: '%s | Gard Security',
+    template: '%s',
+    default: 'Gard Security Chile', // Este valor solo se usa si la página hija no define título
   },
-  description:
-    'Gard Security ofrece soluciones de seguridad integral para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
-  keywords: [
-    'seguridad empresarial',
-    'ciberseguridad',
-    'seguridad perimetral',
-    'protección de datos',
-    'auditoría de seguridad',
-    'consultoría de seguridad',
-  ],
+  // Eliminamos description por defecto para no sobrescribir los valores específicos
+  // Eliminamos keywords por defecto para no sobrescribir los valores específicos
   authors: [{ name: 'Gard Security' }],
   creator: 'Gard Security',
   icons: {
@@ -55,21 +67,8 @@ export const metadata: Metadata = {
       { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
   },
-  openGraph: {
-    type: 'website',
-    locale: 'es_ES',
-    url: 'https://gard.cl',
-    title: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
-    description:
-      'Soluciones de seguridad privada para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
-    siteName: 'Gard Security',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Gard Security Chile | Seguridad Empresarial de Clase Mundial',
-    description:
-      'Soluciones de seguridad integral para empresas exigentes. Protegemos tu información y activos con tecnología de vanguardia.',
-  },
+  // Eliminamos openGraph por defecto para no sobrescribir los valores específicos
+  // Eliminamos twitter por defecto para no sobrescribir los valores específicos
   robots: {
     index: true,
     follow: true,
@@ -93,6 +92,9 @@ export default function RootLayout({
           <GoogleAnalytics measurementId={GA_ID} />
           
           <Providers>
+            {/* Componente para forzar metadatos (solo en desarrollo) */}
+            {isDevelopment && <ForceMetadataClient />}
+            
             <Header />
             <main className="min-h-screen">
               {children}

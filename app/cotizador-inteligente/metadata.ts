@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     follow: true
   },
   alternates: {
-    canonical: 'https://gardsecurity.cl/cotizador-inteligente'
+    canonical: 'https://gard.cl/cotizador-inteligente'
   },
   openGraph: {
     title: 'Cotizador Inteligente de Guardias de Seguridad | Gard Security',
