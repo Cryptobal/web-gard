@@ -6,6 +6,7 @@ import BeneficiosCotizador from '@/components/cotizador/BeneficiosCotizador';
 import FAQsCotizador from '@/components/cotizador/FAQsCotizador';
 import CloudflareImage from '@/components/CloudflareImage';
 import { metadata } from './metadata'; // Importación explícita
+import { ArrowRight, Calculator, Clock, Shield, HeadphonesIcon } from 'lucide-react';
 
 // Componente lado cliente para forzar metadatos
 const MetadataEnforcer = () => {
@@ -65,91 +66,60 @@ const MetadataEnforcer = () => {
 };
 
 // Componente explicativo del Cotizador Inteligente
-const CotizadorIntroduccion = () => {
+const CotizadorExplicacion = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 py-8 px-4">
-      <div className="gard-container max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          <div className="md:col-span-2">
-            <h2 className="text-heading-2 text-gray-800 dark:text-white font-medium mb-4">
-              Optimice su inversión en seguridad privada
-            </h2>
-            <p className="text-body-base text-gray-600 dark:text-gray-300 mb-4">
-              Nuestro cotizador inteligente permite a empresas de todos los tamaños calcular con precisión 
-              sus necesidades de guardias de seguridad, ahorrando hasta un 25% en costos operativos mediante 
-              una planificación eficiente de turnos y recursos.
+    <section className="gard-section bg-gray-50 dark:bg-gray-900 py-12 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <h2 className="text-heading-2 font-title font-bold text-gray-900 dark:text-white mb-4">
+            Optimice su inversión en seguridad privada
+          </h2>
+          <p className="text-body-base text-gray-600 dark:text-gray-300">
+            Nuestro cotizador inteligente le permite calcular con precisión el costo de sus servicios de seguridad, adaptados a las necesidades específicas de su empresa.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
+            <Calculator className="text-primary dark:text-accent text-3xl mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Cotización instantánea</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              Configure turnos, cantidad de guardias y obtenga un estimado inmediato del costo mensual.
             </p>
-            <div className="flex flex-col gap-3">
-              <div className="flex items-start">
-                <div className="mr-3 bg-primary/10 p-2 rounded-lg">
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="20" 
-                    height="20" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className="text-primary dark:text-accent"
-                  >
-                    <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
-                    <path d="m9 12 2 2 4-4" />
-                  </svg>
-                </div>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  <span className="font-medium">Proceso simple en 3 pasos:</span> Configure, reciba su cotización y un asesor especializado le contactará para finalizar.
-                </p>
-              </div>
-              <div className="flex items-start">
-                <div className="mr-3 bg-primary/10 p-2 rounded-lg">
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="20" 
-                    height="20" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className="text-primary dark:text-accent"
-                  >
-                    <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
-                    <path d="m9 12 2 2 4-4" />
-                  </svg>
-                </div>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  <span className="font-medium">Personalización B2B completa:</span> Adapte los servicios a sus horarios, instalaciones y requerimientos específicos.
-                </p>
-              </div>
-            </div>
           </div>
-          <div className="rounded-xl overflow-hidden shadow-sm bg-gray-50 dark:bg-gray-800 p-5 flex flex-col items-center">
-            <div className="w-full max-w-xs mx-auto">
-              <div className="rounded-lg bg-gray-100 dark:bg-gray-700 p-4 mb-3">
-                <h3 className="text-heading-4 text-center text-gray-800 dark:text-white">
-                  +180
-                </h3>
-                <p className="text-center text-sm text-gray-600 dark:text-gray-300">
-                  Empresas ya utilizan nuestro servicio
-                </p>
-              </div>
-              <div className="text-center">
-                <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  Respuesta en 
-                  <span className="font-bold text-primary dark:text-accent mx-1">
-                    menos de 24h
-                  </span> 
-                  para todas las cotizaciones
-                </p>
-              </div>
-            </div>
+          
+          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
+            <Shield className="text-primary dark:text-accent text-3xl mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Personalización total</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              Adapte el servicio a sus requerimientos específicos, optimizando recursos y cobertura.
+            </p>
+          </div>
+          
+          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
+            <Clock className="text-primary dark:text-accent text-3xl mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Proceso simplificado</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              En menos de 2 minutos complete su cotización y reciba propuesta formal en su correo.
+            </p>
+          </div>
+          
+          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
+            <HeadphonesIcon className="text-primary dark:text-accent text-3xl mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Asesoría especializada</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              Tras su cotización, un ejecutivo especializado le contactará para afinar detalles y responder consultas.
+            </p>
           </div>
         </div>
+        
+        <div className="mt-10 text-center">
+          <a href="#cotizador" className="gard-btn inline-flex items-center gap-2 bg-primary dark:bg-accent text-white py-3 px-6 rounded-2xl font-medium hover:opacity-90 transition-all">
+            Comenzar cotización <ArrowRight className="w-5 h-5" />
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -159,8 +129,8 @@ export default function CotizadorInteligentePage() {
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
       
-      {/* Componente explicativo */}
-      <CotizadorIntroduccion />
+      {/* Sección explicativa */}
+      <CotizadorExplicacion />
       
       {/* Hero Section - Sin espacios superiores */}
       <section className="relative w-full h-[50vh] md:h-[60vh]">
@@ -183,7 +153,9 @@ export default function CotizadorInteligentePage() {
       </section>
 
       {/* Cotizador inteligente */}
-      <CotizadorFormulario />
+      <section id="cotizador">
+        <CotizadorFormulario />
+      </section>
       
       {/* Beneficios del servicio */}
       <BeneficiosCotizador />
