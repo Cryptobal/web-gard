@@ -1,5 +1,4 @@
 import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import CloudflareImage from '@/components/CloudflareImage';
 import { 
@@ -22,27 +21,14 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import CtaFinal from '@/components/ui/shared/CtaFinal';
-
-export const metadata: Metadata = {
-  title: "Plataforma Tecnológica de Seguridad | Supervisión Inteligente | Gard Security",
-  description: "Sistema digital integral con inteligencia artificial para supervisión de seguridad en tiempo real. App, panel de control, reportes automáticos y análisis predictivo.",
-  keywords: [
-    "plataforma tecnológica de seguridad",
-    "supervisión inteligente de guardias",
-    "app de control de seguridad",
-    "reportes automáticos con IA",
-    "monitoreo en tiempo real",
-    "trazabilidad de servicios de seguridad",
-    "inteligencia artificial en vigilancia"
-  ],
-  alternates: {
-    canonical: "https://www.gard.cl/tecnologia-seguridad"
-  }
-};
+import TecnologiaLandingClient from './TecnologiaLandingClient';
 
 export default function Page() {
   return (
     <>
+      {/* Componente cliente con SEO y Canonical */}
+      <TecnologiaLandingClient />
+      
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
         <div className="absolute inset-0">
@@ -62,10 +48,10 @@ export default function Page() {
         {/* Contenido */}
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4">
           <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight max-w-4xl mb-6">
-            Tecnología para Seguridad Privada Inteligente
+            Innovación en Tecnología para Seguridad Privada
           </h1>
           <p className="text-white text-xl max-w-2xl mb-8">
-            Supervisión, reportería y control total en tiempo real con inteligencia artificial.
+            Inteligencia artificial, videovigilancia avanzada y sistemas de monitoreo en tiempo real.
           </p>
           <Link 
             href="/cotizar" 

@@ -21,8 +21,9 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: 'Post no encontrado',
-      description: 'El artículo que buscas no existe o ha sido eliminado.',
+      title: 'Artículo no encontrado | Blog Gard Security',
+      description: 'El artículo solicitado no está disponible o fue eliminado.',
+      robots: 'noindex, nofollow',
     };
   }
 
@@ -31,14 +32,20 @@ export async function generateMetadata({
     : `https://imagedelivery.net/${CLOUDFLARE_ACCOUNT_HASH}/5eea1064-8a2d-4e8b-5606-d28775467a00/public`;
 
   return {
-    title: `${post.title} | Blog de Gard Security`,
+    title: `${post.title} | Blog Gard Security`,
     description: post.description,
+    keywords: post.tags || ['seguridad privada', 'blog gard', 'guardias de seguridad'],
+    authors: [{ name: 'Gard Security', url: 'https://gard.cl' }],
+    robots: 'index, follow',
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
       publishedTime: post.date,
       tags: post.tags,
+      url: `https://gard.cl/blog/${slug}`,
+      siteName: 'Gard Security',
+      locale: 'es_CL',
       images: [
         {
           url: ogImageUrl,
@@ -48,6 +55,12 @@ export async function generateMetadata({
         },
       ],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [ogImageUrl],
+    }
   };
 }
 

@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 
 import { servicios, type Servicio } from '@/app/data/servicios';
 import { industries } from '@/app/data/industries';
+import { servicesMetadata } from '../serviceMetadata';
 import CloudflareImage from '@/components/CloudflareImage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
 import IndustriasGridPage from '@/app/components/IndustriasGridPage';
@@ -38,84 +39,29 @@ export async function generateStaticParams() {
 
 // Generar metadata dinámica para SEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const servicio = servicios.find((s) => s.slug === params.slug);
-  
+  const servicio = servicesMetadata.find(s => s.slug === params.slug);
+
   if (!servicio) {
     return {
       title: 'Servicio no encontrado | Gard Security',
-      description: 'No se ha encontrado el servicio solicitado',
+      description: 'El servicio solicitado no existe o fue eliminado.',
+      robots: 'noindex',
     };
   }
-  
-  // Metadatos específicos para guardias de seguridad
-  if (servicio.slug === 'guardias-de-seguridad') {
-    return {
-      title: `Servicio de Guardias de Seguridad Profesionales | Gard Security`,
-      description: `Guardias de seguridad certificados para empresas, control de acceso, disuasión y prevención. Personal altamente capacitado en protocolos preventivos y vigilancia empresarial.`,
-      keywords: [
-        ...servicio.keywords,
-        'disuasión de riesgos',
-        'control preventivo',
-        'guardias para control de acceso',
-        'supervisión de seguridad',
-        'guardias certificados'
-      ],
-    };
-  }
-  
-  // Metadatos específicos para auditoría de seguridad
-  if (params.slug === 'auditoria-seguridad') {
-    return {
-      title: `Auditoría de Seguridad Profesional | Evaluación y Diagnóstico | Gard Security`,
-      description: `Servicio de auditoría completa de sistemas de seguridad física y electrónica. Identificamos vulnerabilidades y proponemos soluciones para fortalecer la protección de su empresa.`,
-      keywords: [
-        'auditoría de seguridad',
-        'evaluación de vulnerabilidades',
-        'diagnóstico de seguridad',
-        'análisis de riesgos',
-        'consultoría especializada',
-        'cumplimiento normativo'
-      ],
-    };
-  }
-  
-  // Metadatos específicos para consultoría
-  if (params.slug === 'consultoria') {
-    return {
-      title: `Consultoría en Seguridad Privada y Corporativa | Gard Security`,
-      description: `Asesoramiento especializado en seguridad para empresas e instituciones. Desarrollamos estrategias personalizadas para optimizar la protección de sus activos y personal.`,
-      keywords: [
-        'consultoría de seguridad',
-        'asesoramiento especializado',
-        'estrategias de protección',
-        'optimización de seguridad',
-        'gestión de riesgos',
-        'seguridad corporativa'
-      ],
-    };
-  }
-  
-  // Metadatos específicos para prevención de intrusiones
-  if (params.slug === 'prevencion-intrusiones') {
-    return {
-      title: `Sistemas de Prevención de Intrusiones | Detección Temprana | Gard Security`,
-      description: `Soluciones avanzadas para prevenir accesos no autorizados a sus instalaciones. Combinamos tecnología, barreras físicas y protocolos específicos para anticiparnos a posibles amenazas.`,
-      keywords: [
-        'prevención de intrusiones',
-        'detección temprana',
-        'control de accesos',
-        'protección perimetral',
-        'sistemas anti-intrusión',
-        'seguridad proactiva'
-      ],
-    };
-  }
-  
-  // Metadatos por defecto para los demás servicios
+
   return {
-    title: `${servicio.name} | Gard Security`,
+    title: servicio.title,
     description: servicio.description,
     keywords: servicio.keywords,
+    robots: 'index, follow',
+    openGraph: {
+      title: servicio.title,
+      description: servicio.description,
+      url: `https://gard.cl/servicios/${servicio.slug}`,
+      siteName: 'Gard Security',
+      type: 'article',
+      locale: 'es_CL',
+    },
   };
 }
 

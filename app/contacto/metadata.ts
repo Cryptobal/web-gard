@@ -1,7 +1,17 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contáctenos | Gard Security',
-  description: 'Póngase en contacto con nuestro equipo de expertos en seguridad. Estamos aquí para responder rápidamente a todas sus consultas y necesidades de seguridad.',
-  keywords: ['contacto seguridad', 'formulario contacto', 'asesoría seguridad', 'cotizar seguridad', 'atención clientes'],
+  title: 'Contacto | Gard Security',
+  description: 'Contáctanos para soluciones de seguridad privada, vigilancia 24/7 y protección de activos. Respuesta rápida y asesoría personalizada.',
+  keywords: ['contacto empresa seguridad', 'cotizar guardias de seguridad', 'Gard Security contacto', 'asesoría seguridad privada'],
+  authors: [{ name: 'Gard Security', url: 'https://gard.cl' }],
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Contacto | Gard Security',
+    description: 'Habla directamente con nuestros especialistas en seguridad privada.',
+    url: 'https://gard.cl/contacto',
+    siteName: 'Gard Security',
+    locale: 'es_CL',
+    type: 'website',
+  }
 }; 

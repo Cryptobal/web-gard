@@ -10,6 +10,7 @@ import BlogLayout from '@/app/components/blog/BlogLayout';
 import PostSugeridos from '@/app/components/blog/PostSugeridos';
 import { CLOUDFLARE_ACCOUNT_HASH } from '@/lib/images';
 import { Button } from '@/components/ui/button';
+import BlogPostClient from '@/app/blog/[slug]/BlogPostClient';
 
 // Tipo BlogPost sin importar de lib/blog
 interface BlogPost {
@@ -197,6 +198,9 @@ export default function BlogPost({ slug }: { slug: string }) {
 
   return (
     <BlogLayout showSidebar={true}>
+      {/* Componente para SEO y canonical URL */}
+      <BlogPostClient />
+      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}

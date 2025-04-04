@@ -1,19 +1,16 @@
 import React from 'react';
-import { Metadata } from 'next';
 import CotizacionForm from './components/CotizacionForm';
 import UrlParamsProcessor from './components/UrlParamsProcessor';
 import CloudflareImage from '@/components/CloudflareImage';
 import { ArrowRight } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: 'Cotiza nuestros servicios de seguridad | Gard Security',
-  description: 'Solicita una cotización personalizada para tus necesidades de seguridad privada. Guardias, monitoreo, vigilancia y más servicios de primera calidad.',
-  keywords: ['cotización seguridad privada', 'presupuesto guardias', 'cotizar vigilancia', 'precio seguridad privada', 'contratar seguridad'],
-};
+import CotizadorLandingClient from './components/CotizadorLandingClient';
 
 export default function CotizarPage() {
   return (
     <>
+      {/* Componente SEO cliente */}
+      <CotizadorLandingClient />
+      
       {/* Componente para procesar parámetros URL */}
       <UrlParamsProcessor />
 

@@ -1,27 +1,23 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cotizador de Guardias de Seguridad | Gard Security',
-  description: 'Calcula en línea el valor mensual estimado para contratar guardias de seguridad según tus necesidades operativas. Cotiza rápido, sin compromiso y con total claridad.',
+  title: 'Cotizador Online de Guardias | Gard Security',
+  description: 'Calcula fácilmente el precio de guardias de seguridad para tu empresa. Rápido, simple y sin compromiso. ¡Cotiza en línea ahora!',
   keywords: [
-    'cotizador de seguridad privada',
-    'precio guardias de seguridad',
-    'servicio de guardias para empresas',
-    'guardias 24/7',
-    'empresa de seguridad en Chile',
+    'cotizador de seguridad',
+    'precio guardia de seguridad',
+    'servicio de guardias cotizar',
+    'cotización online guardias',
+    'empresa de seguridad presupuesto'
   ],
+  authors: [{ name: 'Gard Security', url: 'https://gard.cl' }],
   robots: 'index, follow',
   openGraph: {
-    title: 'Cotiza guardias de seguridad en línea | Gard Security',
-    description: 'Simula tus necesidades de cobertura y obtén una estimación mensual al instante. Ideal para empresas que requieren seguridad profesional.',
+    title: 'Cotizador Online | Gard Security',
+    description: 'Cotiza en línea tu servicio de guardias y recibe una propuesta personalizada para tu empresa.',
     url: 'https://gard.cl/cotizador',
     siteName: 'Gard Security',
-    type: 'website',
     locale: 'es_CL',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Cotiza guardias de seguridad en línea | Gard Security',
-    description: 'Simula tu operación y recibe una estimación sin compromiso.',
-  },
+    type: 'website',
+  }
 }; 

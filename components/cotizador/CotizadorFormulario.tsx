@@ -4,8 +4,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
-// Importación correcta del componente CotizadorGuardias
-const CotizadorGuardias = dynamic(() => import('@/app/components/CotizadorGuardias'), { ssr: false });
+// Importación correcta del componente CotizadorGuardias con ruta absoluta completa
+const CotizadorGuardias = dynamic(() => import('../../app/components/CotizadorGuardias'), { ssr: false });
 
 const CotizadorFormulario = () => {
   return (

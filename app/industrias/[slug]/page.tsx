@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import CloudflareImage from '@/components/CloudflareImage';
 import CtaFinal from '@/components/ui/shared/CtaFinal';
 import { 
@@ -10,8 +11,14 @@ import {
 } from 'lucide-react';
 import { industries } from '@/app/data/industries';
 import { servicios } from '@/app/data/servicios';
+import { industriesMetadata } from '../industryMetadata';
 import OurServices from '@/app/components/OurServices';
 import LinkParamsAware from '@/app/components/LinkParamsAware';
+
+// Componente cliente cargado dinámicamente
+const IndustriaClientComponents = dynamic(() => import('./IndustriaClientComponents'), {
+  ssr: false,
+});
 
 // Función para generar rutas estáticas
 export async function generateStaticParams() {
@@ -42,25 +49,30 @@ const getIndustryBySlug = (slug: string) => {
 
 // Generación dinámica de metadatos
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const industry = getIndustryBySlug(params.slug);
-  
-  if (!industry) {
+  const industria = industriesMetadata.find(i => i.slug === params.slug);
+
+  if (!industria) {
     return {
       title: 'Industria no encontrada | Gard Security',
-      description: 'La industria que busca no ha sido encontrada en nuestro sistema.',
+      description: 'La industria solicitada no existe o fue eliminada.',
+      robots: 'noindex',
     };
   }
-  
+
   return {
-    title: `Seguridad para ${industry.name} | Gard Security`,
-    description: `Ofrecemos servicios de seguridad privada especializados para el sector ${industry.name}: guardias, monitoreo, vigilancia y tecnología avanzada.`,
-    keywords: [
-      `seguridad privada para ${industry.name}`,
-      `guardias de seguridad en ${industry.name}`,
-      `empresa de seguridad para ${industry.name}`,
-      `monitoreo en ${industry.name}`,
-      `vigilancia en ${industry.name}`
-    ]
+    title: industria.title,
+    description: industria.description,
+    keywords: industria.keywords,
+    authors: [{ name: 'Gard Security', url: 'https://gard.cl' }],
+    robots: 'index, follow',
+    openGraph: {
+      title: industria.title,
+      description: industria.description,
+      url: `https://gard.cl/industrias/${params.slug}`,
+      siteName: 'Gard Security',
+      locale: 'es_CL',
+      type: 'article',
+    },
   };
 }
 
@@ -90,6 +102,9 @@ export default function IndustriaPage({ params }: { params: { slug: string } }) 
 
   return (
     <>
+      {/* Componente cliente para funcionalidades SEO */}
+      <IndustriaClientComponents />
+      
       {/* Hero Section */}
       <section className="relative h-[40vh] md:h-[60vh] overflow-hidden">
         {/* Imagen de fondo */}

@@ -10,10 +10,20 @@ import { Analytics } from '@vercel/analytics/next';
 import GoogleTagManager from './components/GoogleTagManager';
 import CookieConsent from './components/cookie/CookieConsent';
 import { GoogleAnalytics } from './components/cookie/ConsentAwareScript';
+import dynamic from 'next/dynamic';
+
+// Carga dinámica del SEODevPanel solo en desarrollo
+const SEODevPanelWrapper = dynamic(
+  () => import('@/components/seo/SEODevPanelWrapper'),
+  { ssr: false }
+);
 
 // Obtener GTM ID desde variables de entorno
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || '';
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-4XJ2YKYYDH';
+
+// Detección de entorno
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gard.cl'),
@@ -88,6 +98,9 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            
+            {/* Panel de depuración SEO (solo en desarrollo) */}
+            {isDevelopment && <SEODevPanelWrapper />}
           </Providers>
           
           {/* Estos scripts siempre se cargan porque están exentos del consentimiento */}
