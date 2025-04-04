@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import ServicioPage from '../[slug]/page';
+import CotizadorGuardias from '@/app/components/CotizadorGuardias';
 
 export const metadata: Metadata = {
   title: 'Guardias de Seguridad | Gard Security',
@@ -8,6 +9,15 @@ export const metadata: Metadata = {
 };
 
 export default function GuardiasDeSeguridad() {
-  // Utiliza el componente dinámico con el slug correspondiente
-  return <ServicioPage params={{ slug: 'guardias-de-seguridad' }} />;
+  return (
+    <>
+      {/* Primero mostramos la página de servicio estándar */}
+      <ServicioPage params={{ slug: 'guardias-de-seguridad' }} />
+      
+      {/* A continuación, agregamos el cotizador */}
+      <div className="mt-8">
+        <CotizadorGuardias />
+      </div>
+    </>
+  );
 } 
