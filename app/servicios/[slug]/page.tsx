@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle, ArrowUpRight, ShieldCheck, Shield, Eye, Plane, ClipboardCheck, FileText } from 'lucide-react';
 import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
 import { servicios, type Servicio } from '@/app/data/servicios';
 import { industries } from '@/app/data/industries';
@@ -26,7 +27,7 @@ import {
   Hotel
 } from 'lucide-react';
 import LinkParamsAware from '@/app/components/LinkParamsAware';
-import GaleriaCarrusel from '@/app/components/GaleriaCarrusel';
+import GaleriaImagenes from '@/components/GaleriaImagenes';
 
 // Generar rutas estáticas para cada servicio
 export async function generateStaticParams() {
@@ -305,7 +306,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           <div className="gard-container max-w-7xl mx-auto px-4">
             <h2 className="text-heading-2 mb-10 text-center">Galería de {servicio.name}</h2>
             
-            <GaleriaCarrusel imagenes={servicio.gallery} titulo={servicio.name} />
+            <GaleriaImagenes imagenes={servicio.gallery} titulo={servicio.name} />
           </div>
         </section>
       )}
