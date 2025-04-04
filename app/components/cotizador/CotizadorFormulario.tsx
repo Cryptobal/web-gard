@@ -379,9 +379,9 @@ export default function CotizadorFormulario() {
       <div className="gard-container max-w-7xl mx-auto px-4">
         {/* Logo de Gard en la esquina superior izquierda */}
         <Link href="/" className="inline-block mb-10 hover:opacity-90 transition-opacity">
-          <div className="relative w-32 h-12">
+          <div className="relative w-40 h-16">
             <CloudflareImage 
-              imageId={cloudflareImages.logo.white}
+              imageId={cloudflareImages.logo.default}
               alt="Gard Security Logo"
               fill
               className="object-contain"
