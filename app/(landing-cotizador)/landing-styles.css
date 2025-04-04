@@ -1,0 +1,13 @@
+/* Estilos globales para la landing de cotizador */
+
+/* Ocultar header y footer en esta ruta */
+header, footer {
+  display: none !important;
+}
+
+/* Estilo base para el cuerpo */
+body {
+  background-color: #111827 !important;
+  color: white !important;
+  min-height: 100vh;
+} 
