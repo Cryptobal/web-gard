@@ -223,13 +223,52 @@ export default function SEODevPanel() {
   // Función para guardar cambios
   const saveChanges = async () => {
     // Esta función en un entorno real enviaría los cambios al servidor
-    // Por ahora, solo mostraremos un mensaje de éxito
     console.log('Guardando cambios en:', getMetadataFilePath());
     console.log('Nuevos valores:', editableFields);
     
-    // Simulamos el guardado
+    // Informar al usuario sobre la naturaleza temporal de los cambios
+    alert('En esta versión de demostración, los cambios se aplican temporalmente al DOM actual. En una implementación real, estos cambios se guardarían en los archivos de metadatos correspondientes.');
+    
+    // Aplicar cambios temporalmente en el DOM (solo para demostración)
+    if (typeof window !== 'undefined') {
+      // Actualizar título
+      document.title = editableFields.title;
+      
+      // Actualizar meta descripción
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.setAttribute('name', 'description');
+        document.head.appendChild(metaDescription);
+      }
+      metaDescription.setAttribute('content', editableFields.description);
+      
+      // Actualizar meta keywords
+      let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.setAttribute('name', 'keywords');
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.setAttribute('content', editableFields.keywords);
+      
+      // Actualizar og:title y og:description si existen
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', editableFields.title);
+      
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      if (ogDescription) ogDescription.setAttribute('content', editableFields.description);
+    }
+    
+    // Actualizar metadatos internos después de aplicar los cambios
+    updateMetaData();
+    
+    // Mostrar mensaje de éxito
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 2000);
+    
+    // Cerrar modo de edición
+    setIsEditing(false);
   };
 
   // Manejar cambios en los campos editables
