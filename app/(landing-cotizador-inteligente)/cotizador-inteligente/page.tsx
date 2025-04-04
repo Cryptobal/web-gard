@@ -129,9 +129,6 @@ export default function CotizadorInteligentePage() {
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
       
-      {/* Sección explicativa */}
-      <CotizadorExplicacion />
-      
       {/* Hero Section - Sin espacios superiores */}
       <section className="relative w-full h-[50vh] md:h-[60vh]">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
@@ -152,6 +149,9 @@ export default function CotizadorInteligentePage() {
         />
       </section>
 
+      {/* Sección explicativa */}
+      <CotizadorExplicacion />
+      
       {/* Cotizador inteligente */}
       <section id="cotizador">
         <CotizadorFormulario />
