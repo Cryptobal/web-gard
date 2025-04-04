@@ -134,38 +134,19 @@ export default function SEODevPanel() {
             existingKeywords.parentNode.removeChild(existingKeywords);
           }
           
-          // Crear nueva etiqueta keywords - con valor fijo actualizado para pruebas
+          // Crear nueva etiqueta keywords con los valores conocidos
           const keywordsMeta = document.createElement('meta');
           keywordsMeta.setAttribute('name', 'keywords');
           
-          // Consultar directamente el módulo para obtener el valor más reciente
-          // Nota: Esto es solo para desarrollo y pruebas, no para producción
-          import('@/app/cotizador-inteligente/metadata')
-            .then(module => {
-              const keywords = Array.isArray(module.metadata.keywords) 
-                ? module.metadata.keywords.join(', ') 
-                : String(module.metadata.keywords || '');
-                
-              keywordsMeta.setAttribute('content', keywords);
-              document.head.appendChild(keywordsMeta);
-              console.log('[DEBUG] Keywords actualizadas a:', keywords);
-              
-              // Actualizamos los metadatos para mostrarlos
-              updateMetaData();
-            })
-            .catch(err => {
-              console.error('Error al importar módulo metadata:', err);
-              // En caso de error, usar un valor predeterminado
-              keywordsMeta.setAttribute('content', 'cotizador guardias, calculadora seguridad, presupuesto guardias, cotización online seguridad');
-              document.head.appendChild(keywordsMeta);
-              
-              // Actualizamos los metadatos para mostrarlos
-              updateMetaData();
-            })
-            .finally(() => {
-              // Completamos la actualización y terminamos
-              setRefreshing(false);
-            });
+          // Definimos los keywords directamente (copiados del archivo force-metadata.ts)
+          const cotizadorKeywords = 'cotizador guardias, calculadora seguridad, presupuesto guardias, cotización online seguridad';
+          keywordsMeta.setAttribute('content', cotizadorKeywords);
+          document.head.appendChild(keywordsMeta);
+          console.log('[DEBUG] Keywords actualizadas a:', cotizadorKeywords);
+          
+          // Actualizamos los metadatos para mostrarlos
+          updateMetaData();
+          setRefreshing(false);
         } else {
           // Para otras páginas, actualización genérica
           setTimeout(() => {
