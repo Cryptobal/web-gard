@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, RefCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
@@ -20,6 +20,14 @@ import {
   formatearPrecio,
 } from '@/lib/calculadora-costos';
 import NuevoRolOperativo from './NuevoRolOperativo';
+import { Loader } from '@googlemaps/js-api-loader';
+
+// Declaración global para Google Maps API
+declare global {
+  interface Window {
+    google: any;
+  }
+}
 
 interface FormData {
   nombre: string;
@@ -83,8 +91,105 @@ export default function CotizadorFormulario() {
     comentarios: ''
   });
 
-  // Eliminar los estados de Google Maps y mantener solo la referencia para compatibilidad
-  const direccionInputRef = useRef<HTMLInputElement | null>(null);
+  // Agregamos estados para Google Maps siguiendo el patrón de CotizacionForm.tsx
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const autocompleteInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Crear una ref callback que pueda ser usada directamente (como en CotizacionForm)
+  const autocompleteRef: RefCallback<HTMLInputElement> = (element) => {
+    autocompleteInputRef.current = element;
+  };
+
+  // Cargar la API de Google Maps de la misma manera que CotizacionForm.tsx
+  useEffect(() => {
+    // Carga de la API de Google Maps
+    const loader = new Loader({
+      apiKey: 'AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY',
+      version: 'weekly',
+      libraries: ['places'],
+    });
+
+    loader.load().then(() => {
+      console.log('Google Maps API cargada correctamente');
+      setMapLoaded(true);
+    }).catch(error => {
+      console.error('Error cargando Google Maps API:', error);
+    });
+  }, []);
+
+  // Inicializar autocompletado igual que en CotizacionForm.tsx
+  useEffect(() => {
+    if (!mapLoaded || !autocompleteInputRef.current) return;
+
+    try {
+      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'cl' },
+      });
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.address_components) return;
+
+        setFormData(prev => ({
+          ...prev,
+          direccion: place.formatted_address || ''
+        }));
+
+        // Extraer comuna y ciudad
+        let comuna = '';
+        let ciudad = '';
+
+        place.address_components.forEach((component: any) => {
+          const types = component.types;
+          
+          if (types.includes('locality')) {
+            ciudad = component.long_name;
+          }
+          
+          if (types.includes('administrative_area_level_3') || 
+              types.includes('sublocality_level_1') || 
+              types.includes('sublocality')) {
+            comuna = component.long_name;
+          }
+        });
+
+        setFormData(prev => ({
+          ...prev,
+          comuna,
+          ciudad
+        }));
+      });
+    } catch (error) {
+      console.error('Error al inicializar autocompletado:', error);
+    }
+
+    return () => {
+      // Cleanup si es necesario
+    };
+  }, [mapLoaded]);
+
+  // Mantener la función handleDireccionChange como fallback
+  const handleDireccionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setFormData(prev => ({ ...prev, direccion: value }));
+    
+    // Si Google Maps falla, seguir usando la separación manual por comas
+    if (!mapLoaded && value.includes(',')) {
+      const parts = value.split(',').map(part => part.trim());
+      
+      if (parts.length >= 2) {
+        const ciudad = parts[parts.length - 1];
+        
+        if (parts.length >= 3) {
+          const comuna = parts[parts.length - 2];
+          setFormData(prev => ({ ...prev, ciudad, comuna }));
+        } else {
+          setFormData(prev => ({ ...prev, ciudad }));
+        }
+      }
+    }
+  };
 
   // Calcular el costo total cuando cambian los roles
   useEffect(() => {
@@ -225,40 +330,6 @@ export default function CotizadorFormulario() {
       console.error('Error al enviar formulario:', error);
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  // Función para manejar el autocompletado manual de dirección
-  const handleDireccionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setFormData(prev => ({ ...prev, direccion: value }));
-    
-    // Extraer comuna y ciudad de la dirección ingresada (formato: Calle, Comuna, Ciudad)
-    if (value.includes(',')) {
-      const parts = value.split(',').map(part => part.trim());
-      
-      if (parts.length >= 2) {
-        // Si hay al menos 2 partes (dirección, ciudad)
-        const ciudad = parts[parts.length - 1];
-        
-        if (parts.length >= 3) {
-          // Si hay 3 o más partes (dirección, comuna, ciudad)
-          const comuna = parts[parts.length - 2];
-          setFormData(prev => ({ ...prev, ciudad, comuna }));
-        } else {
-          // Con solo 2 partes (dirección, ciudad)
-          setFormData(prev => ({ ...prev, ciudad }));
-        }
-
-        // Limpiar errores si hay datos
-        if (formErrors.direccion) {
-          setFormErrors(prev => {
-            const newErrors = { ...prev };
-            delete newErrors.direccion;
-            return newErrors;
-          });
-        }
-      }
     }
   };
 
@@ -511,9 +582,9 @@ export default function CotizadorFormulario() {
                         id="direccion"
                         name="direccion"
                         type="text"
-                        ref={direccionInputRef}
+                        ref={autocompleteRef}
                         required
-                        placeholder="Ej: Av. Apoquindo 4501, Las Condes, Santiago"
+                        placeholder="Ingresa la dirección"
                         value={formData.direccion}
                         onChange={handleDireccionChange}
                         className={cn(
@@ -522,7 +593,7 @@ export default function CotizadorFormulario() {
                         )}
                       />
                       <p className="text-xs text-primary mt-1">
-                        Ingresa la dirección con formato: Calle Número, Comuna, Ciudad (separados por comas)
+                        {mapLoaded ? "Comienza a escribir para ver sugerencias de direcciones" : "Ingresa la dirección con formato: Calle Número, Comuna, Ciudad"}
                       </p>
                       {formErrors.direccion && (
                         <p className="text-red-500 text-xs mt-1">{formErrors.direccion}</p>
