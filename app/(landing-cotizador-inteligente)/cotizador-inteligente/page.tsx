@@ -7,6 +7,8 @@ import FAQsCotizador from '@/components/cotizador/FAQsCotizador';
 import CloudflareImage from '@/components/CloudflareImage';
 import Link from 'next/link';
 import { cloudflareImages } from '@/lib/images';
+import { ArrowRight, Calculator, Clock, Shield, HeadphonesIcon } from 'lucide-react';
+
 // Definir el metadata directamente en este archivo para evitar problemas de importación
 const metadataInfo = {
   title: 'Cotizador Inteligente de Guardias de Seguridad | Gard Security',
@@ -16,7 +18,25 @@ const metadataInfo = {
     description: 'Calcula el costo de tu servicio de guardias de seguridad con nuestro cotizador inteligente. Configura turnos, horarios y recibe una cotización personalizada.'
   }
 };
-import { ArrowRight, Calculator, Clock, Shield, HeadphonesIcon } from 'lucide-react';
+
+// Componente para el logo principal
+const GardLogo = () => {
+  return (
+    <div className="fixed top-5 left-5 z-50 bg-transparent">
+      <Link href="/" className="block hover:opacity-90 transition-opacity">
+        <div className="relative w-56 h-24">
+          <CloudflareImage 
+            imageId={cloudflareImages.logo.white}
+            alt="Gard Security Logo"
+            fill
+            className="object-contain drop-shadow-md"
+            priority
+          />
+        </div>
+      </Link>
+    </div>
+  );
+};
 
 // Componente lado cliente para forzar metadatos
 const MetadataEnforcer = () => {
@@ -139,23 +159,12 @@ export default function CotizadorInteligentePage() {
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
       
+      {/* Logo fijo en la esquina superior izquierda */}
+      <GardLogo />
+      
       {/* Hero Section - Sin espacios superiores */}
       <section className="relative w-full h-[50vh] md:h-[60vh]">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
-        {/* Logo sobre el Hero en esquina superior izquierda */}
-        <div className="absolute top-5 left-5 z-30">
-          <Link href="/" className="block">
-            <div className="relative w-48 h-20">
-              <CloudflareImage 
-                imageId={cloudflareImages.logo.white}
-                alt="Gard Security Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </Link>
-        </div>
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-white text-4xl md:text-5xl font-bold mb-4">
             Cotizador Inteligente de Guardias
