@@ -577,8 +577,21 @@ export default function CotizadorFormulario() {
                         name="telefono"
                         type="tel"
                         required
+                        maxLength={9}
                         value={formData.telefono}
-                        onChange={handleFormChange}
+                        onChange={(e) => {
+                          // Solo permitir dígitos numéricos
+                          const value = e.target.value.replace(/\D/g, '');
+                          setFormData(prev => ({ ...prev, telefono: value }));
+                          // Limpiar error si el campo tiene valor y 9 dígitos
+                          if (value.length === 9 && formErrors.telefono) {
+                            setFormErrors(prev => {
+                              const newErrors = { ...prev };
+                              delete newErrors.telefono;
+                              return newErrors;
+                            });
+                          }
+                        }}
                         className={cn(
                           "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                           formErrors.telefono && "border-red-500"
