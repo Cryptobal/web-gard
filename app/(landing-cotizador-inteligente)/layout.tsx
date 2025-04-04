@@ -1,16 +1,11 @@
-'use client';
-
 import React from 'react';
 import './landing-styles.css';
 import '@/app/globals.css';
 
-export const metadata = {
-  title: 'Landing Cotizador Inteligente',
-  description: 'Layout especial para el cotizador inteligente sin navegación ni footer'
-};
-
-// Componente cliente para aplicar modo oscuro y ocultar header/footer
-const ClientDarkMode = () => {
+// Componente cliente para la manipulación del DOM
+const ClientWrapper = ({ children }: { children: React.ReactNode }) => {
+  'use client';
+  
   React.useEffect(() => {
     document.body.style.backgroundColor = '#111827';
     document.body.style.color = 'white';
@@ -22,14 +17,20 @@ const ClientDarkMode = () => {
     if (footer) footer.style.display = 'none';
   }, []);
 
-  return null;
+  return <>{children}</>;
+};
+
+export const metadata = {
+  title: 'Landing Cotizador Inteligente',
+  description: 'Layout especial para el cotizador inteligente sin navegación ni footer'
 };
 
 export default function LayoutLandingCotizadorInteligente({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen bg-gray-900 text-white flex flex-col w-full">
-      <ClientDarkMode />
-      <div className="flex-1">{children}</div>
+      <ClientWrapper>
+        <div className="flex-1">{children}</div>
+      </ClientWrapper>
     </main>
   );
 } 
