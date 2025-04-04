@@ -21,9 +21,6 @@ import {
 } from '@/lib/calculadora-costos';
 import NuevoRolOperativo from './NuevoRolOperativo';
 import { Loader } from '@googlemaps/js-api-loader';
-import Link from 'next/link';
-import CloudflareImage from '@/components/CloudflareImage';
-import { cloudflareImages } from '@/lib/images';
 
 // Declaración global para Google Maps API
 declare global {
@@ -377,18 +374,6 @@ export default function CotizadorFormulario() {
   return (
     <section className="gard-section w-full py-16 md:py-24 bg-white dark:bg-gray-900">
       <div className="gard-container max-w-7xl mx-auto px-4">
-        {/* Logo de Gard en la esquina superior izquierda */}
-        <Link href="/" className="inline-block mb-10 hover:opacity-90 transition-opacity">
-          <div className="relative w-40 h-16">
-            <CloudflareImage 
-              imageId={cloudflareImages.logo.default}
-              alt="Gard Security Logo"
-              fill
-              className="object-contain"
-            />
-          </div>
-        </Link>
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
