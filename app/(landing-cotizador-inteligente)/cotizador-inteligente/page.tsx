@@ -4,12 +4,6 @@ import BeneficiosCotizador from '@/components/cotizador/BeneficiosCotizador';
 import FAQsCotizador from '@/components/cotizador/FAQsCotizador';
 import CloudflareImage from '@/components/CloudflareImage';
 
-export const metadata = {
-  title: 'Cotizador Inteligente de Guardias de Seguridad | Gard Security',
-  description: 'Calcula el costo de tu servicio de guardias de seguridad con nuestro cotizador inteligente. Configura turnos, horarios y recibe una cotización personalizada.',
-  canonical: 'https://gardsecurity.cl/cotizador-inteligente',
-};
-
 export default function CotizadorInteligentePage() {
   return (
     <>      
