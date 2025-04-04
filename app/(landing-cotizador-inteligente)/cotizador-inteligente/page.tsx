@@ -6,8 +6,11 @@ import BeneficiosCotizador from '@/components/cotizador/BeneficiosCotizador';
 import FAQsCotizador from '@/components/cotizador/FAQsCotizador';
 import CloudflareImage from '@/components/CloudflareImage';
 import Link from 'next/link';
-import { cloudflareImages } from '@/lib/images';
 import { ArrowRight, Calculator, Clock, Shield, HeadphonesIcon } from 'lucide-react';
+
+// IDs de imágenes para logos
+const LOGO_GARD_BLANCO = '49b89002-6bb9-41b9-50ad-e6b91e5f6d00';
+const ESCUDO_GARD_BLANCO = 'f1cad221-0c11-43c4-3142-a53a6febbd00';
 
 // Definir el metadata directamente en este archivo para evitar problemas de importación
 const metadataInfo = {
@@ -153,10 +156,22 @@ export default function CotizadorInteligentePage() {
           
           {/* Logo bajo el texto del Hero */}
           <Link href="/" className="block mt-6 hover:opacity-90 transition-opacity">
-            <div className="relative w-48 h-20">
+            {/* Logo para desktop */}
+            <div className="relative w-48 h-20 hidden md:block">
               <CloudflareImage 
-                imageId={cloudflareImages.logo.white}
+                imageId={LOGO_GARD_BLANCO}
                 alt="Gard Security Logo"
+                fill
+                className="object-contain drop-shadow-lg"
+                priority
+              />
+            </div>
+            
+            {/* Escudo para móviles */}
+            <div className="relative w-20 h-20 block md:hidden">
+              <CloudflareImage 
+                imageId={ESCUDO_GARD_BLANCO}
+                alt="Gard Security Escudo"
                 fill
                 className="object-contain drop-shadow-lg"
                 priority
