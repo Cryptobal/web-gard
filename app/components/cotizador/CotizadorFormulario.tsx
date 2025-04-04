@@ -94,6 +94,7 @@ export default function CotizadorFormulario() {
   // Agregamos estados para Google Maps siguiendo el patrón de CotizacionForm.tsx
   const [mapLoaded, setMapLoaded] = useState(false);
   const autocompleteInputRef = useRef<HTMLInputElement | null>(null);
+  const [autocompleteInitialized, setAutocompleteInitialized] = useState(false);
 
   // Crear una ref callback que pueda ser usada directamente (como en CotizacionForm)
   const autocompleteRef: RefCallback<HTMLInputElement> = (element) => {
@@ -102,6 +103,13 @@ export default function CotizadorFormulario() {
 
   // Cargar la API de Google Maps de la misma manera que CotizacionForm.tsx
   useEffect(() => {
+    // Solo cargar la API si no está ya cargada
+    if (window.google?.maps?.places) {
+      console.log('Google Maps API ya está cargada');
+      setMapLoaded(true);
+      return;
+    }
+
     // Carga de la API de Google Maps
     const loader = new Loader({
       apiKey: 'AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY',
@@ -117,57 +125,78 @@ export default function CotizadorFormulario() {
     });
   }, []);
 
-  // Inicializar autocompletado igual que en CotizacionForm.tsx
+  // Solo inicializar el autocompletado cuando el modal esté visible
   useEffect(() => {
-    if (!mapLoaded || !autocompleteInputRef.current) return;
-
-    try {
-      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
-        types: ['address'],
-        componentRestrictions: { country: 'cl' },
-      });
-
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-
-        setFormData(prev => ({
-          ...prev,
-          direccion: place.formatted_address || ''
-        }));
-
-        // Extraer comuna y ciudad
-        let comuna = '';
-        let ciudad = '';
-
-        place.address_components.forEach((component: any) => {
-          const types = component.types;
-          
-          if (types.includes('locality')) {
-            ciudad = component.long_name;
-          }
-          
-          if (types.includes('administrative_area_level_3') || 
-              types.includes('sublocality_level_1') || 
-              types.includes('sublocality')) {
-            comuna = component.long_name;
-          }
-        });
-
-        setFormData(prev => ({
-          ...prev,
-          comuna,
-          ciudad
-        }));
-      });
-    } catch (error) {
-      console.error('Error al inicializar autocompletado:', error);
+    // Si el modal no está visible, no inicializar
+    if (!showForm) {
+      return;
     }
 
-    return () => {
-      // Cleanup si es necesario
-    };
-  }, [mapLoaded]);
+    // Inicializar autocompletado cuando el modal está visible
+    if (mapLoaded && autocompleteInputRef.current && !autocompleteInitialized) {
+      try {
+        console.log('Intentando inicializar autocompletado en dirección');
+        
+        // Pequeña pausa para asegurar que el DOM está listo
+        setTimeout(() => {
+          const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current!, {
+            types: ['address'],
+            componentRestrictions: { country: 'cl' },
+          });
+
+          autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (!place.address_components) return;
+
+            setFormData(prev => ({
+              ...prev,
+              direccion: place.formatted_address || ''
+            }));
+
+            // Extraer comuna y ciudad
+            let comuna = '';
+            let ciudad = '';
+
+            place.address_components.forEach((component: any) => {
+              const types = component.types;
+              
+              if (types.includes('locality')) {
+                ciudad = component.long_name;
+              }
+              
+              if (types.includes('administrative_area_level_3') || 
+                  types.includes('sublocality_level_1') || 
+                  types.includes('sublocality')) {
+                comuna = component.long_name;
+              }
+            });
+
+            setFormData(prev => ({
+              ...prev,
+              comuna,
+              ciudad
+            }));
+
+            console.log('Lugar seleccionado:', place.formatted_address);
+            console.log('Comuna extraída:', comuna);
+            console.log('Ciudad extraída:', ciudad);
+          });
+
+          setAutocompleteInitialized(true);
+          console.log('Autocompletado inicializado correctamente');
+        }, 500);
+      } catch (error) {
+        console.error('Error al inicializar autocompletado:', error);
+      }
+    }
+  }, [mapLoaded, showForm, autocompleteInitialized]);
+
+  // Resetear el estado de inicialización cuando se cierra el modal
+  useEffect(() => {
+    if (!showForm) {
+      setAutocompleteInitialized(false);
+    }
+  }, [showForm]);
 
   // Mantener la función handleDireccionChange como fallback
   const handleDireccionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -175,7 +204,7 @@ export default function CotizadorFormulario() {
     setFormData(prev => ({ ...prev, direccion: value }));
     
     // Si Google Maps falla, seguir usando la separación manual por comas
-    if (!mapLoaded && value.includes(',')) {
+    if ((!mapLoaded || !autocompleteInitialized) && value.includes(',')) {
       const parts = value.split(',').map(part => part.trim());
       
       if (parts.length >= 2) {
@@ -188,6 +217,15 @@ export default function CotizadorFormulario() {
           setFormData(prev => ({ ...prev, ciudad }));
         }
       }
+    }
+    
+    // Limpiar error si el campo tiene valor
+    if (value && formErrors.direccion) {
+      setFormErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors.direccion;
+        return newErrors;
+      });
     }
   };
 
