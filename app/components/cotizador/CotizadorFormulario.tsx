@@ -25,7 +25,6 @@ import NuevoRolOperativo from './NuevoRolOperativo';
 declare global {
   interface Window {
     google: any;
-    initAutocomplete: () => void;
   }
 }
 
@@ -62,36 +61,6 @@ const rubros = [
   'Otro'
 ];
 
-// Nueva función para probar la carga de Google Maps desde diferentes fuentes
-function loadGoogleMapsCDN(callback: () => void) {
-  // Si ya está cargado, usarlo directamente
-  if (window.google && window.google.maps && window.google.maps.places) {
-    console.log('Google Maps API ya está cargada');
-    callback();
-    return;
-  }
-
-  console.log('Intentando cargar Google Maps desde CDN público');
-  
-  // Probar con un CDN público como alternativa
-  const script = document.createElement('script');
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY&libraries=places&callback=initAutocomplete';
-  script.async = true;
-  script.defer = true;
-  
-  // Crear una función global para el callback
-  window.initAutocomplete = () => {
-    console.log('Google Maps API inicializada mediante callback');
-    callback();
-  };
-  
-  script.onerror = () => {
-    console.error('Error al cargar Google Maps desde CDN');
-  };
-  
-  document.head.appendChild(script);
-}
-
 export default function CotizadorFormulario() {
   // Estado para los roles operativos
   const [roles, setRoles] = useState<RolOperativo[]>([
@@ -121,74 +90,6 @@ export default function CotizadorFormulario() {
     comentarios: ''
   });
 
-  // Estados para Google Maps
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const autocompleteInputRef = useRef<HTMLInputElement | null>(null);
-
-  // Modificar el useEffect para la carga de Google Maps
-  useEffect(() => {
-    const initializeGoogleMaps = () => {
-      setMapLoaded(true);
-    };
-    
-    // Intentar cargar Google Maps
-    loadGoogleMapsCDN(initializeGoogleMaps);
-    
-  }, []);
-
-  // Función para inicializar el autocompletado cuando se hace clic en el campo
-  const initializeAutocomplete = () => {
-    if (!mapLoaded || !autocompleteInputRef.current) {
-      console.log('No se puede inicializar autocompletado: API no cargada o input no disponible');
-      return;
-    }
-    
-    console.log('Inicializando autocompletado manualmente...');
-    try {
-      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
-        types: ['address'],
-        componentRestrictions: { country: 'cl' }
-      });
-      
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) {
-          console.warn('No se pudo obtener la geometría del lugar seleccionado');
-          return;
-        }
-        
-        console.log('Lugar seleccionado:', place);
-        
-        let direccion = place.formatted_address || '';
-        let comuna = '';
-        let ciudad = '';
-        
-        if (place.address_components) {
-          for (const component of place.address_components) {
-            if (component.types.includes('locality')) {
-              ciudad = component.long_name;
-            }
-            if (component.types.includes('administrative_area_level_3') || 
-                component.types.includes('sublocality_level_1')) {
-              comuna = component.long_name;
-            }
-          }
-        }
-        
-        setFormData(prev => ({
-          ...prev,
-          direccion,
-          comuna,
-          ciudad
-        }));
-      });
-      
-      console.log('Autocompletado inicializado correctamente');
-    } catch (error) {
-      console.error('Error al inicializar autocompletado:', error);
-    }
-  };
-  
   // Calcular el costo total cuando cambian los roles
   useEffect(() => {
     const total = roles.reduce((sum, role) => {
@@ -331,55 +232,37 @@ export default function CotizadorFormulario() {
     }
   };
 
-  // Inicializar autocompletado cuando el formulario se muestra
-  useEffect(() => {
-    if (showForm && mapLoaded && autocompleteInputRef.current) {
-      console.log('Formulario visible, reinicializando autocompletado');
-      try {
-        // Pequeño retardo para asegurar que el DOM está actualizado
-        setTimeout(() => {
-          const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
-            types: ['address'],
-            componentRestrictions: { country: 'cl' }
-          });
-          
-          console.log('Autocompletado reinicializado en formulario visible');
-          
-          autocomplete.addListener('place_changed', () => {
-            const place = autocomplete.getPlace();
-            console.log('Lugar seleccionado en formulario visible:', place);
-            
-            if (!place.geometry) return;
-            
-            let direccion = place.formatted_address || '';
-            let comuna = '';
-            let ciudad = '';
-            
-            if (place.address_components) {
-              for (const component of place.address_components) {
-                if (component.types.includes('locality')) {
-                  ciudad = component.long_name;
-                }
-                if (component.types.includes('administrative_area_level_3') || 
-                    component.types.includes('sublocality_level_1')) {
-                  comuna = component.long_name;
-                }
-              }
-            }
-            
-            setFormData(prev => ({
-              ...prev,
-              direccion,
-              comuna,
-              ciudad
-            }));
-          });
-        }, 300);
-      } catch (error) {
-        console.error('Error al reinicializar autocompletado en formulario visible:', error);
+  // Agregamos una función para manejar el cambio de dirección manualmente
+  const handleDireccionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setFormData(prev => ({ ...prev, direccion: value }));
+    
+    // Si el usuario ingresa una coma, intentamos inferir ciudad/comuna
+    if (value.includes(',')) {
+      const parts = value.split(',').map(part => part.trim());
+      
+      if (parts.length >= 2) {
+        // El último segmento probablemente es la ciudad
+        const ciudad = parts[parts.length - 1];
+        
+        // Si hay 3 o más partes, el del medio podría ser la comuna
+        if (parts.length >= 3) {
+          const comuna = parts[parts.length - 2];
+          setFormData(prev => ({ 
+            ...prev, 
+            ciudad, 
+            comuna 
+          }));
+        } else {
+          // Con solo 2 partes, asumimos que la segunda es la ciudad
+          setFormData(prev => ({ 
+            ...prev, 
+            ciudad
+          }));
+        }
       }
     }
-  }, [showForm, mapLoaded]);
+  };
 
   return (
     <section className="gard-section w-full py-16 md:py-24 bg-white dark:bg-gray-900">
@@ -630,19 +513,16 @@ export default function CotizadorFormulario() {
                         id="direccion"
                         name="direccion"
                         type="text"
-                        ref={autocompleteInputRef}
                         required
-                        placeholder="Escribe para buscar dirección (Av. Apoquindo 4501, Santiago)"
+                        placeholder="Ej: Av. Apoquindo 4501, Las Condes, Santiago"
                         value={formData.direccion}
-                        onChange={handleFormChange}
-                        onClick={initializeAutocomplete}
-                        onFocus={initializeAutocomplete}
+                        onChange={handleDireccionChange}
                         className={cn(
                           "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                           formErrors.direccion && "border-red-500"
                         )}
                       />
-                      <p className="text-xs text-primary mt-1">✓ Versión mejorada - Busca direcciones como: "Av. Apoquindo 4501, Santiago"</p>
+                      <p className="text-xs text-primary mt-1">Ingresa la dirección con formato: Calle Número, Comuna, Ciudad (separados por comas)</p>
                       {formErrors.direccion && (
                         <p className="text-red-500 text-xs mt-1">{formErrors.direccion}</p>
                       )}
