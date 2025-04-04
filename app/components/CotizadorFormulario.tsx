@@ -13,7 +13,7 @@ Variables:
 - semanasPorMes = 4.33
 */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
@@ -36,6 +36,13 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+// Declaración global para Google Maps API
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 interface RoleData {
   puestos: number;
   horasDia: number;
@@ -50,6 +57,8 @@ interface FormData {
   telefono: string;
   empresa: string;
   direccion: string;
+  comuna: string;
+  ciudad: string;
   rubro: string;
   comentarios: string;
 }
@@ -191,6 +200,8 @@ const CotizadorFormulario: React.FC = () => {
     telefono: '',
     empresa: '',
     direccion: '',
+    comuna: '',
+    ciudad: '',
     rubro: RUBROS[0],
     comentarios: ''
   });
@@ -212,6 +223,69 @@ const CotizadorFormulario: React.FC = () => {
   const [tooltipVisible, setTooltipVisible] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [isRubroOpen, setIsRubroOpen] = useState(false);
+
+  // Estados para Google Maps
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const autocompleteInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Cargar Google Maps API
+  useEffect(() => {
+    // Cargar Google Maps API
+    const loadGoogleMapsScript = () => {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        setMapLoaded(true);
+      };
+      document.head.appendChild(script);
+    };
+
+    loadGoogleMapsScript();
+  }, []);
+
+  // Inicializar autocompletado cuando la API esté cargada
+  useEffect(() => {
+    if (mapLoaded && autocompleteInputRef.current) {
+      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'cl' }
+      });
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        
+        if (!place.geometry) return;
+
+        // Extraer dirección, comuna y ciudad de los componentes
+        let direccion = '';
+        let comuna = '';
+        let ciudad = '';
+
+        for (const component of place.address_components) {
+          const componentType = component.types[0];
+
+          if (componentType === 'route') {
+            direccion = (direccion ? direccion + ' ' : '') + component.long_name;
+          } else if (componentType === 'street_number') {
+            direccion = (direccion ? direccion + ' ' : '') + component.long_name;
+          } else if (componentType === 'locality') {
+            ciudad = component.long_name;
+          } else if (componentType === 'administrative_area_level_3' || componentType === 'sublocality_level_1') {
+            comuna = component.long_name;
+          }
+        }
+
+        setFormData(prev => ({
+          ...prev,
+          direccion: direccion || place.formatted_address || '',
+          comuna,
+          ciudad
+        }));
+      });
+    }
+  }, [mapLoaded]);
 
   // Recalcular el costo cuando cambian los parámetros
   useEffect(() => {
@@ -265,7 +339,7 @@ const CotizadorFormulario: React.FC = () => {
   // Validar formulario
   const validateForm = (): boolean => {
     const errors: {[key: string]: string} = {};
-    const requiredFields: Array<keyof FormData> = ['nombre', 'apellido', 'email', 'telefono', 'empresa', 'rubro'];
+    const requiredFields: Array<keyof FormData> = ['nombre', 'apellido', 'email', 'telefono', 'empresa', 'direccion', 'rubro'];
     
     // Verificar campos requeridos
     requiredFields.forEach(field => {
@@ -279,12 +353,10 @@ const CotizadorFormulario: React.FC = () => {
       errors.email = 'El email no es válido';
     }
     
-    // Validar teléfono (debe tener 9 dígitos)
-    if (formData.telefono) {
-      const phoneDigits = formData.telefono.replace(/\D/g, '');
-      if (phoneDigits.length !== 9) {
-        errors.telefono = 'El teléfono debe tener 9 dígitos';
-      }
+    // Validar teléfono (debe tener exactamente 9 dígitos y ser obligatorio)
+    const phoneDigits = formData.telefono.replace(/\D/g, '');
+    if (!formData.telefono || phoneDigits.length !== 9) {
+      errors.telefono = 'El teléfono celular debe tener 9 dígitos';
     }
     
     setFormErrors(errors);
@@ -309,6 +381,15 @@ const CotizadorFormulario: React.FC = () => {
           tipoTurno: costoResult.tipoTurno.tipo,
           costoEstimado: costoResult.costo,
           guardiasRequeridos: costoResult.guardiasRequeridos
+        },
+        detalleCotizador: {
+          detalleRolOperativo: {
+            tipoTurno: costoResult.tipoTurno.tipo,
+            horario: `${roleData.horasDia} horas por día`,
+            diasPorSemana: roleData.diasSemana,
+            sueldoLiquido: roleData.sueldoLiquido
+          },
+          valorCotizacion: costoResult.costo
         }
       };
       
@@ -333,6 +414,8 @@ const CotizadorFormulario: React.FC = () => {
           telefono: '',
           empresa: '',
           direccion: '',
+          comuna: '',
+          ciudad: '',
           rubro: RUBROS[0],
           comentarios: ''
         });
@@ -789,27 +872,84 @@ const CotizadorFormulario: React.FC = () => {
                           <Building className="h-5 w-5 mr-2 text-orange-500" />
                           Empresa *
                         </label>
-                        <div className="relative">
-                          <input
-                            id="empresa"
-                            name="empresa"
-                            type="text"
-                            required
-                            placeholder="Nombre de su empresa"
-                            value={formData.empresa}
-                            onChange={handleFormChange}
-                            className={cn(
-                              "w-full rounded-xl border bg-gray-700 px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 text-white placeholder:text-gray-400",
-                              formErrors.empresa ? "border-red-500" : "border-gray-600"
-                            )}
-                          />
-                        </div>
+                        <input
+                          id="empresa"
+                          name="empresa"
+                          type="text"
+                          required
+                          placeholder="Nombre de la empresa"
+                          value={formData.empresa}
+                          onChange={handleFormChange}
+                          className={cn(
+                            "w-full rounded-xl border bg-gray-700 px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 text-white placeholder:text-gray-400",
+                            formErrors.empresa ? "border-red-500" : "border-gray-600"
+                          )}
+                        />
                         {formErrors.empresa && (
                           <p className="text-red-500 text-xs mt-1">{formErrors.empresa}</p>
                         )}
                       </div>
                       
-                      {/* Rubro (Select) */}
+                      {/* Dirección con Google Maps */}
+                      <div className="md:col-span-2">
+                        <label htmlFor="direccion" className="text-base font-medium text-white block mb-2 flex items-center">
+                          <MapPin className="h-5 w-5 mr-2 text-orange-500" />
+                          Dirección de empresa *
+                        </label>
+                        <input
+                          id="direccion"
+                          name="direccion"
+                          type="text"
+                          ref={autocompleteInputRef}
+                          required
+                          placeholder="Buscar dirección..."
+                          value={formData.direccion}
+                          onChange={handleFormChange}
+                          className={cn(
+                            "w-full rounded-xl border bg-gray-700 px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 text-white placeholder:text-gray-400",
+                            formErrors.direccion ? "border-red-500" : "border-gray-600"
+                          )}
+                        />
+                        {formErrors.direccion && (
+                          <p className="text-red-500 text-xs mt-1">{formErrors.direccion}</p>
+                        )}
+                      </div>
+                      
+                      {/* Comuna (autocompletado por Google Maps) */}
+                      <div>
+                        <label htmlFor="comuna" className="text-base font-medium text-white block mb-2 flex items-center">
+                          <MapPin className="h-5 w-5 mr-2 text-orange-500" />
+                          Comuna
+                        </label>
+                        <input
+                          id="comuna"
+                          name="comuna"
+                          type="text"
+                          readOnly
+                          placeholder="Se completa automáticamente"
+                          value={formData.comuna}
+                          className="w-full rounded-xl border border-gray-600 bg-gray-700/70 px-4 py-3 text-base text-white placeholder:text-gray-400 cursor-not-allowed"
+                        />
+                      </div>
+                      
+                      {/* Ciudad (autocompletado por Google Maps) */}
+                      <div>
+                        <label htmlFor="ciudad" className="text-base font-medium text-white block mb-2 flex items-center">
+                          <MapPin className="h-5 w-5 mr-2 text-orange-500" />
+                          Ciudad
+                        </label>
+                        <input
+                          id="ciudad"
+                          name="ciudad"
+                          type="text"
+                          readOnly
+                          placeholder="Se completa automáticamente"
+                          value={formData.ciudad}
+                          className="w-full rounded-xl border border-gray-600 bg-gray-700/70 px-4 py-3 text-base text-white placeholder:text-gray-400 cursor-not-allowed"
+                        />
+                      </div>
+                      
+                      {/* Rubro */}
                       <div>
                         <label htmlFor="rubro" className="text-base font-medium text-white block mb-2 flex items-center">
                           <Briefcase className="h-5 w-5 mr-2 text-orange-500" />
@@ -847,25 +987,6 @@ const CotizadorFormulario: React.FC = () => {
                         {formErrors.rubro && (
                           <p className="text-red-500 text-xs mt-1">{formErrors.rubro}</p>
                         )}
-                      </div>
-                      
-                      {/* Dirección */}
-                      <div className="md:col-span-2">
-                        <label htmlFor="direccion" className="text-base font-medium text-white block mb-2 flex items-center">
-                          <MapPin className="h-5 w-5 mr-2 text-orange-500" />
-                          Dirección
-                        </label>
-                        <div className="relative">
-                          <input
-                            id="direccion"
-                            name="direccion"
-                            type="text"
-                            placeholder="Dirección de la empresa"
-                            value={formData.direccion}
-                            onChange={handleFormChange}
-                            className="w-full rounded-xl border border-gray-600 bg-gray-700 px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 text-white placeholder:text-gray-400"
-                          />
-                        </div>
                       </div>
                       
                       {/* Comentarios */}

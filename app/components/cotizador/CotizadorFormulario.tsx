@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
@@ -9,7 +9,8 @@ import {
   ChevronRight,
   Building,
   Mail,
-  Phone
+  Phone,
+  MapPin
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -20,6 +21,13 @@ import {
 } from '@/lib/calculadora-costos';
 import NuevoRolOperativo from './NuevoRolOperativo';
 
+// Declaración global para Google Maps API
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 interface FormData {
   nombre: string;
   apellido: string;
@@ -27,6 +35,8 @@ interface FormData {
   telefono: string;
   empresa: string;
   direccion: string;
+  comuna: string;
+  ciudad: string;
   rubro: string;
   comentarios: string;
 }
@@ -74,9 +84,73 @@ export default function CotizadorFormulario() {
     telefono: '',
     empresa: '',
     direccion: '',
+    comuna: '',
+    ciudad: '',
     rubro: rubros[0],
     comentarios: ''
   });
+
+  // Estados para Google Maps
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const autocompleteInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Cargar Google Maps API
+  useEffect(() => {
+    const loadGoogleMapsScript = () => {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        setMapLoaded(true);
+      };
+      document.head.appendChild(script);
+    };
+
+    loadGoogleMapsScript();
+  }, []);
+
+  // Inicializar autocompletado cuando la API esté cargada
+  useEffect(() => {
+    if (mapLoaded && autocompleteInputRef.current) {
+      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'cl' }
+      });
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        
+        if (!place.geometry) return;
+
+        // Extraer dirección, comuna y ciudad de los componentes
+        let direccion = '';
+        let comuna = '';
+        let ciudad = '';
+
+        for (const component of place.address_components) {
+          const componentType = component.types[0];
+
+          if (componentType === 'route') {
+            direccion = (direccion ? direccion + ' ' : '') + component.long_name;
+          } else if (componentType === 'street_number') {
+            direccion = (direccion ? direccion + ' ' : '') + component.long_name;
+          } else if (componentType === 'locality') {
+            ciudad = component.long_name;
+          } else if (componentType === 'administrative_area_level_3' || componentType === 'sublocality_level_1') {
+            comuna = component.long_name;
+          }
+        }
+
+        setFormData(prev => ({
+          ...prev,
+          direccion: direccion || place.formatted_address || '',
+          comuna,
+          ciudad
+        }));
+      });
+    }
+  }, [mapLoaded]);
   
   // Calcular el costo total cuando cambian los roles
   useEffect(() => {
@@ -127,7 +201,7 @@ export default function CotizadorFormulario() {
   // Validar formulario
   const validateForm = (): boolean => {
     const errors: {[key: string]: string} = {};
-    const requiredFields: Array<keyof FormData> = ['nombre', 'apellido', 'email', 'telefono', 'empresa'];
+    const requiredFields: Array<keyof FormData> = ['nombre', 'apellido', 'email', 'telefono', 'empresa', 'direccion'];
     
     // Verificar campos requeridos
     requiredFields.forEach(field => {
@@ -141,12 +215,10 @@ export default function CotizadorFormulario() {
       errors.email = 'El email no es válido';
     }
     
-    // Validar teléfono
-    if (formData.telefono) {
-      const phoneDigits = formData.telefono.replace(/\D/g, '');
-      if (phoneDigits.length !== 9) {
-        errors.telefono = 'El teléfono debe tener 9 dígitos';
-      }
+    // Validar teléfono (debe tener exactamente 9 dígitos y ser obligatorio)
+    const phoneDigits = formData.telefono.replace(/\D/g, '');
+    if (!formData.telefono || phoneDigits.length !== 9) {
+      errors.telefono = 'El teléfono celular debe tener 9 dígitos';
     }
     
     setFormErrors(errors);
@@ -174,7 +246,16 @@ export default function CotizadorFormulario() {
           sueldoLiquido: rol.sueldoLiquido,
           costoEstimado: calcularCostoRol(rol)
         })),
-        costoTotal
+        costoTotal,
+        detalleCotizador: {
+          detalleRolOperativo: roles.map(rol => ({
+            tipoTurno: rol.tipoTurno,
+            horario: `${rol.horasDia} horas por día`,
+            diasPorSemana: rol.diasSemana,
+            sueldoLiquido: rol.sueldoLiquido
+          })),
+          valorCotizacion: costoTotal
+        }
       };
       
       console.log('Enviando datos al webhook:', dataToSend);
@@ -198,6 +279,8 @@ export default function CotizadorFormulario() {
           telefono: '',
           empresa: '',
           direccion: '',
+          comuna: '',
+          ciudad: '',
           rubro: rubros[0],
           comentarios: ''
         });
@@ -410,7 +493,7 @@ export default function CotizadorFormulario() {
                     <div>
                       <label htmlFor="telefono" className="text-base font-medium text-foreground block mb-2 flex items-center">
                         <Phone className="h-5 w-5 mr-2 text-primary dark:text-accent" />
-                        Teléfono
+                        Teléfono celular (9 dígitos)
                       </label>
                       <input
                         id="telefono"
@@ -452,6 +535,62 @@ export default function CotizadorFormulario() {
                     </div>
                     
                     <div>
+                      <label htmlFor="direccion" className="text-base font-medium text-foreground block mb-2 flex items-center">
+                        <MapPin className="h-5 w-5 mr-2 text-primary dark:text-accent" />
+                        Dirección de empresa
+                      </label>
+                      <input
+                        id="direccion"
+                        name="direccion"
+                        type="text"
+                        ref={autocompleteInputRef}
+                        required
+                        placeholder="Ingrese la dirección para autocompletar"
+                        value={formData.direccion}
+                        onChange={handleFormChange}
+                        className={cn(
+                          "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          formErrors.direccion && "border-red-500"
+                        )}
+                      />
+                      {formErrors.direccion && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.direccion}</p>
+                      )}
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="comuna" className="text-base font-medium text-foreground block mb-2">
+                          Comuna
+                        </label>
+                        <input
+                          id="comuna"
+                          name="comuna"
+                          type="text"
+                          readOnly
+                          placeholder="Se completará automáticamente"
+                          value={formData.comuna}
+                          className="w-full rounded-xl border border-input bg-background/80 px-4 py-3 text-base focus-visible:outline-none text-muted-foreground cursor-not-allowed"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="ciudad" className="text-base font-medium text-foreground block mb-2">
+                          Ciudad
+                        </label>
+                        <input
+                          id="ciudad"
+                          name="ciudad"
+                          type="text"
+                          readOnly
+                          placeholder="Se completará automáticamente"
+                          value={formData.ciudad}
+                          className="w-full rounded-xl border border-input bg-background/80 px-4 py-3 text-base focus-visible:outline-none text-muted-foreground cursor-not-allowed"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
                       <label htmlFor="comentarios" className="text-base font-medium text-foreground block mb-2">
                         Comentarios adicionales (opcional)
                       </label>
@@ -461,30 +600,38 @@ export default function CotizadorFormulario() {
                         rows={3}
                         value={formData.comentarios}
                         onChange={handleFormChange}
-                        className="w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                      />
+                        className="w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
+                      ></textarea>
                     </div>
                     
-                    <div className="flex justify-end space-x-3 pt-4">
-                      <motion.button
+                    <div className="mt-6 flex items-center justify-between gap-4">
+                      <button
                         type="button"
                         onClick={() => setShowForm(false)}
-                        className="py-3 px-5 rounded-xl bg-muted hover:bg-muted/80 text-foreground transition-colors"
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
+                        className="px-5 py-3 rounded-xl border border-input bg-background hover:bg-accent/10 text-foreground transition-colors"
                       >
                         Cancelar
-                      </motion.button>
-                      <motion.button
+                      </button>
+                      <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="py-3 px-5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground transition-colors flex items-center"
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
+                        className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground transition-colors disabled:opacity-50"
                       >
-                        <Send className="h-4 w-4 mr-2" />
-                        {isSubmitting ? "Enviando..." : "Enviar"}
-                      </motion.button>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Enviando...
+                          </>
+                        ) : (
+                          <>
+                            Enviar
+                            <Send className="h-4 w-4 ml-1" />
+                          </>
+                        )}
+                      </button>
                     </div>
                   </form>
                 </motion.div>
