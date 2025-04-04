@@ -20,6 +20,7 @@ import {
   formatearPrecio,
 } from '@/lib/calculadora-costos';
 import NuevoRolOperativo from './NuevoRolOperativo';
+import { Loader } from '@googlemaps/js-api-loader';
 
 // Declaración global para Google Maps API
 declare global {
@@ -89,6 +90,10 @@ export default function CotizadorFormulario() {
     rubro: rubros[0],
     comentarios: ''
   });
+
+  // Estados para Google Maps
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const autocompleteInputRef = useRef<HTMLInputElement | null>(null);
 
   // Calcular el costo total cuando cambian los roles
   useEffect(() => {
@@ -232,33 +237,97 @@ export default function CotizadorFormulario() {
     }
   };
 
-  // Agregamos una función para manejar el cambio de dirección manualmente
+  // Cargar Google Maps API usando el Loader de googlemaps/js-api-loader
+  useEffect(() => {
+    // Verificar si ya está cargado
+    if (window.google && window.google.maps && window.google.maps.places) {
+      setMapLoaded(true);
+      return;
+    }
+    
+    const loader = new Loader({
+      apiKey: 'AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY',
+      version: 'weekly',
+      libraries: ['places'],
+    });
+
+    loader.load()
+      .then(() => {
+        console.log('Google Maps API cargada exitosamente');
+        setMapLoaded(true);
+      })
+      .catch(error => {
+        console.error('Error al cargar Google Maps API:', error);
+        // Si hay error, habilitar el modo fallback 
+      });
+  }, []);
+
+  // Inicializar autocompletado cuando Google Maps esté cargado
+  useEffect(() => {
+    if (!mapLoaded || !autocompleteInputRef.current) return;
+    
+    try {
+      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'cl' },
+      });
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.address_components) return;
+
+        // Usar la dirección formateada directamente para evitar problemas
+        setFormData(prev => ({
+          ...prev,
+          direccion: place.formatted_address || ''
+        }));
+
+        // Extraer comuna y ciudad
+        let comuna = '';
+        let ciudad = '';
+
+        place.address_components.forEach((component: any) => {
+          const types = component.types;
+          
+          if (types.includes('locality')) {
+            ciudad = component.long_name;
+          }
+          
+          if (types.includes('administrative_area_level_3') || 
+              types.includes('sublocality_level_1') || 
+              types.includes('sublocality')) {
+            comuna = component.long_name;
+          }
+        });
+
+        setFormData(prev => ({
+          ...prev,
+          comuna,
+          ciudad
+        }));
+      });
+    } catch (error) {
+      console.error('Error al inicializar autocompletado:', error);
+    }
+  }, [mapLoaded]);
+
+  // Mantener la función handleDireccionChange como fallback
   const handleDireccionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setFormData(prev => ({ ...prev, direccion: value }));
     
-    // Si el usuario ingresa una coma, intentamos inferir ciudad/comuna
-    if (value.includes(',')) {
+    // Si Google Maps falla, seguir usando la separación manual por comas
+    if (!mapLoaded && value.includes(',')) {
       const parts = value.split(',').map(part => part.trim());
       
       if (parts.length >= 2) {
-        // El último segmento probablemente es la ciudad
         const ciudad = parts[parts.length - 1];
         
-        // Si hay 3 o más partes, el del medio podría ser la comuna
         if (parts.length >= 3) {
           const comuna = parts[parts.length - 2];
-          setFormData(prev => ({ 
-            ...prev, 
-            ciudad, 
-            comuna 
-          }));
+          setFormData(prev => ({ ...prev, ciudad, comuna }));
         } else {
-          // Con solo 2 partes, asumimos que la segunda es la ciudad
-          setFormData(prev => ({ 
-            ...prev, 
-            ciudad
-          }));
+          setFormData(prev => ({ ...prev, ciudad }));
         }
       }
     }
@@ -513,6 +582,7 @@ export default function CotizadorFormulario() {
                         id="direccion"
                         name="direccion"
                         type="text"
+                        ref={autocompleteInputRef}
                         required
                         placeholder="Ej: Av. Apoquindo 4501, Las Condes, Santiago"
                         value={formData.direccion}
@@ -522,7 +592,11 @@ export default function CotizadorFormulario() {
                           formErrors.direccion && "border-red-500"
                         )}
                       />
-                      <p className="text-xs text-primary mt-1">Ingresa la dirección con formato: Calle Número, Comuna, Ciudad (separados por comas)</p>
+                      <p className="text-xs text-primary mt-1">
+                        {mapLoaded 
+                          ? "Comienza a escribir para ver sugerencias de direcciones" 
+                          : "Ingresa la dirección con formato: Calle Número, Comuna, Ciudad (separados por comas)"}
+                      </p>
                       {formErrors.direccion && (
                         <p className="text-red-500 text-xs mt-1">{formErrors.direccion}</p>
                       )}
