@@ -1,24 +1,12 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import CotizadorFormulario from '../../../components/cotizador/CotizadorFormulario';
+import CotizadorFormulario from '@/app/components/cotizador/CotizadorFormulario';
 import BeneficiosCotizador from '@/components/cotizador/BeneficiosCotizador';
 import FAQsCotizador from '@/components/cotizador/FAQsCotizador';
 import CloudflareImage from '@/components/CloudflareImage';
+import { metadata } from './metadata'; // Importación explícita
 import { ArrowRight, Calculator, Clock, Shield, HeadphonesIcon } from 'lucide-react';
-import Script from 'next/script';
-
-// Componente para cargar Google Maps API
-const GoogleMapsScript = () => {
-  return (
-    <Script
-      src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY&libraries=places&v=weekly`}
-      strategy="beforeInteractive"
-      onLoad={() => console.log('Google Maps API cargada correctamente')}
-      onError={(e) => console.error('Error al cargar Google Maps API:', e)}
-    />
-  );
-};
 
 // Componente lado cliente para forzar metadatos
 const MetadataEnforcer = () => {
@@ -27,7 +15,7 @@ const MetadataEnforcer = () => {
     const forceMetadata = () => {
       if (typeof document !== 'undefined') {
         // Aplicar título explícitamente
-        document.title = "Cotizador Inteligente de Guardias de Seguridad - Gard Security";
+        document.title = metadata.title as string;
         
         // Aplicar metadescripción
         let descMeta = document.querySelector('meta[name="description"]');
@@ -36,7 +24,30 @@ const MetadataEnforcer = () => {
           descMeta.setAttribute('name', 'description');
           document.head.appendChild(descMeta);
         }
-        descMeta.setAttribute('content', "Cotiza en línea guardias de seguridad para tu empresa. Calcula costos según tus necesidades específicas y recibe una propuesta personalizada.");
+        descMeta.setAttribute('content', metadata.description as string);
+        
+        // Aplicar Open Graph
+        if (metadata.openGraph) {
+          const og = metadata.openGraph;
+          
+          // OG Title
+          let ogTitle = document.querySelector('meta[property="og:title"]');
+          if (!ogTitle) {
+            ogTitle = document.createElement('meta');
+            ogTitle.setAttribute('property', 'og:title');
+            document.head.appendChild(ogTitle);
+          }
+          ogTitle.setAttribute('content', og.title as string);
+          
+          // OG Description
+          let ogDesc = document.querySelector('meta[property="og:description"]');
+          if (!ogDesc) {
+            ogDesc = document.createElement('meta');
+            ogDesc.setAttribute('property', 'og:description');
+            document.head.appendChild(ogDesc);
+          }
+          ogDesc.setAttribute('content', og.description as string);
+        }
       }
     };
     
@@ -114,10 +125,7 @@ const CotizadorExplicacion = () => {
 
 export default function CotizadorInteligentePage() {
   return (
-    <>
-      {/* Script de Google Maps */}
-      <GoogleMapsScript />
-      
+    <>      
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
       
