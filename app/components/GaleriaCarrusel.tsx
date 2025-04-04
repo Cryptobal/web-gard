@@ -80,6 +80,11 @@ export default function GaleriaCarrusel({ imagenes, titulo }: GaleriaCarruselPro
     }
   };
 
+  // Función para ir directamente a un slide específico
+  const goToSlide = (index: number) => {
+    setCurrentIndex(isMobile ? index : index * 3);
+  };
+
   // Obtener imágenes a mostrar según el dispositivo
   const getVisibleImages = () => {
     if (isMobile) {
@@ -110,7 +115,7 @@ export default function GaleriaCarrusel({ imagenes, titulo }: GaleriaCarruselPro
   };
 
   return (
-    <div className="relative w-full pb-16">
+    <div className="relative w-full pb-12">
       <div 
         className="relative aspect-video overflow-hidden rounded-xl"
         onTouchStart={handleTouchStart}
@@ -142,29 +147,29 @@ export default function GaleriaCarrusel({ imagenes, titulo }: GaleriaCarruselPro
         {/* Botones de navegación */}
         <button 
           onClick={prevSlide} 
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-accent hover:bg-accent/80 rounded-full p-3 text-white shadow-lg"
+          className="absolute top-1/2 -translate-y-1/2 left-4 z-10 bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-full shadow-lg sm:flex hidden items-center justify-center"
           aria-label="Imagen anterior"
         >
-          <ChevronLeft size={28} />
+          <ChevronLeft size={24} />
         </button>
         
         <button 
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-accent hover:bg-accent/80 rounded-full p-3 text-white shadow-lg"
+          className="absolute top-1/2 -translate-y-1/2 right-4 z-10 bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-full shadow-lg sm:flex hidden items-center justify-center"
           aria-label="Siguiente imagen"
         >
-          <ChevronRight size={28} />
+          <ChevronRight size={24} />
         </button>
       </div>
       
       {/* Indicadores de posición */}
-      <div className="flex justify-center mt-8 space-x-3">
+      <div className="flex justify-center mt-4 gap-2">
         {Array.from({ length: getTotalPages() }).map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentIndex(isMobile ? index : index * 3)}
-            className={`w-4 h-4 rounded-full transition-colors ${
-              index === getCurrentPage() ? 'bg-accent shadow-md' : 'bg-gray-300 hover:bg-gray-400'
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              index === getCurrentPage() ? 'bg-orange-500' : 'bg-gray-400'
             }`}
             aria-label={`Ir a página ${index + 1}`}
           />
