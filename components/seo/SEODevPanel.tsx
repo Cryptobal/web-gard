@@ -44,6 +44,7 @@ export default function SEODevPanel() {
     keywords: '',
   });
   const pathname = usePathname(); // Obtener la ruta actual
+  const [tempNotice, setTempNotice] = useState(false);
 
   // Función para validar SEO y detectar errores
   const validateSEO = (data: MetaData): SEOErrors => {
@@ -226,9 +227,6 @@ export default function SEODevPanel() {
     console.log('Guardando cambios en:', getMetadataFilePath());
     console.log('Nuevos valores:', editableFields);
     
-    // Informar al usuario sobre la naturaleza temporal de los cambios
-    alert('En esta versión de demostración, los cambios se aplican temporalmente al DOM actual. En una implementación real, estos cambios se guardarían en los archivos de metadatos correspondientes.');
-    
     // Aplicar cambios temporalmente en el DOM (solo para demostración)
     if (typeof window !== 'undefined') {
       // Actualizar título
@@ -263,9 +261,15 @@ export default function SEODevPanel() {
     // Actualizar metadatos internos después de aplicar los cambios
     updateMetaData();
     
-    // Mostrar mensaje de éxito
+    // Mostrar mensajes de éxito y notificación
     setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 2000);
+    setTempNotice(true);
+    
+    // Ocultar mensajes después de un tiempo
+    setTimeout(() => {
+      setSaveSuccess(false);
+      setTimeout(() => setTempNotice(false), 3000);
+    }, 2000);
     
     // Cerrar modo de edición
     setIsEditing(false);
@@ -364,6 +368,19 @@ export default function SEODevPanel() {
               >
                 🔧 Auto-Fix SEO
               </button>
+            </div>
+          )}
+
+          {/* Mensaje de notificación temporal */}
+          {tempNotice && (
+            <div className="mb-4 p-3 bg-blue-900/30 border border-blue-500/50 rounded-md">
+              <h3 className="text-blue-400 font-semibold mb-2 flex items-center">
+                <span className="mr-2">ℹ️</span> Información:
+              </h3>
+              <p className="text-xs text-blue-200">
+                En esta versión de demostración, los cambios se aplican temporalmente al DOM actual. 
+                En una implementación real, estos cambios se guardarían en los archivos de metadatos correspondientes.
+              </p>
             </div>
           )}
 
