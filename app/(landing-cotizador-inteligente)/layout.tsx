@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import './landing-styles.css';
 import '@/app/globals.css';
@@ -8,7 +10,6 @@ export const metadata = {
 };
 
 // Componente cliente para aplicar modo oscuro y ocultar header/footer
-'use client';
 const ClientDarkMode = () => {
   React.useEffect(() => {
     document.body.style.backgroundColor = '#111827';
