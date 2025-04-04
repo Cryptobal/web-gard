@@ -5,7 +5,15 @@ import CotizadorFormulario from '@/app/components/cotizador/CotizadorFormulario'
 import BeneficiosCotizador from '@/components/cotizador/BeneficiosCotizador';
 import FAQsCotizador from '@/components/cotizador/FAQsCotizador';
 import CloudflareImage from '@/components/CloudflareImage';
-import { metadata } from './metadata'; // Importación explícita
+// Definir el metadata directamente en este archivo para evitar problemas de importación
+const metadataInfo = {
+  title: 'Cotizador Inteligente de Guardias de Seguridad | Gard Security',
+  description: 'Calcula el costo de tu servicio de guardias de seguridad con nuestro cotizador inteligente. Configura turnos, horarios y recibe una cotización personalizada.',
+  openGraph: {
+    title: 'Cotizador Inteligente de Guardias de Seguridad | Gard Security',
+    description: 'Calcula el costo de tu servicio de guardias de seguridad con nuestro cotizador inteligente. Configura turnos, horarios y recibe una cotización personalizada.'
+  }
+};
 import { ArrowRight, Calculator, Clock, Shield, HeadphonesIcon } from 'lucide-react';
 
 // Componente lado cliente para forzar metadatos
@@ -15,7 +23,7 @@ const MetadataEnforcer = () => {
     const forceMetadata = () => {
       if (typeof document !== 'undefined') {
         // Aplicar título explícitamente
-        document.title = metadata.title as string;
+        document.title = metadataInfo.title;
         
         // Aplicar metadescripción
         let descMeta = document.querySelector('meta[name="description"]');
@@ -24,11 +32,11 @@ const MetadataEnforcer = () => {
           descMeta.setAttribute('name', 'description');
           document.head.appendChild(descMeta);
         }
-        descMeta.setAttribute('content', metadata.description as string);
+        descMeta.setAttribute('content', metadataInfo.description);
         
         // Aplicar Open Graph
-        if (metadata.openGraph) {
-          const og = metadata.openGraph;
+        if (metadataInfo.openGraph) {
+          const og = metadataInfo.openGraph;
           
           // OG Title
           let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -37,7 +45,7 @@ const MetadataEnforcer = () => {
             ogTitle.setAttribute('property', 'og:title');
             document.head.appendChild(ogTitle);
           }
-          ogTitle.setAttribute('content', og.title as string);
+          ogTitle.setAttribute('content', og.title);
           
           // OG Description
           let ogDesc = document.querySelector('meta[property="og:description"]');
@@ -46,7 +54,7 @@ const MetadataEnforcer = () => {
             ogDesc.setAttribute('property', 'og:description');
             document.head.appendChild(ogDesc);
           }
-          ogDesc.setAttribute('content', og.description as string);
+          ogDesc.setAttribute('content', og.description);
         }
       }
     };
