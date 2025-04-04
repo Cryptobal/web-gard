@@ -64,11 +64,103 @@ const MetadataEnforcer = () => {
   return null;
 };
 
+// Componente explicativo del Cotizador Inteligente
+const CotizadorIntroduccion = () => {
+  return (
+    <div className="bg-white dark:bg-gray-900 py-8 px-4">
+      <div className="gard-container max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          <div className="md:col-span-2">
+            <h2 className="text-heading-2 text-gray-800 dark:text-white font-medium mb-4">
+              Optimice su inversión en seguridad privada
+            </h2>
+            <p className="text-body-base text-gray-600 dark:text-gray-300 mb-4">
+              Nuestro cotizador inteligente permite a empresas de todos los tamaños calcular con precisión 
+              sus necesidades de guardias de seguridad, ahorrando hasta un 25% en costos operativos mediante 
+              una planificación eficiente de turnos y recursos.
+            </p>
+            <div className="flex flex-col gap-3">
+              <div className="flex items-start">
+                <div className="mr-3 bg-primary/10 p-2 rounded-lg">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="text-primary dark:text-accent"
+                  >
+                    <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                </div>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  <span className="font-medium">Proceso simple en 3 pasos:</span> Configure, reciba su cotización y un asesor especializado le contactará para finalizar.
+                </p>
+              </div>
+              <div className="flex items-start">
+                <div className="mr-3 bg-primary/10 p-2 rounded-lg">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="text-primary dark:text-accent"
+                  >
+                    <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                </div>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  <span className="font-medium">Personalización B2B completa:</span> Adapte los servicios a sus horarios, instalaciones y requerimientos específicos.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-xl overflow-hidden shadow-sm bg-gray-50 dark:bg-gray-800 p-5 flex flex-col items-center">
+            <div className="w-full max-w-xs mx-auto">
+              <div className="rounded-lg bg-gray-100 dark:bg-gray-700 p-4 mb-3">
+                <h3 className="text-heading-4 text-center text-gray-800 dark:text-white">
+                  +180
+                </h3>
+                <p className="text-center text-sm text-gray-600 dark:text-gray-300">
+                  Empresas ya utilizan nuestro servicio
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-gray-700 dark:text-gray-300 text-sm">
+                  Respuesta en 
+                  <span className="font-bold text-primary dark:text-accent mx-1">
+                    menos de 24h
+                  </span> 
+                  para todas las cotizaciones
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function CotizadorInteligentePage() {
   return (
     <>      
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
+      
+      {/* Componente explicativo */}
+      <CotizadorIntroduccion />
       
       {/* Hero Section - Sin espacios superiores */}
       <section className="relative w-full h-[50vh] md:h-[60vh]">
