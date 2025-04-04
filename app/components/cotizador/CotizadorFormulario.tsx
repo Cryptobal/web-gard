@@ -97,58 +97,113 @@ export default function CotizadorFormulario() {
   // Cargar Google Maps API
   useEffect(() => {
     const loadGoogleMapsScript = () => {
+      // Verificar si ya existe el script para evitar duplicados
+      if (document.querySelector('script[src*="maps.googleapis.com/maps/api"]')) {
+        console.log("Script de Google Maps ya está cargado");
+        setMapLoaded(true);
+        return;
+      }
+
+      console.log("Intentando cargar el script de Google Maps...");
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBHIoHJDp6StLJlUAQV_gK7woFsEYgbzHY&libraries=places&v=weekly`;
       script.async = true;
       script.defer = true;
+      
       script.onload = () => {
+        console.log("Script de Google Maps cargado exitosamente");
         setMapLoaded(true);
       };
+      
+      script.onerror = (error) => {
+        console.error("Error al cargar el script de Google Maps:", error);
+      };
+      
       document.head.appendChild(script);
     };
 
-    loadGoogleMapsScript();
+    // Establecer un tiempo de espera para asegurar que el DOM esté listo
+    setTimeout(loadGoogleMapsScript, 1000);
+    
+    return () => {
+      // Limpiar script si el componente se desmonta
+      const script = document.querySelector('script[src*="maps.googleapis.com/maps/api"]');
+      if (script) {
+        // Solo marcar para saber que se limpió, no eliminar realmente para evitar problemas
+        console.log("Componente desmontado, script de Google Maps marcado para limpieza");
+      }
+    };
   }, []);
 
   // Inicializar autocompletado cuando la API esté cargada
   useEffect(() => {
-    if (mapLoaded && autocompleteInputRef.current) {
+    if (!mapLoaded || !autocompleteInputRef.current) {
+      return;
+    }
+    
+    try {
+      console.log("Inicializando autocompletado de Google Maps");
+      
+      if (!window.google || !window.google.maps || !window.google.maps.places) {
+        console.error("Google Maps API no está disponible correctamente");
+        return;
+      }
+      
       const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current, {
         types: ['address'],
         componentRestrictions: { country: 'cl' }
       });
 
       autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        
-        if (!place.geometry) return;
-
-        // Extraer dirección, comuna y ciudad de los componentes
-        let direccion = '';
-        let comuna = '';
-        let ciudad = '';
-
-        for (const component of place.address_components) {
-          const componentType = component.types[0];
-
-          if (componentType === 'route') {
-            direccion = (direccion ? direccion + ' ' : '') + component.long_name;
-          } else if (componentType === 'street_number') {
-            direccion = (direccion ? direccion + ' ' : '') + component.long_name;
-          } else if (componentType === 'locality') {
-            ciudad = component.long_name;
-          } else if (componentType === 'administrative_area_level_3' || componentType === 'sublocality_level_1') {
-            comuna = component.long_name;
+        try {
+          const place = autocomplete.getPlace();
+          
+          if (!place.geometry) {
+            console.warn("No se obtuvo geometría del lugar seleccionado");
+            return;
           }
-        }
 
-        setFormData(prev => ({
-          ...prev,
-          direccion: direccion || place.formatted_address || '',
-          comuna,
-          ciudad
-        }));
+          console.log("Lugar seleccionado:", place);
+
+          // Extraer dirección, comuna y ciudad de los componentes
+          let direccion = '';
+          let comuna = '';
+          let ciudad = '';
+
+          if (place.address_components && place.address_components.length > 0) {
+            for (const component of place.address_components) {
+              const componentType = component.types[0];
+
+              if (componentType === 'route') {
+                direccion = (direccion ? direccion + ' ' : '') + component.long_name;
+              } else if (componentType === 'street_number') {
+                direccion = (direccion ? direccion + ' ' : '') + component.long_name;
+              } else if (componentType === 'locality') {
+                ciudad = component.long_name;
+              } else if (componentType === 'administrative_area_level_3' || componentType === 'sublocality_level_1') {
+                comuna = component.long_name;
+              }
+            }
+          } else {
+            console.warn("No se encontraron componentes de dirección");
+          }
+
+          setFormData(prev => ({
+            ...prev,
+            direccion: direccion || place.formatted_address || '',
+            comuna,
+            ciudad
+          }));
+          
+          console.log("Datos actualizados:", { direccion, comuna, ciudad });
+        } catch (error) {
+          console.error("Error al procesar el lugar seleccionado:", error);
+        }
       });
+      
+      // No es necesario hacer return de una función de limpieza aquí
+    } catch (error) {
+      console.error("Error al inicializar el autocompletado:", error);
     }
   }, [mapLoaded]);
   
