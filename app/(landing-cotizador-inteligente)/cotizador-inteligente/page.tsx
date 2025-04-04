@@ -82,54 +82,54 @@ const MetadataEnforcer = () => {
 // Componente explicativo del Cotizador Inteligente
 const CotizadorExplicacion = () => {
   return (
-    <section className="gard-section bg-gray-50 dark:bg-gray-900 py-12 px-4">
+    <section className="gard-section bg-gray-50 dark:bg-gray-900 py-8 md:py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <h2 className="text-heading-2 font-title font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-6 md:mb-10">
+          <h2 className="text-heading-3 md:text-heading-2 font-title font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
             Optimice su inversión en seguridad privada
           </h2>
-          <p className="text-body-base text-gray-600 dark:text-gray-300">
+          <p className="text-sm md:text-body-base text-gray-600 dark:text-gray-300">
             Nuestro cotizador inteligente le permite calcular con precisión el costo de sus servicios de seguridad, adaptados a las necesidades específicas de su empresa.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
-          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
-            <Calculator className="text-primary dark:text-accent text-3xl mb-4" />
-            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Cotización instantánea</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mt-6 md:mt-8">
+          <div className="gard-card bg-white dark:bg-gray-800 p-4 md:p-6 rounded-2xl hover:shadow-sm transition-all">
+            <Calculator className="text-primary dark:text-accent text-2xl md:text-3xl mb-3 md:mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white text-base md:text-lg mb-1 md:mb-2">Cotización instantánea</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm">
               Configure turnos, cantidad de guardias y obtenga un estimado inmediato del costo mensual.
             </p>
           </div>
           
-          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
-            <Shield className="text-primary dark:text-accent text-3xl mb-4" />
-            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Personalización total</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+          <div className="gard-card bg-white dark:bg-gray-800 p-4 md:p-6 rounded-2xl hover:shadow-sm transition-all">
+            <Shield className="text-primary dark:text-accent text-2xl md:text-3xl mb-3 md:mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white text-base md:text-lg mb-1 md:mb-2">Personalización total</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm">
               Adapte el servicio a sus requerimientos específicos, optimizando recursos y cobertura.
             </p>
           </div>
           
-          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
-            <Clock className="text-primary dark:text-accent text-3xl mb-4" />
-            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Proceso simplificado</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+          <div className="gard-card bg-white dark:bg-gray-800 p-4 md:p-6 rounded-2xl hover:shadow-sm transition-all">
+            <Clock className="text-primary dark:text-accent text-2xl md:text-3xl mb-3 md:mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white text-base md:text-lg mb-1 md:mb-2">Proceso simplificado</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm">
               En menos de 2 minutos complete su cotización y reciba propuesta formal en su correo.
             </p>
           </div>
           
-          <div className="gard-card bg-white dark:bg-gray-800 p-6 rounded-2xl hover:shadow-sm transition-all">
-            <HeadphonesIcon className="text-primary dark:text-accent text-3xl mb-4" />
-            <h3 className="font-title font-semibold text-gray-900 dark:text-white mb-2">Asesoría especializada</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+          <div className="gard-card bg-white dark:bg-gray-800 p-4 md:p-6 rounded-2xl hover:shadow-sm transition-all">
+            <HeadphonesIcon className="text-primary dark:text-accent text-2xl md:text-3xl mb-3 md:mb-4" />
+            <h3 className="font-title font-semibold text-gray-900 dark:text-white text-base md:text-lg mb-1 md:mb-2">Asesoría especializada</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-xs md:text-sm">
               Tras su cotización, un ejecutivo especializado le contactará para afinar detalles y responder consultas.
             </p>
           </div>
         </div>
         
-        <div className="mt-10 text-center">
-          <a href="#cotizador" className="gard-btn inline-flex items-center gap-2 bg-primary dark:bg-accent text-white py-3 px-6 rounded-2xl font-medium hover:opacity-90 transition-all">
-            Comenzar cotización <ArrowRight className="w-5 h-5" />
+        <div className="mt-6 md:mt-10 text-center">
+          <a href="#cotizador" className="gard-btn inline-flex items-center gap-2 bg-primary dark:bg-accent text-white py-2 md:py-3 px-4 md:px-6 rounded-2xl font-medium hover:opacity-90 transition-all text-sm md:text-base">
+            Comenzar cotización <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
           </a>
         </div>
       </div>
@@ -144,18 +144,18 @@ export default function CotizadorInteligentePage() {
       <MetadataEnforcer />
       
       {/* Hero Section - Sin espacios superiores */}
-      <section className="relative w-full h-[50vh] md:h-[60vh]">
+      <section className="relative w-full h-[60vh] md:h-[60vh]">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-white text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-white text-3xl md:text-5xl font-bold mb-3 md:mb-4">
             Cotizador Inteligente de Guardias
           </h1>
-          <p className="text-white text-lg md:text-xl opacity-90 max-w-3xl mb-8">
+          <p className="text-white text-base md:text-xl opacity-90 max-w-3xl mb-6 md:mb-8">
             Configura los turnos, calcula costos y solicita tu cotización personalizada
           </p>
           
           {/* Logo bajo el texto del Hero */}
-          <Link href="/" className="block mt-6 hover:opacity-90 transition-opacity">
+          <Link href="/" className="block mt-4 md:mt-6 hover:opacity-90 transition-opacity">
             {/* Logo para desktop */}
             <div className="relative w-48 h-20 hidden md:block">
               <CloudflareImage 
@@ -168,7 +168,7 @@ export default function CotizadorInteligentePage() {
             </div>
             
             {/* Escudo para móviles */}
-            <div className="relative w-20 h-20 block md:hidden">
+            <div className="relative w-16 h-16 block md:hidden">
               <CloudflareImage 
                 imageId={ESCUDO_GARD_BLANCO}
                 alt="Gard Security Escudo"
