@@ -180,7 +180,7 @@ export default function CotizadorInteligentePage() {
           </Link>
         </div>
         <CloudflareImage
-          imageId="09f20a0c-b345-4db8-ff81-14aad098db00"
+          imageId="4824f8b9-abb0-4e77-c654-efe920697b00"
           alt="Cotizador inteligente de guardias de seguridad - Gard Security"
           fill
           priority
