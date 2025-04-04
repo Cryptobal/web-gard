@@ -630,9 +630,6 @@ export default function CotizadorFormulario() {
                           formErrors.direccion && "border-red-500"
                         )}
                       />
-                      <p className="text-xs text-primary mt-1">
-                        {mapLoaded ? "Comienza a escribir para ver sugerencias de direcciones" : "Ingresa la dirección con formato: Calle Número, Comuna, Ciudad"}
-                      </p>
                       {formErrors.direccion && (
                         <p className="text-red-500 text-xs mt-1">{formErrors.direccion}</p>
                       )}
