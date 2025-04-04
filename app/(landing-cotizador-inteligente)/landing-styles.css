@@ -1,0 +1,11 @@
+/* app/(landing-cotizador-inteligente)/landing-styles.css */
+
+header, footer {
+  display: none !important;
+}
+
+body {
+  background-color: #111827 !important;
+  color: white !important;
+  min-height: 100vh;
+} 

@@ -1,0 +1,498 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Users, 
+  PlusCircle, 
+  Send,
+  ChevronRight,
+  Building,
+  Mail,
+  Phone
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
+import {
+  RolOperativo,
+  crearNuevoRol,
+  calcularCostoRol,
+  formatearPrecio,
+} from '@/lib/calculadora-costos';
+import NuevoRolOperativo from './NuevoRolOperativo';
+
+interface FormData {
+  nombre: string;
+  apellido: string;
+  email: string;
+  telefono: string;
+  empresa: string;
+  direccion: string;
+  rubro: string;
+  comentarios: string;
+}
+
+const rubros = [
+  'Comercio Retail',
+  'Industrial',
+  'Farmacéutico',
+  'Logística',
+  'Educación',
+  'Corporativo',
+  'Construcción',
+  'Salud',
+  'Centros Comerciales',
+  'Hotelería',
+  'Minería',
+  'Tecnología',
+  'Financiero',
+  'Inmobiliario',
+  'Energía',
+  'Transporte',
+  'Otro'
+];
+
+export default function CotizadorFormulario() {
+  // Estado para los roles operativos
+  const [roles, setRoles] = useState<RolOperativo[]>([
+    crearNuevoRol('1', '4x4')
+  ]);
+  
+  // Estado para el costo total
+  const [costoTotal, setCostoTotal] = useState(0);
+  
+  // Estados para el formulario
+  const [showForm, setShowForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
+  
+  // Estado para el formulario
+  const [formData, setFormData] = useState<FormData>({
+    nombre: '',
+    apellido: '',
+    email: '',
+    telefono: '',
+    empresa: '',
+    direccion: '',
+    rubro: rubros[0],
+    comentarios: ''
+  });
+  
+  // Calcular el costo total cuando cambian los roles
+  useEffect(() => {
+    const total = roles.reduce((sum, role) => {
+      return sum + calcularCostoRol(role);
+    }, 0);
+    
+    setCostoTotal(total);
+  }, [roles]);
+  
+  // Función para agregar un nuevo rol
+  const addRole = () => {
+    setRoles([
+      ...roles,
+      crearNuevoRol(Date.now().toString(), '4x4')
+    ]);
+  };
+  
+  // Función para actualizar un rol
+  const updateRole = (id: string, updatedRole: RolOperativo) => {
+    setRoles(roles.map(role => 
+      role.id === id ? updatedRole : role
+    ));
+  };
+  
+  // Función para eliminar un rol
+  const removeRole = (id: string) => {
+    if (roles.length > 1) {
+      setRoles(roles.filter(role => role.id !== id));
+    }
+  };
+  
+  // Función para manejar cambios en el formulario
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    
+    // Limpiar error si el campo tiene valor
+    if (value && formErrors[name]) {
+      setFormErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+  
+  // Validar formulario
+  const validateForm = (): boolean => {
+    const errors: {[key: string]: string} = {};
+    const requiredFields: Array<keyof FormData> = ['nombre', 'apellido', 'email', 'telefono', 'empresa'];
+    
+    // Verificar campos requeridos
+    requiredFields.forEach(field => {
+      if (!formData[field]) {
+        errors[field] = `El campo ${field} es requerido`;
+      }
+    });
+    
+    // Validar email
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'El email no es válido';
+    }
+    
+    // Validar teléfono
+    if (formData.telefono) {
+      const phoneDigits = formData.telefono.replace(/\D/g, '');
+      if (phoneDigits.length !== 9) {
+        errors.telefono = 'El teléfono debe tener 9 dígitos';
+      }
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  
+  // Enviar formulario
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Preparar datos para enviar
+      const dataToSend = {
+        ...formData,
+        roles: roles.map(rol => ({
+          tipoTurno: rol.tipoTurno,
+          horario: rol.horario,
+          puestos: rol.puestos,
+          diasSemana: rol.diasSemana,
+          horasDia: rol.horasDia,
+          sueldoLiquido: rol.sueldoLiquido,
+          costoEstimado: calcularCostoRol(rol)
+        })),
+        costoTotal
+      };
+      
+      console.log('Enviando datos al webhook:', dataToSend);
+      
+      // Enviar al webhook
+      const response = await fetch('https://hook.us1.make.com/c99tyreyliv9ss27qfpn5rpwoonj7s5j', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+      
+      if (response.ok) {
+        setSubmitSuccess(true);
+        // Resetear formulario después de envío exitoso
+        setFormData({
+          nombre: '',
+          apellido: '',
+          email: '',
+          telefono: '',
+          empresa: '',
+          direccion: '',
+          rubro: rubros[0],
+          comentarios: ''
+        });
+      } else {
+        console.error('Error al enviar formulario:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al enviar formulario:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section className="gard-section w-full py-16 md:py-24 bg-white dark:bg-gray-900">
+      <div className="gard-container max-w-7xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-heading-2 font-title text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+            Calculadora de Costos
+          </h2>
+          <p className="text-body-base md:text-body-lg text-muted-foreground max-w-2xl mx-auto">
+            Personalice los parámetros según sus necesidades para obtener un estimado del costo mensual de su servicio de guardias.
+          </p>
+        </motion.div>
+
+        <div className="grid gap-10">
+          <AnimatePresence>
+            {roles.map((rol, index) => (
+              <NuevoRolOperativo
+                key={rol.id}
+                rol={rol}
+                onChange={(updatedRole) => updateRole(rol.id, updatedRole)}
+                onRemove={() => removeRole(rol.id)}
+                showRemoveButton={roles.length > 1}
+                index={index}
+              />
+            ))}
+          </AnimatePresence>
+
+          <motion.button
+            onClick={addRole}
+            className="gard-btn flex items-center justify-center py-4 px-5 rounded-2xl bg-muted hover:bg-muted/80 text-foreground transition-colors w-full md:w-auto mx-auto"
+            whileHover={{ scale: 1.03, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <PlusCircle className="h-5 w-5 mr-3 text-primary dark:text-accent" />
+            Agregar otro rol operativo
+          </motion.button>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="gard-card bg-primary/5 dark:bg-primary/10 rounded-3xl p-10 shadow-lg mt-10"
+          >
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
+              Resumen de Costos
+            </h3>
+            
+            <div className="flex flex-col items-center gap-6">
+              <motion.div 
+                className="flex flex-col items-center"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              >
+                <p className="text-4xl md:text-5xl font-bold text-primary dark:text-accent">
+                  ${formatearPrecio(costoTotal)} CLP
+                </p>
+              </motion.div>
+              
+              <motion.button
+                onClick={() => setShowForm(true)}
+                className="gard-btn rounded-2xl py-4 px-8 bg-primary hover:bg-primary/90 text-primary-foreground transition-colors flex items-center mt-4"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Solicitar Cotización
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </motion.button>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Formulario de contacto */}
+        <AnimatePresence>
+          {showForm && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={() => setShowForm(false)}
+            >
+              {submitSuccess ? (
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="bg-card dark:bg-gray-800 rounded-3xl p-8 shadow-2xl w-full max-w-md"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="text-center py-6">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 mb-6">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-foreground mb-4">
+                      ¡Solicitud enviada con éxito!
+                    </h3>
+                    <p className="text-muted-foreground mb-6">
+                      Hemos recibido tu información y nos pondremos en contacto contigo a la brevedad.
+                    </p>
+                    <button
+                      onClick={() => {
+                        setShowForm(false);
+                        setSubmitSuccess(false);
+                      }}
+                      className="gard-btn rounded-xl py-3 px-6 bg-primary hover:bg-primary/90 text-primary-foreground transition-colors"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="bg-card dark:bg-gray-800 rounded-3xl p-8 shadow-2xl w-full max-w-md"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
+                    Complete sus datos
+                  </h3>
+                  
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="nombre" className="text-base font-medium text-foreground block mb-2">
+                          Nombre
+                        </label>
+                        <input
+                          id="nombre"
+                          name="nombre"
+                          type="text"
+                          required
+                          value={formData.nombre}
+                          onChange={handleFormChange}
+                          className={cn(
+                            "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                            formErrors.nombre && "border-red-500"
+                          )}
+                        />
+                        {formErrors.nombre && (
+                          <p className="text-red-500 text-xs mt-1">{formErrors.nombre}</p>
+                        )}
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="apellido" className="text-base font-medium text-foreground block mb-2">
+                          Apellido
+                        </label>
+                        <input
+                          id="apellido"
+                          name="apellido"
+                          type="text"
+                          required
+                          value={formData.apellido}
+                          onChange={handleFormChange}
+                          className={cn(
+                            "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                            formErrors.apellido && "border-red-500"
+                          )}
+                        />
+                        {formErrors.apellido && (
+                          <p className="text-red-500 text-xs mt-1">{formErrors.apellido}</p>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="email" className="text-base font-medium text-foreground block mb-2 flex items-center">
+                        <Mail className="h-5 w-5 mr-2 text-primary dark:text-accent" />
+                        Email
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleFormChange}
+                        className={cn(
+                          "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          formErrors.email && "border-red-500"
+                        )}
+                      />
+                      {formErrors.email && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="telefono" className="text-base font-medium text-foreground block mb-2 flex items-center">
+                        <Phone className="h-5 w-5 mr-2 text-primary dark:text-accent" />
+                        Teléfono
+                      </label>
+                      <input
+                        id="telefono"
+                        name="telefono"
+                        type="tel"
+                        required
+                        value={formData.telefono}
+                        onChange={handleFormChange}
+                        className={cn(
+                          "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          formErrors.telefono && "border-red-500"
+                        )}
+                      />
+                      {formErrors.telefono && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.telefono}</p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="empresa" className="text-base font-medium text-foreground block mb-2 flex items-center">
+                        <Building className="h-5 w-5 mr-2 text-primary dark:text-accent" />
+                        Empresa
+                      </label>
+                      <input
+                        id="empresa"
+                        name="empresa"
+                        type="text"
+                        required
+                        value={formData.empresa}
+                        onChange={handleFormChange}
+                        className={cn(
+                          "w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          formErrors.empresa && "border-red-500"
+                        )}
+                      />
+                      {formErrors.empresa && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.empresa}</p>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="comentarios" className="text-base font-medium text-foreground block mb-2">
+                        Comentarios adicionales (opcional)
+                      </label>
+                      <textarea
+                        id="comentarios"
+                        name="comentarios"
+                        rows={3}
+                        value={formData.comentarios}
+                        onChange={handleFormChange}
+                        className="w-full rounded-xl border border-input bg-background px-4 py-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      />
+                    </div>
+                    
+                    <div className="flex justify-end space-x-3 pt-4">
+                      <motion.button
+                        type="button"
+                        onClick={() => setShowForm(false)}
+                        className="py-3 px-5 rounded-xl bg-muted hover:bg-muted/80 text-foreground transition-colors"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        Cancelar
+                      </motion.button>
+                      <motion.button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="py-3 px-5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground transition-colors flex items-center"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        <Send className="h-4 w-4 mr-2" />
+                        {isSubmitting ? "Enviando..." : "Enviar"}
+                      </motion.button>
+                    </div>
+                  </form>
+                </motion.div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+} 
