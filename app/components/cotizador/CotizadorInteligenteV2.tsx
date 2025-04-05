@@ -462,18 +462,27 @@ export default function CotizadorInteligenteV2() {
         const utmTerm = sessionStorage.getItem('utm_term') || '';
         const utmContent = sessionStorage.getItem('utm_content') || '';
         
-        // Google Tag Manager event
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "submit_form_cotizacion_inteligente",
-          form_type: "cotizador_inteligente",
-          page_path: window.location.pathname,
-          utm_source: utmSource,
-          utm_medium: utmMedium,
-          utm_campaign: utmCampaign,
-          utm_term: utmTerm,
-          utm_content: utmContent
-        });
+        // Google Tag Manager event - Añadir logs de depuración
+        console.log('ANTES: Intentando enviar evento GA4 - submit_form_cotizacion_inteligente');
+        console.log('DataLayer existe:', typeof window !== 'undefined' && !!window.dataLayer);
+        
+        if (typeof window !== 'undefined') {
+          window.dataLayer = window.dataLayer || [];
+          console.log('DataLayer actual:', window.dataLayer);
+          window.dataLayer.push({
+            event: "submit_form_cotizacion_inteligente",
+            form_type: "cotizador_inteligente",
+            page_path: window.location.pathname,
+            utm_source: utmSource,
+            utm_medium: utmMedium,
+            utm_campaign: utmCampaign,
+            utm_term: utmTerm,
+            utm_content: utmContent
+          });
+          console.log('DESPUÉS: Evento enviado a GA4');
+        } else {
+          console.log('ERROR: window no está definido');
+        }
       } else {
         console.error('Error al enviar formulario:', response.statusText);
       }

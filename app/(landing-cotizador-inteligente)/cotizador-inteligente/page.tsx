@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import CountUp from 'react-countup';
+import Script from 'next/script';
 
 // IDs de imágenes para logos e imágenes
 const LOGO_GARD_BLANCO = '49b89002-6bb9-41b9-50ad-e6b91e5f6d00';
@@ -377,15 +378,52 @@ const StickyMobileButton = () => {
   );
 };
 
+// Componente para forzar la carga de Google Analytics en esta página
+const ForceGALoader = () => {
+  useEffect(() => {
+    // Solo ejecutar en el cliente
+    if (typeof window !== 'undefined') {
+      // Inicializar dataLayer si no existe
+      window.dataLayer = window.dataLayer || [];
+      
+      // Añadir evento de página vista para asegurar que GTM capture esta página
+      window.dataLayer.push({
+        event: 'pageview',
+        page: window.location.pathname,
+        page_title: document.title
+      });
+      
+      console.log('[ForceGALoader] Forzando inicialización de dataLayer en /cotizador-inteligente');
+    }
+  }, []);
+  
+  return (
+    <>
+      {/* Script GA4 directo como fallback */}
+      <Script id="ga4-direct-script" strategy="afterInteractive">
+        {`
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-W9QM4NMC');
+        `}
+      </Script>
+    </>
+  );
+};
+
 export default function CotizadorInteligentePage() {
   return (
     <>      
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
       
-      {/* Botón sticky para móvil - Temporalmente desactivado
-      <StickyMobileButton />
-      */}
+      {/* Forzar la carga de Google Analytics */}
+      <ForceGALoader />
+      
+      {/* Botón sticky para móvil - Temporalmente desactivado */}
+      {/* <StickyMobileButton /> */}
       
       {/* Hero Section Rediseñada */}
       <section className="relative w-full h-[80vh] md:h-[80vh]">
