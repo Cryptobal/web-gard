@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import CotizadorFormulario from '@/app/components/cotizador/CotizadorFormulario';
+import CotizadorInteligenteV2 from '@/app/components/cotizador/CotizadorInteligenteV2';
 import FAQsCotizador from '@/components/cotizador/FAQsCotizador';
 import CloudflareImage from '@/components/CloudflareImage';
 import Link from 'next/link';
@@ -339,11 +339,11 @@ const ContadorEmpresas = () => {
       <div className="max-w-7xl mx-auto px-4 text-center">
         <p className="text-lg text-gray-300 mb-3">
           <span className="font-bold text-orange-500 text-2xl">
-            {isVisible ? <CountUp end={134} duration={3} /> : 0}
+            {isVisible ? <CountUp end={27} duration={4} /> : 0}
           </span>
           {" "}empresas ya cotizaron este mes
         </p>
-        <p className="text-sm text-gray-400">Gard Security: más de 100 empresas confían en nosotros para su protección.</p>
+        <p className="text-sm text-gray-400">Gard Security: más de 50 empresas confían en nosotros para su protección.</p>
       </div>
     </motion.div>
   );
@@ -518,6 +518,18 @@ export default function CotizadorInteligentePage() {
             variants={fadeInUp}
             className="text-center mb-12"
           >
+            {/* Ícono añadido sobre el título */}
+            <motion.div 
+              className="inline-flex items-center justify-center mb-6"
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="w-20 h-20 rounded-full bg-orange-500/20 flex items-center justify-center">
+                <Calculator className="h-10 w-10 text-orange-500" />
+              </div>
+            </motion.div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Calculadora de Costos
             </h2>
@@ -532,7 +544,7 @@ export default function CotizadorInteligentePage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
           >
-            <CotizadorFormulario />
+            <CotizadorInteligenteV2 />
           </motion.div>
           
           <motion.div
@@ -542,9 +554,6 @@ export default function CotizadorInteligentePage() {
             viewport={{ once: true }}
             className="text-center mt-8"
           >
-            <p className="text-gray-400 text-sm">
-              * Este valor incluye cotizaciones, provisiones, utilidades y EPP
-            </p>
           </motion.div>
         </div>
       </section>
@@ -585,18 +594,6 @@ export default function CotizadorInteligentePage() {
             variants={staggerChildrenVariants}
           >
             <FAQsCotizador />
-          </motion.div>
-          
-          <motion.div 
-            className="text-center mt-12"
-            variants={fadeInUp}
-          >
-            <a 
-              href="https://gard.cl/contacto" 
-              className="inline-flex items-center px-6 py-3 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded-xl transition-colors duration-300"
-            >
-              ¿No encuentras respuesta? Contáctanos <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
           </motion.div>
         </motion.div>
       </section>
