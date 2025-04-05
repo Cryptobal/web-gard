@@ -1,0 +1,12 @@
+### Test de API Formulario Contacto
+
+POST http://localhost:8080/api/formulario/contacto
+Content-Type: application/json
+
+{
+  "nombre": "Carlos",
+  "email": "contacto@gard.cl",
+  "telefono": "987654321",
+  "mensaje": "Estoy interesado en contratar servicios de seguridad",
+  "origen": "formulario-contacto"
+} 

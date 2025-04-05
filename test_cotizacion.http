@@ -1,0 +1,18 @@
+### Test de API Formulario Cotización
+
+POST http://localhost:8080/api/formulario/cotizacion
+Content-Type: application/json
+
+{
+  "nombre": "Carlos",
+  "apellido": "Prueba",
+  "email": "carlos@example.com",
+  "telefono": "912345678",
+  "empresa": "Gard Security",
+  "direccion": "Av. Apoquindo 1234",
+  "comuna": "Las Condes",
+  "ciudad": "Santiago",
+  "rubro": "Seguridad",
+  "comentarios": "Probando envío a Notion desde backend",
+  "costoTotal": 2750000
+} 

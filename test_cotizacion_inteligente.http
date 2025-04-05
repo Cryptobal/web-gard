@@ -1,0 +1,38 @@
+### Test de API Formulario Cotización Inteligente
+
+POST http://localhost:8090/api/formulario/cotizacion-inteligente
+Content-Type: application/json
+
+{
+  "nombre": "Carlos",
+  "apellido": "AI",
+  "email": "inteligente@gard.cl",
+  "telefono": "912345678",
+  "empresa": "Gard Security",
+  "direccion": "Av. Apoquindo 5678",
+  "comuna": "Providencia",
+  "ciudad": "Santiago",
+  "rubro": "Tecnología",
+  "comentarios": "Quiero seguridad con inteligencia artificial",
+  "costoTotal": 9260000,
+  "roles": [
+    {
+      "tipoTurno": "4x4",
+      "horario": "Día",
+      "puestos": 3,
+      "diasSemana": 5,
+      "horasDia": 8,
+      "sueldoLiquido": 550000,
+      "costoEstimado": 2460000
+    },
+    {
+      "tipoTurno": "5x2",
+      "horario": "Noche",
+      "puestos": 2,
+      "diasSemana": 7,
+      "horasDia": 12,
+      "sueldoLiquido": 650000,
+      "costoEstimado": 1950000
+    }
+  ]
+} 
