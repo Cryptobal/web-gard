@@ -402,6 +402,26 @@ export default function CotizadorInteligentePage() {
         
         {/* Contenido del Hero */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
+          {/* Escudo para móviles en la parte superior */}
+          <motion.div 
+            className="absolute top-8 block md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Link href="/" className="block hover:opacity-90 transition-opacity">
+              <div className="relative w-12 h-12">
+                <CloudflareImage 
+                  imageId={ESCUDO_GARD_BLANCO}
+                  alt="Gard Security Escudo"
+                  fill
+                  className="object-contain drop-shadow-lg"
+                  priority
+                />
+              </div>
+            </Link>
+          </motion.div>
+          
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -463,30 +483,18 @@ export default function CotizadorInteligentePage() {
             </motion.a>
           </motion.div>
           
-          {/* Logo bajo el texto del Hero */}
+          {/* Logo para desktop en la parte inferior */}
           <motion.div 
-            className="absolute bottom-4 md:bottom-8"
+            className="absolute bottom-4 hidden md:block"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
           >
             <Link href="/" className="block hover:opacity-90 transition-opacity">
-              {/* Logo para desktop */}
-              <div className="relative w-48 h-20 hidden md:block">
+              <div className="relative w-48 h-20">
                 <CloudflareImage 
                   imageId={LOGO_GARD_BLANCO}
                   alt="Gard Security Logo"
-                  fill
-                  className="object-contain drop-shadow-lg"
-                  priority
-                />
-              </div>
-              
-              {/* Escudo para móviles - tamaño reducido */}
-              <div className="relative w-12 h-12 block md:hidden">
-                <CloudflareImage 
-                  imageId={ESCUDO_GARD_BLANCO}
-                  alt="Gard Security Escudo"
                   fill
                   className="object-contain drop-shadow-lg"
                   priority
