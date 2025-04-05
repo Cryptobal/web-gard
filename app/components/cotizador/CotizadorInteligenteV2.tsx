@@ -613,7 +613,7 @@ export default function CotizadorInteligenteV2() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto"
               onClick={() => setShowForm(false)}
             >
               {submitSuccess ? (
@@ -621,7 +621,7 @@ export default function CotizadorInteligenteV2() {
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.9, opacity: 0 }}
-                  className="bg-card dark:bg-card/90 rounded-3xl p-8 shadow-2xl w-full max-w-md relative"
+                  className="bg-card dark:bg-card/90 rounded-3xl p-6 md:p-8 shadow-2xl w-full max-w-md relative my-8"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <button 
@@ -658,7 +658,7 @@ export default function CotizadorInteligenteV2() {
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.9, opacity: 0 }}
-                  className="bg-card dark:bg-card/90 rounded-3xl p-8 shadow-2xl w-full max-w-md relative"
+                  className="bg-card dark:bg-card/90 rounded-3xl p-6 md:p-8 shadow-2xl w-full max-w-md relative my-8"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <button 

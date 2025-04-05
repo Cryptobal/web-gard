@@ -57,7 +57,7 @@ export default function ContactForm() {
         // Google Tag Manager event
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-          event: "submit_form_cotizacion",
+          event: "submit_form_contacto",
           form_type: "contacto",
           page_path: window.location.pathname,
           utm_source: utmSource,

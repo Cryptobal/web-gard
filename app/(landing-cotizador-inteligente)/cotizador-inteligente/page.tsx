@@ -236,10 +236,10 @@ const BeneficiosPremium = () => {
       >
         <div className="text-center mb-16">
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-6 text-white inline-flex items-center justify-center"
+            className="flex flex-col md:inline-flex md:flex-row items-center justify-center text-3xl md:text-4xl font-bold mb-6 text-white"
             variants={fadeInUp}
           >
-            <Shield className="mr-3 text-orange-500 h-8 w-8 md:h-10 md:w-10" />
+            <Shield className="mb-4 md:mb-0 md:mr-3 text-orange-500 h-8 w-8 md:h-10 md:w-10" />
             ¿Por qué elegir nuestro servicio premium?
           </motion.h2>
           <motion.p 
@@ -383,8 +383,9 @@ export default function CotizadorInteligentePage() {
       {/* Componente para forzar metadatos */}
       <MetadataEnforcer />
       
-      {/* Botón sticky para móvil */}
+      {/* Botón sticky para móvil - Temporalmente desactivado
       <StickyMobileButton />
+      */}
       
       {/* Hero Section Rediseñada */}
       <section className="relative w-full h-[80vh] md:h-[80vh]">
