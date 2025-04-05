@@ -4,9 +4,7 @@ const nextConfig = {
   swcMinify: true,
   
   // Desactivar la optimización de fuentes para evitar errores 404
-  experimental: {
-    optimizeFonts: false,
-  },
+  optimizeFonts: false,
   
   images: {
     remotePatterns: [
