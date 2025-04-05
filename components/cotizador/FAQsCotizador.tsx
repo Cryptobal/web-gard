@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
+// Preguntas frecuentes actualizadas
 const faqs = [
   {
     pregunta: '¿Cuál es el precio mínimo por contratar un guardia de seguridad?',
-    respuesta: 'El precio mínimo varía según el tipo de servicio, horas requeridas y días a la semana. Para un servicio part-time (2 días por semana, 4 horas diarias), el costo aproximado es de $662.000 CLP mensual. Para un servicio completo 5x2 (lunes a viernes, 12 horas), el precio es aproximadamente $1.452.000 CLP mensual. Utiliza nuestra calculadora para un presupuesto personalizado.'
+    respuesta: 'El precio mínimo varía según el tipo de servicio, horas requeridas y días a la semana. Para un servicio part-time (2 días por semana, 4 horas diarias), el costo aproximado es de $662.000 CLP mensual. Para un servicio completo 24/7, el precio es aproximadamente $5.480.000 CLP mensual. Utiliza nuestra calculadora para un presupuesto personalizado.'
   },
   {
     pregunta: '¿Qué incluye el servicio de guardias de seguridad?',
@@ -28,8 +29,58 @@ const faqs = [
   {
     pregunta: '¿Se puede modificar el contrato según cambien nuestras necesidades?',
     respuesta: 'Absolutamente. Entendemos que las necesidades de seguridad pueden cambiar, por lo que ofrecemos contratos flexibles. Puedes aumentar o disminuir la cantidad de guardias, cambiar horarios o modificar los servicios con un preaviso de 15 días. Nuestro equipo trabajará contigo para adaptar el servicio según tus requerimientos.'
+  },
+  {
+    pregunta: '¿Cuáles son las ventajas de utilizar el cotizador inteligente?',
+    respuesta: 'Nuestro cotizador inteligente ofrece múltiples ventajas: obtener un precio estimado inmediato, personalizar el servicio según tus necesidades específicas, visualizar diferentes configuraciones de turnos, comparar opciones de cobertura, y recibir una propuesta formal detallada en tu correo. Todo esto con total transparencia y sin compromiso.'
   }
 ];
+
+// Componente mejorado que evita re-renderizados innecesarios
+const FAQItem = React.memo(({ faq, index, isExpanded, onToggle }: {
+  faq: { pregunta: string; respuesta: string };
+  index: number;
+  isExpanded: boolean;
+  onToggle: () => void;
+}) => {
+  return (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="bg-gray-800 rounded-2xl overflow-hidden shadow-lg"
+    >
+      <button
+        onClick={onToggle}
+        className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-700 transition-colors"
+      >
+        <h3 className="text-lg md:text-xl font-semibold text-white pr-8">{faq.pregunta}</h3>
+        <ChevronDown 
+          className={`h-6 w-6 text-orange-500 transition-transform duration-300 ${
+            isExpanded ? 'transform rotate-180' : ''
+          }`} 
+        />
+      </button>
+      
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="px-6 pb-6"
+          >
+            <p className="text-gray-300">{faq.respuesta}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+});
+
+FAQItem.displayName = 'FAQItem';
 
 const FAQsCotizador = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -57,39 +108,13 @@ const FAQsCotizador = () => {
         
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-gray-800 rounded-2xl overflow-hidden shadow-lg"
-            >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-700 transition-colors"
-              >
-                <h3 className="text-lg md:text-xl font-semibold text-white pr-8">{faq.pregunta}</h3>
-                <ChevronDown 
-                  className={`h-6 w-6 text-orange-500 transition-transform duration-300 ${
-                    expandedIndex === index ? 'transform rotate-180' : ''
-                  }`} 
-                />
-              </button>
-              
-              <AnimatePresence>
-                {expandedIndex === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="px-6 pb-6"
-                  >
-                    <p className="text-gray-300">{faq.respuesta}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+            <FAQItem
+              key={`faq-${index}`}
+              faq={faq}
+              index={index}
+              isExpanded={expandedIndex === index}
+              onToggle={() => toggleFAQ(index)}
+            />
           ))}
         </div>
         
@@ -104,7 +129,7 @@ const FAQsCotizador = () => {
           </p>
           <a 
             href="/contacto" 
-            className="mt-4 inline-block px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-full transition-colors"
+            className="mt-4 inline-block px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-colors"
           >
             Contáctanos directamente
           </a>
