@@ -312,6 +312,12 @@ export default function CotizadorFormulario() {
     setIsSubmitting(true);
     
     try {
+      // Generar el formato de texto para rolesSolicitados
+      const rolesSolicitados = roles.map(rol => {
+        const costoEstimado = calcularCostoRol(rol);
+        return `🛡️ Turno ${rol.tipoTurno} | ${rol.horario} | ${rol.puestos} puesto(s) | ${rol.diasSemana} días/semana | ${rol.horasDia} hrs/día | Sueldo: $${rol.sueldoLiquido.toLocaleString('es-CL')} | Costo: $${costoEstimado.toLocaleString('es-CL')}`;
+      }).join('\n');
+
       // Preparar datos para enviar
       const dataToSend = {
         ...formData,
@@ -325,6 +331,7 @@ export default function CotizadorFormulario() {
           costoEstimado: calcularCostoRol(rol)
         })),
         costoTotal,
+        rolesSolicitados,
         detalleCotizador: {
           detalleRolOperativo: roles.map(rol => ({
             tipoTurno: rol.tipoTurno,
