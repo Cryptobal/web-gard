@@ -3,9 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   
-  // Desactivar la optimización de fuentes para evitar errores 404
-  optimizeFonts: false,
-  
   images: {
     remotePatterns: [
       {
