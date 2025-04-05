@@ -465,7 +465,7 @@ export default function CotizadorInteligentePage() {
           
           {/* Logo bajo el texto del Hero */}
           <motion.div 
-            className="absolute bottom-8"
+            className="absolute bottom-4 md:bottom-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
@@ -482,8 +482,8 @@ export default function CotizadorInteligentePage() {
                 />
               </div>
               
-              {/* Escudo para móviles */}
-              <div className="relative w-16 h-16 block md:hidden">
+              {/* Escudo para móviles - tamaño reducido */}
+              <div className="relative w-12 h-12 block md:hidden">
                 <CloudflareImage 
                   imageId={ESCUDO_GARD_BLANCO}
                   alt="Gard Security Escudo"
