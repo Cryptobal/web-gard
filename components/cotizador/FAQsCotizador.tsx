@@ -7,8 +7,12 @@ import { ChevronDown } from 'lucide-react';
 // Preguntas frecuentes actualizadas
 const faqs = [
   {
-    pregunta: '¿Cuál es el precio mínimo por contratar un guardia de seguridad?',
-    respuesta: 'El precio mínimo varía según el tipo de servicio, horas requeridas y días a la semana. Para un servicio part-time (2 días por semana, 4 horas diarias), el costo aproximado es de $662.000 CLP mensual. Para un servicio completo 24/7, el precio es aproximadamente $5.480.000 CLP mensual. Utiliza nuestra calculadora para un presupuesto personalizado.'
+    pregunta: '¿Qué experiencia y formación tienen los guardias de seguridad?',
+    respuesta: 'Todos nuestros guardias pasan por un riguroso proceso de selección que incluye verificación de antecedentes, evaluaciones psicológicas y pruebas físicas. Además de contar con la certificación OS-10, reciben capacitación continua en primeros auxilios, manejo de emergencias, atención al cliente y uso de tecnologías de seguridad.',
+  },
+  {
+    pregunta: '¿Qué protocolos de seguridad implementan los guardias?',
+    respuesta: 'Nuestros guardias siguen protocolos estrictos que incluyen rondas periódicas, control de accesos, registro de visitantes, monitoreo de cámaras de seguridad, y respuesta inmediata ante incidentes. También mantienen comunicación constante con nuestra central de operaciones y elaboran informes detallados de cada turno.'
   },
   {
     pregunta: '¿Qué incluye el servicio de guardias de seguridad?',
@@ -90,22 +94,8 @@ const FAQsCotizador = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 w-full">
+    <section className="w-full">
       <div className="max-w-5xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            Preguntas <span className="text-orange-500">frecuentes</span>
-          </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            Respuestas a las consultas más habituales sobre nuestros servicios de seguridad privada para empresas.
-          </p>
-        </motion.div>
-        
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <FAQItem

@@ -165,9 +165,11 @@ export function obtenerMultiplicadorGuardias(tipoTurno: TipoTurno, horario: Tipo
  * Calcula el costo mensual de un rol operativo
  */
 export function calcularCostoRol(rol: RolOperativo): number {
-  // Si tiene precio fijo, usar ese valor
+  // Si tiene precio fijo, usar ese valor - pero duplicarlo para turnos de 24 horas
   if (rol.precioFijo) {
-    return rol.precioFijo * rol.puestos;
+    // Para turnos con precio fijo (5x2 y 2x5), duplicar el precio si es horario 24 horas
+    const multiplicador = rol.horario === '24 horas' ? 2 : 1;
+    return rol.precioFijo * rol.puestos * multiplicador;
   }
   
   // Calcular guardias totales necesarios

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Send } from 'lucide-react';
+import API_URLS from '@/app/config/api';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -34,7 +35,7 @@ export default function ContactForm() {
     setError('');
     
     try {
-      const response = await fetch('https://hook.us1.make.com/b742nwic3qci4y21hg5ol1equ2t9rerj', {
+      const response = await fetch(API_URLS.CONTACTO, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

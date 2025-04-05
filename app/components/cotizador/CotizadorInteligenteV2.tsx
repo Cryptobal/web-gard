@@ -43,6 +43,7 @@ import {
   RANGOS_SALARIALES
 } from '@/lib/calculadora-costos';
 import { Loader } from '@googlemaps/js-api-loader';
+import API_URLS from '@/app/config/api';
 
 // Opciones predefinidas para los controles de selección
 const OPCIONES_TIPO_TURNO: TipoTurno[] = ['2x5', '5x2', '4x4', '7x7', '14x14'];
@@ -420,10 +421,10 @@ export default function CotizadorInteligenteV2() {
         }
       };
       
-      console.log('Enviando datos al webhook:', dataToSend);
+      console.log('Enviando datos al backend:', dataToSend);
       
-      // Enviar al webhook
-      const response = await fetch('https://hook.us1.make.com/c99tyreyliv9ss27qfpn5rpwoonj7s5j', {
+      // Enviar al endpoint del backend
+      const response = await fetch(API_URLS.COTIZACION_INTELIGENTE, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

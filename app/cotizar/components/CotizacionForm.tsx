@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/form';
 import { Loader } from '@googlemaps/js-api-loader';
 import { useGtmEvent } from '../../components/EventTracker';
+import API_URLS from '@/app/config/api';
 
 // Declaración simplificada para Google Maps API
 declare global {
@@ -169,7 +170,7 @@ export default function CotizacionForm() {
     try {
       setIsSubmitting(true);
       
-      const response = await fetch('https://hook.us1.make.com/oq1dihqjq7xbl2xbk9wbbdp02h37831a', {
+      const response = await fetch(API_URLS.COTIZACION, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

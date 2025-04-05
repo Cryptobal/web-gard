@@ -35,6 +35,8 @@ import {
   Phone
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Loader } from '@googlemaps/js-api-loader';
+import API_URLS from '@/app/config/api';
 
 // Declaración global para Google Maps API
 declare global {
@@ -363,7 +365,7 @@ const CotizadorFormulario: React.FC = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // Enviar datos al webhook
+  // Enviar datos al backend
   const enviarFormulario = async () => {
     if (!validateForm()) return;
     
@@ -393,10 +395,10 @@ const CotizadorFormulario: React.FC = () => {
         }
       };
       
-      console.log('Enviando datos al webhook:', dataToSend);
+      console.log('Enviando datos al backend:', dataToSend);
       
-      // Enviar al webhook
-      const response = await fetch('https://hook.us1.make.com/c99tyreyliv9ss27qfpn5rpwoonj7s5j', {
+      // Enviar al endpoint del backend
+      const response = await fetch(API_URLS.COTIZACION_INTELIGENTE, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
