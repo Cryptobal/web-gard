@@ -361,6 +361,26 @@ export default function CotizadorFormulario() {
           rubro: rubros[0],
           comentarios: ''
         });
+        
+        // Obtener parámetros UTM de sessionStorage
+        const utmSource = sessionStorage.getItem('utm_source') || '';
+        const utmMedium = sessionStorage.getItem('utm_medium') || '';
+        const utmCampaign = sessionStorage.getItem('utm_campaign') || '';
+        const utmTerm = sessionStorage.getItem('utm_term') || '';
+        const utmContent = sessionStorage.getItem('utm_content') || '';
+        
+        // Google Tag Manager event
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "submit_form_cotizacion_inteligente",
+          form_type: "cotizador_inteligente",
+          page_path: window.location.pathname,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          utm_term: utmTerm,
+          utm_content: utmContent
+        });
       } else {
         console.error('Error al enviar formulario:', response.statusText);
       }

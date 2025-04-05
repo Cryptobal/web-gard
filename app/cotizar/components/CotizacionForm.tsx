@@ -166,52 +166,8 @@ export default function CotizacionForm() {
   }, [mapLoaded, setValue]);
 
   const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true);
-    setFormStatus('idle');
-    
     try {
-      // Verificar si dataLayer está disponible
-      if (typeof window !== 'undefined') {
-        window.dataLayer = window.dataLayer || [];
-        
-        // Obtener datos adicionales de sessionStorage
-        const serviceRequested = sessionStorage.getItem('user_service') || data.tipoIndustria;
-        const industryContext = sessionStorage.getItem('user_industry') || data.tipoIndustria;
-        
-        // Crear el objeto de evento manualmente para asegurar que se envía correctamente
-        const eventData = {
-          event: 'submit_form_quotation',
-          service_requested: serviceRequested,
-          industry: industryContext,
-          form_fields_filled: Object.keys(data).length,
-          utm_source: new URLSearchParams(window.location.search).get('utm_source'),
-          utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
-          utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
-          referrer: document.referrer
-        };
-        
-        // Enviar el evento al dataLayer
-        window.dataLayer.push(eventData);
-        
-        // Depuración del evento
-        console.log('GTM Event enviado manualmente:', eventData);
-        console.log('DataLayer actual:', window.dataLayer);
-      } else {
-        console.warn('Window no está disponible, no se pudo enviar el evento GTM');
-      }
-      
-      // También intentamos con el hook por si acaso
-      pushEvent({
-        name: 'submit_form_quotation',
-        params: {
-          service_requested: sessionStorage.getItem('user_service') || data.tipoIndustria,
-          industry: sessionStorage.getItem('user_industry') || data.tipoIndustria,
-          form_fields_filled: Object.keys(data).length
-        }
-      });
-      
-      // Depuración del evento con el hook
-      console.log('GTM Event con hook:', window.dataLayer[window.dataLayer.length - 1]);
+      setIsSubmitting(true);
       
       const response = await fetch('https://hook.us1.make.com/oq1dihqjq7xbl2xbk9wbbdp02h37831a', {
         method: 'POST',
@@ -229,6 +185,26 @@ export default function CotizacionForm() {
         sessionStorage.removeItem('user_industry');
         sessionStorage.removeItem('user_service_slug');
         sessionStorage.removeItem('user_industry_slug');
+        
+        // Obtener parámetros UTM de sessionStorage
+        const utmSource = sessionStorage.getItem('utm_source') || '';
+        const utmMedium = sessionStorage.getItem('utm_medium') || '';
+        const utmCampaign = sessionStorage.getItem('utm_campaign') || '';
+        const utmTerm = sessionStorage.getItem('utm_term') || '';
+        const utmContent = sessionStorage.getItem('utm_content') || '';
+        
+        // Google Tag Manager event
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "submit_form_quotation",
+          form_type: "cotizacion",
+          page_path: window.location.pathname,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          utm_term: utmTerm,
+          utm_content: utmContent
+        });
       } else {
         setFormStatus('error');
       }

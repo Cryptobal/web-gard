@@ -29,6 +29,12 @@ const SEODevPanelWrapper = dynamic(
   { ssr: false }
 );
 
+// Cargar el componente UTMTracker con carga dinámica
+const UTMTracker = dynamic(
+  () => import('./components/UTMTracker'),
+  { ssr: false }
+);
+
 // Definimos un componente nulo para usarlo cuando no estamos en desarrollo
 const NullComponent = () => null;
 
@@ -90,6 +96,9 @@ export default function RootLayout({
           
           {/* Google Analytics 4 (solo se carga con consentimiento de analytics) */}
           <GoogleAnalytics measurementId={GA_ID} />
+          
+          {/* Componente para capturar parámetros UTM */}
+          <UTMTracker />
           
           <Providers>
             {/* Componente para forzar metadatos (solo en desarrollo) */}
